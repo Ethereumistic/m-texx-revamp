@@ -96,7 +96,8 @@ export function Hero() {
           </Button>
         </motion.div>
       </div>
-    </div>
+      <div className="absolute bottom-0 dark:bg-gradient-to-b dark:from-background/0 dark:to-background bg-gradient-to-b from-white/0 to-white w-full h-16 z-50"></div>
+      </div>
   )
 }
 
