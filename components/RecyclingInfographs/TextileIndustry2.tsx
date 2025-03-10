@@ -10,6 +10,11 @@ import { Droplet, Waves, CloudRain, Trash2 } from "lucide-react"
 import Image from "next/image"
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Cell, ResponsiveContainer, LabelList } from "recharts"
 
+type ChartDataItem = {
+  name: string
+  value: number
+}
+
 type TabData = {
   id: string
   title: string
@@ -22,7 +27,7 @@ type TabData = {
     }
     rightContent: {
       type: "chart" | "text"
-      data?: any[]
+      data?: ChartDataItem[]
       percentage?: number
       title?: string
       text: string
