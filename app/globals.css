@@ -70,6 +70,11 @@
     --ring: oklch(0.708 0 0);
     --radius: 0.625rem;
     --ggreen: oklch(59.93% 0.1336 140.74);
+    --blue: #3b82f6;
+    --cyan: #06b6d4;
+    --emerald: #10b981;
+    --red: #ef4444;
+    --chart-empty: #e5e7eb;
   }
 
   .dark {
@@ -93,6 +98,7 @@
     --input: oklch(0.269 0 0);
     --ring: oklch(0.439 0 0);
     --ggreen: oklch(86.8% 0.1539 128.3);
+    --chart-empty: #1f2937;
 
   }
 }

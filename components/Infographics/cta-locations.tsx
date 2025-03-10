@@ -4,11 +4,12 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { MapPin } from "lucide-react"
+import Link from "next/link"
 
 export function CtaLocations() {
   return (
     <section className="py-20 px-4 md:px-6 lg:px-8">
-      <div className="max-w-8xl mx-auto">
+      <div className="w-full 2xl:max-w-8xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,6 +40,7 @@ export function CtaLocations() {
                   </p>
                 </div>
 
+                <Link href="/locations">
                 <Button size="lg" className="mt-4 group">
                   <MapPin className="mr-2 h-5 w-5 transition-transform group-hover:scale-105" />
                   Виж локациите
@@ -50,6 +52,7 @@ export function CtaLocations() {
                     →
                   </motion.div>
                 </Button>
+                </Link>
               </Card>
             </motion.div>
 
@@ -62,6 +65,8 @@ export function CtaLocations() {
               className="lg:col-span-6 lg:col-start-4 hidden 2xl:block"
             >
               <div className="relative h-[450px] mx-auto">
+              <Link href="/locations">
+
                 <Image
                   src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/map.svg"
                   alt="Map of container locations across Bulgaria"
@@ -69,6 +74,7 @@ export function CtaLocations() {
                   className="object-contain"
                   priority
                 />
+                </Link>
               </div>
             </motion.div>
 
@@ -80,6 +86,7 @@ export function CtaLocations() {
               viewport={{ once: true }}
               className="col-span-1 2xl:col-span-3 2xl:col-start-10 2xl:-ml-8 z-10"
             >
+                <Link href="/locations">
               <div className="relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden rounded-2xl">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 z-10"></div>
                 <Image
@@ -90,6 +97,7 @@ export function CtaLocations() {
                   priority
                 />
               </div>
+                </Link>
             </motion.div>
           </div>
         </Card>
