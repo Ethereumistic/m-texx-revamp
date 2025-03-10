@@ -12,12 +12,16 @@ const recyclingProgressData = [
   { year: 2023, percentage: 2, projected: 2 },
   { year: 2024, percentage: 2.5, projected: 2.5 },
   { year: 2025, percentage: 3, projected: 3 },
-  { year: 2026, percentage: null, projected: 3.5 },
-  { year: 2027, percentage: null, projected: 4 },
-  { year: 2028, percentage: null, projected: 4.5 },
-  { year: 2029, percentage: null, projected: 5.5 },
-  { year: 2030, percentage: null, projected: 6 },
-]
+  { year: 2026, percentage: undefined, projected: 3.5 },
+  { year: 2027, percentage: undefined, projected: 4 },
+  { year: 2028, percentage: undefined, projected: 4.5 },
+  { year: 2029, percentage: undefined, projected: 5.5 },
+  { year: 2030, percentage: undefined, projected: 6 },
+].map(item => ({
+  ...item,
+  // Ensure percentage is undefined instead of null for proper line rendering
+  percentage: item.percentage === null ? undefined : item.percentage
+}))
 
 // Data for the impact metrics
 const impactMetrics = [
@@ -294,17 +298,6 @@ export function OurMission() {
                         }}
                       />
 
-                      {/* Current data line */}
-                      <Line
-                        type="monotone"
-                        dataKey="percentage"
-                        stroke="var(--blue)"
-                        strokeWidth={3}
-                        dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
-                        activeDot={{ r: 8 }}
-                        isAnimationActive={isChartInView}
-                      />
-
                       {/* Projected data area */}
                       <Area
                         type="monotone"
@@ -315,6 +308,19 @@ export function OurMission() {
                         fillOpacity={1}
                         fill="url(#colorProjected)"
                         isAnimationActive={isChartInView}
+                        connectNulls={true}
+                      />
+
+                      {/* Current data line */}
+                      <Line
+                        type="monotone"
+                        dataKey="percentage"
+                        stroke="var(--blue)"
+                        strokeWidth={3}
+                        dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
+                        activeDot={{ r: 8 }}
+                        isAnimationActive={isChartInView}
+                        connectNulls={false}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -395,15 +401,15 @@ export function OurMission() {
                 description:
                   "Предоставяме безплатни услуги за събиране и рециклиране на текстил за домакинства и организации в цяла България.",
                 icon: <Recycle className="w-6 h-6" />,
-                color: "var(--blue)",
-                stat: { value: 100, label: "пункта за събиране" },
+                color: "var(--emerald)",
+                stat: { value: 500, label: "пункта за събиране" },
               },
               {
                 title: "Образование",
                 description:
                   "Провеждаме образователни програми в училищата, за да насърчим младите хора да мислят устойчиво за текстила.",
                 icon: <School className="w-6 h-6" />,
-                color: "var(--emerald)",
+                color: "var(--blue)",
                 stat: { value: 250, label: "училища до 2030" },
               },
               {
@@ -411,8 +417,8 @@ export function OurMission() {
                 description:
                   "Изграждаме стратегически партньорства с бизнеси, общини и организации за максимално въздействие.",
                 icon: <Heart className="w-6 h-6" />,
-                color: "var(--red)",
-                stat: { value: 50, label: "корпоративни партньори" },
+                color: "var(--yellow)",
+                stat: { value: 80, label: "общински партньори" },
               },
             ].map((pillar, index) => (
               <motion.div key={index} whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className="group">

@@ -2,6 +2,9 @@ import { Metadata } from "next"
 import { TextileIndustry } from "@/components/RecyclingInfographs/TextileIndustry"
 import { TextileIndustry2 } from "@/components/RecyclingInfographs/TextileIndustry2"
 import { OurMission } from "@/components/RecyclingInfographs/OurMission"
+import { TextileCycle } from "@/components/RecyclingInfographs/TextileCycle"
+import { TextileCycle2 } from "@/components/RecyclingInfographs/TextileCycle2"
+import { Economy } from "@/components/RecyclingInfographs/Economy"
 
 export const metadata: Metadata = {
   title: "Рециклиране на Текстил | M-Texx",
@@ -19,6 +22,9 @@ export default function RecyclingPage() {
       <div className="max-w-[1273px] mx-auto">
         <TextileIndustry />
         <OurMission />
+        <TextileCycle />
+        <TextileCycle2 />
+        <Economy />
         <TextileIndustry2 />
       </div>
     </main>
