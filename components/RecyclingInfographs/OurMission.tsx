@@ -5,23 +5,22 @@ import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { Recycle, School, Heart, Target, ArrowRight } from "lucide-react"
-import { ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Area, AreaChart } from "recharts"
+import { ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Area, ComposedChart } from "recharts"
 
 // Data for the recycling progress chart
+const currentYear = new Date().getFullYear()
+
+// Create data with explicit current and projected values
 const recyclingProgressData = [
   { year: 2023, percentage: 2, projected: 2 },
   { year: 2024, percentage: 2.5, projected: 2.5 },
   { year: 2025, percentage: 3, projected: 3 },
-  { year: 2026, percentage: undefined, projected: 3.5 },
-  { year: 2027, percentage: undefined, projected: 4 },
-  { year: 2028, percentage: undefined, projected: 4.5 },
-  { year: 2029, percentage: undefined, projected: 5.5 },
-  { year: 2030, percentage: undefined, projected: 6 },
-].map(item => ({
-  ...item,
-  // Ensure percentage is undefined instead of null for proper line rendering
-  percentage: item.percentage === null ? undefined : item.percentage
-}))
+  { year: 2026, percentage: null, projected: 3.5 },
+  { year: 2027, percentage: null, projected: 4 },
+  { year: 2028, percentage: null, projected: 4.5 },
+  { year: 2029, percentage: null, projected: 5.5 },
+  { year: 2030, percentage: null, projected: 6 },
+]
 
 // Data for the impact metrics
 const impactMetrics = [
@@ -167,6 +166,10 @@ export function OurMission() {
   const [activeMetric, setActiveMetric] = useState<string | null>(null)
   const chartRef = useRef<HTMLDivElement>(null)
   const isChartInView = useInView(chartRef, { once: true })
+  const [activeView, setActiveView] = useState<"all" | "current">("all")
+
+  // Prepare data for current view - only include years up to 2025 (or current data points)
+  const currentData = recyclingProgressData.filter((item) => item.percentage !== null)
 
   return (
     <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">
@@ -190,9 +193,7 @@ export function OurMission() {
                 <span>Нашата цел</span>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text ">
-                Нашата мисия
-              </h2>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text ">Нашата мисия</h2>
 
               <p className="text-lg text-muted-foreground leading-relaxed">
                 M-Texx се стреми да окаже положително въздействие; настоящата ни цел е да утроим процента на
@@ -268,70 +269,134 @@ export function OurMission() {
               <div className="p-6">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={recyclingProgressData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="colorProjected" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="var(--emerald)" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="var(--emerald)" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                      <XAxis
-                        dataKey="year"
-                        tick={{ fill: "var(--muted-foreground)" }}
-                        axisLine={{ stroke: "var(--border)" }}
-                      />
-                      <YAxis
-                        tickFormatter={(value) => `${value}%`}
-                        domain={[0, 8]}
-                        tick={{ fill: "var(--muted-foreground)" }}
-                        axisLine={{ stroke: "var(--border)" }}
-                      />
-                      <Tooltip
-                        formatter={(value) => [`${value}%`, "Рециклиран текстил"]}
-                        labelFormatter={(label) => `Година: ${label}`}
-                        contentStyle={{
-                          backgroundColor: "var(--card)",
-                          borderColor: "var(--border)",
-                          borderRadius: "0.5rem",
-                          color: "var(--foreground)",
-                        }}
-                      />
+                    {activeView === "all" ? (
+                      <ComposedChart data={recyclingProgressData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorProjected" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--emerald)" stopOpacity={0.2} />
+                            <stop offset="95%" stopColor="var(--emerald)" stopOpacity={0} />
+                          </linearGradient>
+                          <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--blue)" stopOpacity={0.2} />
+                            <stop offset="95%" stopColor="var(--blue)" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                        <XAxis
+                          dataKey="year"
+                          tick={{ fill: "var(--muted-foreground)" }}
+                          axisLine={{ stroke: "var(--border)" }}
+                        />
+                        <YAxis
+                          tickFormatter={(value) => `${value}%`}
+                          domain={[0, 8]}
+                          tick={{ fill: "var(--muted-foreground)" }}
+                          axisLine={{ stroke: "var(--border)" }}
+                        />
+                        <Tooltip
+                          formatter={(value) => [`${value}%`, "Рециклиран текстил"]}
+                          labelFormatter={(label) => `Година: ${label}`}
+                          contentStyle={{
+                            backgroundColor: "var(--card)",
+                            borderColor: "var(--border)",
+                            borderRadius: "0.5rem",
+                            color: "var(--foreground)",
+                          }}
+                        />
 
-                      {/* Projected data area */}
-                      <Area
-                        type="monotone"
-                        dataKey="projected"
-                        stroke="var(--emerald)"
-                        strokeWidth={2}
-                        strokeDasharray="5 5"
-                        fillOpacity={1}
-                        fill="url(#colorProjected)"
-                        isAnimationActive={isChartInView}
-                        connectNulls={true}
-                      />
+                        {/* Projected data area */}
+                        <Area
+                          type="monotone"
+                          dataKey="projected"
+                          stroke="var(--emerald)"
+                          strokeWidth={2}
+                          strokeDasharray="5 5"
+                          fillOpacity={1}
+                          fill="url(#colorProjected)"
+                          isAnimationActive={isChartInView}
+                          connectNulls={true}
+                        />
 
-                      {/* Current data line */}
-                      <Line
-                        type="monotone"
-                        dataKey="percentage"
-                        stroke="var(--blue)"
-                        strokeWidth={3}
-                        dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
-                        activeDot={{ r: 8 }}
-                        isAnimationActive={isChartInView}
-                        connectNulls={false}
-                      />
-                    </AreaChart>
+                        {/* Current data line */}
+                        <Line
+                          type="monotone"
+                          dataKey="percentage"
+                          stroke="var(--blue)"
+                          strokeWidth={3}
+                          dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
+                          activeDot={{ r: 8 }}
+                          isAnimationActive={isChartInView}
+                        />
+                      </ComposedChart>
+                    ) : (
+                      <ComposedChart data={currentData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--blue)" stopOpacity={0.2} />
+                            <stop offset="95%" stopColor="var(--blue)" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                        <XAxis
+                          dataKey="year"
+                          tick={{ fill: "var(--muted-foreground)" }}
+                          axisLine={{ stroke: "var(--border)" }}
+                        />
+                        <YAxis
+                          tickFormatter={(value) => `${value}%`}
+                          domain={[0, 8]}
+                          tick={{ fill: "var(--muted-foreground)" }}
+                          axisLine={{ stroke: "var(--border)" }}
+                        />
+                        <Tooltip
+                          formatter={(value) => [`${value}%`, "Рециклиран текстил"]}
+                          labelFormatter={(label) => `Година: ${label}`}
+                          contentStyle={{
+                            backgroundColor: "var(--card)",
+                            borderColor: "var(--border)",
+                            borderRadius: "0.5rem",
+                            color: "var(--foreground)",
+                          }}
+                        />
+
+                        {/* Current data with area */}
+                        <Area
+                          type="monotone"
+                          dataKey="percentage"
+                          stroke="var(--blue)"
+                          strokeWidth={3}
+                          fillOpacity={1}
+                          fill="url(#colorCurrent)"
+                          isAnimationActive={isChartInView}
+                        />
+
+                        {/* Current data line */}
+                        <Line
+                          type="monotone"
+                          dataKey="percentage"
+                          stroke="var(--blue)"
+                          strokeWidth={3}
+                          dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
+                          activeDot={{ r: 8 }}
+                          isAnimationActive={isChartInView}
+                        />
+                      </ComposedChart>
+                    )}
                   </ResponsiveContainer>
                 </div>
 
                 <div className="flex justify-center gap-8 mt-6">
-                  <div className="flex items-center">
+                  <div
+                    className={`flex items-center cursor-pointer transition-opacity hover:opacity-100 ${activeView === "current" ? "opacity-100 font-medium" : "opacity-70"}`}
+                    onClick={() => setActiveView("current")}
+                  >
                     <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
                     <span className="text-sm text-muted-foreground">Текущо ниво</span>
                   </div>
-                  <div className="flex items-center">
+                  <div
+                    className={`flex items-center cursor-pointer transition-opacity hover:opacity-100 ${activeView === "all" ? "opacity-100 font-medium" : "opacity-70"}`}
+                    onClick={() => setActiveView("all")}
+                  >
                     <div className="w-3 h-3 rounded-full bg-emerald-500 mr-2"></div>
                     <span className="text-sm text-muted-foreground">Прогнозен растеж</span>
                   </div>

@@ -12,7 +12,6 @@ import { LanguageSelector } from "@/components/ui/language-selector"
 import { ThemeToggle } from "@/components/Theme/theme-toggle"
 
 const navItems = [
-  { title: "За нас", href: "/about" },
   { title: "Новини", href: "/news" },
   { title: "Рециклиране", href: "/recycling" },
   { title: "Локации", href: "/locations" },
@@ -40,8 +39,8 @@ export function Navbar() {
             />
             </Link>
         </div>
-        <Separator orientation="vertical" className="mx-2 h-6" />
-        <nav className="hidden lg:flex md:flex-1 md:items-center md:justify-start md:gap-1 lg:gap-2">
+        <Separator orientation="vertical" className="mx-4 h-6" />
+        <nav className="hidden lg:flex md:flex-1 md:items-center md:justify-start md:gap-2 lg:gap-4">
           {navItems.map((item) => (
             <Button
               key={item.href}

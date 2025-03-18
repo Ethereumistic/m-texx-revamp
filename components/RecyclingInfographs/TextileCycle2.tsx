@@ -45,10 +45,10 @@ const benefits = [
       { value: "x1", label: "чифт дънки", icon: "👖" },
     ],
     chartData: [
-      { name: "Памучни дънки", value: 6813 },
-      { name: "Тениска", value: 2700 },
-      { name: "Риза", value: 2500 },
-      { name: "Пуловер", value: 1500 },
+      { name: "👖 Памучни дънки", value: 6813 },
+      { name: "👕 Тениска", value: 2700 },
+      { name: "👔 Риза", value: 2500 },
+      { name: "🧥 Пуловер", value: 1500 },
     ],
   },
   {
@@ -273,6 +273,18 @@ const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
     "var(--emerald)",
     "var(--blue)",
   ]
+  const POLLUTION_EMOJIS = [
+    "🗑️",
+    "🔥",
+    "♻️",
+    "🔁",
+  ]
+  const WATER_EMOJIS = [
+    "👖",
+    "👕",
+    "👔",
+    "🧥",
+  ]
 
   if (benefit.id === "resources") {
     return (
@@ -313,7 +325,7 @@ const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
           <RechartsPC>
             <Pie
               data={benefit.chartData}
-              cx="50%"
+              cx="40%"
               cy="50%"
               labelLine={false}
               label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
@@ -326,12 +338,20 @@ const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
               ))}
             </Pie>
             <Tooltip
-              formatter={(value) => [`${value}%`, "Процент"]}
+              formatter={(value, name, entry) => {
+                const index = benefit.chartData.findIndex(item => item.name === entry.payload.name);
+                const color = POLLUTION_COLORS[index % POLLUTION_COLORS.length];
+                const emoji = POLLUTION_EMOJIS[index % POLLUTION_EMOJIS.length];
+                return [
+                  <span style={{ color: color, fontWeight: 500 }}>{`${emoji} ${entry.payload.name}: ${value}%`}</span>,
+
+                ];
+              }}
               contentStyle={{
                 backgroundColor: "var(--card)",
                 borderColor: "var(--border)",
                 borderRadius: "0.5rem",
-                color: "var(--foreground)",
+                padding: "8px 12px",
               }}
             />
             <Legend />
