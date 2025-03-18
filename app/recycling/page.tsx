@@ -26,6 +26,7 @@ export default function RecyclingPage() {
         <TextileCycle2 />
         <Economy />
         <Technology />
+        {/* <TextileIndustry2 /> */}
         
       </div>
     </main>

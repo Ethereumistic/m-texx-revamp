@@ -343,8 +343,7 @@ const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
                 const color = POLLUTION_COLORS[index % POLLUTION_COLORS.length];
                 const emoji = POLLUTION_EMOJIS[index % POLLUTION_EMOJIS.length];
                 return [
-                  <span style={{ color: color, fontWeight: 500 }}>{`${emoji} ${entry.payload.name}: ${value}%`}</span>,
-
+                  <span key={`tooltip-${entry.payload.name}`} style={{ color: color, fontWeight: 500 }}>{`${emoji} ${entry.payload.name}: ${value}%`}</span>,
                 ];
               }}
               contentStyle={{
