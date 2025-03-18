@@ -206,7 +206,7 @@ const handleTabChange = (value: string) => {
       console.log("Starting form submission for:", activeTab);
       
       // Ensure formType is set correctly for all form types
-      let formData: Record<string, any> = { ...data };
+      const formData: Record<string, any> = { ...data };
       formData.formType = activeTab;
       
       // Make sure form data is structured correctly
