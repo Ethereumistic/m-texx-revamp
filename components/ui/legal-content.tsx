@@ -10,9 +10,17 @@ import { Cookie, Shield, FileText } from "lucide-react"
 export function LegalContent() {
   const searchParams = useSearchParams()
   const [activeTab, setActiveTab] = useState("privacy")
+  const [mounted, setMounted] = useState(false)
+
+  // Handle initial mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Handle URL hash for direct navigation to specific tabs
   useEffect(() => {
+    if (!mounted) return
+
     // Get the hash from the URL (remove the # symbol)
     const hash = window.location.hash.replace("#", "")
 
@@ -20,12 +28,19 @@ export function LegalContent() {
     if (hash === "cookies" || hash === "privacy" || hash === "terms") {
       setActiveTab(hash)
     }
-  }, [searchParams])
+  }, [searchParams, mounted])
 
   // Update URL hash when tab changes
   const handleTabChange = (value: string) => {
     setActiveTab(value)
-    window.history.pushState(null, "", `#${value}`)
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", `#${value}`)
+    }
+  }
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null
   }
 
   return (

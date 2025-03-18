@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { LegalContent } from "@/components/ui/legal-content"
 
 export const metadata = {
@@ -9,8 +10,13 @@ export const metadata = {
 export default function LegalPage() {
   return (
     <main className="flex-1">
-      <LegalContent />
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-muted-foreground">Зареждане...</div>
+        </div>
+      }>
+        <LegalContent />
+      </Suspense>
     </main>
   )
 }
-
