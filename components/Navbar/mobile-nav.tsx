@@ -23,8 +23,8 @@ export function MobileNav({ navItems }: MobileNavProps) {
     <div className="flex items-center gap-2 ml-auto lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right">
-          <div className="flex flex-col gap-4 py-8 ml-8">
-            <nav className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4 py-20 ml-8">
+            <nav className="flex flex-col gap-6">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -36,7 +36,7 @@ export function MobileNav({ navItems }: MobileNavProps) {
                 </Link>
               ))}
             </nav>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center mt-6 gap-2">
               <LanguageSelector />
               <ThemeToggle />
             </div>

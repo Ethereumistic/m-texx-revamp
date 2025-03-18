@@ -46,7 +46,7 @@ export function WhatCollect() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* What we collect */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -5 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
@@ -92,7 +92,7 @@ export function WhatCollect() {
 
           {/* What we don't collect */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 5 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}

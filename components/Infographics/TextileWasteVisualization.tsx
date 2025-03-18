@@ -285,12 +285,35 @@ export function TextileWasteVisualization() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Mobile view - Icons only */}
+          <div className="flex md:hidden justify-center gap-8 mb-8">
+            {approachPillars.map((pillar) => (
+              <motion.button
+                key={pillar.id}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setActivePillar(pillar.id)}
+                className={`p-4 rounded-full ${activePillar === pillar.id ? 'ring-2 ring-offset-2' : ''}`}
+                style={{ 
+                  backgroundColor: `${pillar.color}20`,
+                  ...(activePillar === pillar.id && { '--tw-ring-color': pillar.color })
+                }}
+              >
+                <div style={{ color: pillar.color }}>{pillar.icon}</div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Desktop view - Full cards */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6 mb-8">
             {approachPillars.map((pillar) => (
               <motion.div key={pillar.id} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
                 <Card
-                  className={`h-full cursor-pointer border-2 ${activePillar === pillar.id ? "border-primary" : "border-transparent"}`}
+                  className={`h-full cursor-pointer border-2 ${activePillar === pillar.id ? "" : "border-transparent"}`}
                   onClick={() => setActivePillar(pillar.id)}
+                  style={{ 
+                    borderColor: activePillar === pillar.id ? pillar.color : 'transparent'
+                  }}
                 >
                   <CardContent className="pt-6 flex flex-col items-center text-center">
                     <div className="mb-4 p-3 rounded-full" style={{ backgroundColor: `${pillar.color}20` }}>
@@ -324,7 +347,7 @@ export function TextileWasteVisualization() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {selectedPillar?.stats.map((stat, index) => (
                       <Card key={index} className="bg-muted/50">
-                        <CardContent className="p-4 flex items-center gap-3">
+                        <CardContent className="ml-4 p-2 md:p-4 flex items-center gap-3">
                           <div className="text-2xl">{stat.icon}</div>
                           <div>
                             <p className="text-sm text-muted-foreground">{stat.name}</p>

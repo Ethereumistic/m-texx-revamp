@@ -3,13 +3,13 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { MapPin } from "lucide-react"
+import { MapPin, RefreshCw } from "lucide-react"
 import Link from "next/link"
 
 export function CtaLocations() {
   return (
     <section className="py-20 px-4 md:px-6 lg:px-8">
-      <div className="w-full 2xl:max-w-8xl mx-auto">
+      <div className="w-full  mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -17,11 +17,15 @@ export function CtaLocations() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm">
+            <MapPin className="w-4 h-4 mr-2" />
+            <span>Локации</span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Над 400 локации из цяла България</h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </motion.div>
 
-        <Card className="p-6 md:p-8 max-w-[70%] mx-auto border bg-card/50 backdrop-blur-sm">
+        <Card className="p-6 md:p-8 md:max-w-[70%] mx-auto border bg-card/50 backdrop-blur-sm">
           <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-12 gap-4 lg:gap-6 items-center">
             {/* First Column - Text and Button */}
             <motion.div
@@ -41,7 +45,7 @@ export function CtaLocations() {
                 </div>
 
                 <Link href="/locations">
-                <Button size="lg" className="mt-4 group">
+                <Button size="lg" className="mt-4 group flex mx-auto">
                   <MapPin className="mr-2 h-5 w-5 transition-transform group-hover:scale-105" />
                   Виж локациите
                   <motion.div

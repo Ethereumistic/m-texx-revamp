@@ -70,7 +70,7 @@ export function Hero() {
         <Button 
           size="lg" 
           variant='outline' 
-          className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 
+          className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 hover:text-white 
                     transition-colors border-white text-white backdrop-blur"
           asChild
         >
@@ -88,7 +88,7 @@ export function Hero() {
           <Button 
             size="lg" 
             variant='outline' 
-            className="text-lg px-8 py-6 bg-white/10  hover:bg-white/20
+            className="text-lg px-8 py-6 bg-white/10  hover:bg-white/20 hover:text-white
                       transition-colors text-white border border-white backdrop-blur"
             asChild
           >

@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Copy, MapPin, LocateFixed } from "lucide-react"
+import { Copy, MapPin, LocateFixed, Map } from "lucide-react"
 import { toast } from 'sonner'
 import { type Location, type City } from "@/types/locations"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/Map/scroll-area"
 import { SearchBox } from "./search-box"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   Tooltip,
   TooltipContent,
@@ -20,11 +21,13 @@ interface LocationSidebarProps {
   onLocationSelect: (location: Location) => void
   selectedLocation?: Location | null
   onSearch: (query: string) => void
+  mapRef?: React.RefObject<HTMLDivElement | null>
 }
 
-export function LocationSidebar({ cities, onLocationSelect, selectedLocation, onSearch }: LocationSidebarProps) {
+export function LocationSidebar({ cities, onLocationSelect, selectedLocation, onSearch, mapRef }: LocationSidebarProps) {
   const [expandedCities, setExpandedCities] = useState<string[]>([])
   const [isLocating, setIsLocating] = useState(false)
+  const isMobile = useMediaQuery("(max-width: 768px)")
 
   const handleCityToggle = (cityName: string) => {
     setExpandedCities((prev) =>
@@ -32,8 +35,25 @@ export function LocationSidebar({ cities, onLocationSelect, selectedLocation, on
     )
   }
 
+  const scrollToMap = () => {
+    if (isMobile && mapRef?.current) {
+      const yOffset = -80 // 80px offset from the top
+      const element = mapRef.current
+      if (!element) return
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({ top: y, behavior: 'smooth' })
+    }
+  }
+
   const handleLocationClick = (location: Location) => {
     onLocationSelect(location)
+    
+    // Scroll to map on mobile after a short delay to allow state updates
+    if (isMobile && mapRef?.current) {
+      setTimeout(() => {
+        scrollToMap()
+      }, 100)
+    }
   }
 
   const handleCopyAddress = (e: React.MouseEvent, address: string) => {
@@ -130,6 +150,26 @@ export function LocationSidebar({ cities, onLocationSelect, selectedLocation, on
         <div className="flex-1">
           <SearchBox onSearch={onSearch} placeholder="Търсене на локации..." />
         </div>
+        {isMobile && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-10 w-10"
+                  onClick={scrollToMap}
+                >
+                  <Map className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Виж картата</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+        
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

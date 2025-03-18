@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { type Location, type City } from "@/types/locations"
 import { LocationSidebar } from "@/components/Map/location-sidebar"
 import { MapWrapper } from "@/components/Map/map-wrapper"
+import { UpButton } from "@/components/Map/up-button"
 
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
@@ -19,6 +20,7 @@ export default function LocationsPage() {
   const [filteredCities, setFilteredCities] = useState<City[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const mapRef = useRef<HTMLDivElement>(null)
 
   // Fetch locations from Google Sheets
   useEffect(() => {
@@ -114,10 +116,11 @@ export default function LocationsPage() {
             onLocationSelect={setSelectedLocation}
             selectedLocation={selectedLocation}
             onSearch={setSearchQuery}
+            mapRef={mapRef}
           />
         </div>
 
-        <div className="md:col-span-8 xl:col-span-8">
+        <div className="md:col-span-8 xl:col-span-8" ref={mapRef}>
           <MapWrapper
             locations={filteredLocations}
             selectedLocation={selectedLocation}
@@ -125,6 +128,7 @@ export default function LocationsPage() {
           />
         </div>
       </div>
+      <UpButton mapRef={mapRef} />
     </div>
   )
 }
