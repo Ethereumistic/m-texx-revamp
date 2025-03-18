@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import { TextileIndustry } from "@/components/RecyclingInfographs/TextileIndustry"
-import { TextileIndustry2 } from "@/components/RecyclingInfographs/TextileIndustry2"
 import { OurMission } from "@/components/RecyclingInfographs/OurMission"
 import { TextileCycle } from "@/components/RecyclingInfographs/TextileCycle"
 import { TextileCycle2 } from "@/components/RecyclingInfographs/TextileCycle2"
@@ -27,7 +26,6 @@ export default function RecyclingPage() {
         <TextileCycle2 />
         <Economy />
         <Technology />
-        {/* <TextileIndustry2 /> */}
         
       </div>
     </main>
