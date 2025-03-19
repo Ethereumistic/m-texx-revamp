@@ -48,7 +48,19 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="container mx-auto px-4 py-8">
+
+                      {/* Back button */}
+                      <div className="mb-4 ml-0 md:ml-48">
+          <Button variant="outline" asChild>
+            <Link href="/news" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Назад
+            </Link>
+          </Button>
+        </div>
       <div className="mx-auto max-w-3xl">
+
+
         {/* Categories */}
         <div className="mb-4 flex flex-wrap gap-2">
           {post.categories?.map((category) => (
@@ -88,9 +100,10 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
 
         {/* Main image */}
-        <div className="relative mb-8 h-[40vh] w-full overflow-hidden rounded-lg md:h-[50vh]">
+        <div className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg ">
+        {/* <div className="relative mb-8 h-[40vh] w-full overflow-hidden rounded-lg md:h-[50vh]"> */}
           <Image
-            src={urlForImage(post.mainImage).width(1200).height(800).url() || "/placeholder.svg"}
+            src={urlForImage(post.mainImage).width(1920).height(1080).url() || "/placeholder.svg"}
             alt={post.title}
             fill
             className="object-cover"
@@ -109,7 +122,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <Button variant="outline" asChild>
             <Link href="/news" className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
-              Back to News
+              Назад
             </Link>
           </Button>
         </div>

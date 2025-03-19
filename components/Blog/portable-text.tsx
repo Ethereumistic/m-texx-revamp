@@ -33,7 +33,7 @@ export function PortableText({ value }: PortableTextProps) {
           <div className="my-8 space-y-2">
             <div className="relative mx-auto h-96 w-full overflow-hidden rounded-lg">
               <Image
-                src={urlForImage(value).width(800).url() || "/placeholder.svg"}
+                src={urlForImage(value).height(800).url() || "/placeholder.svg"}
                 alt={value.alt || "Blog post image"}
                 fill
                 className="object-cover"

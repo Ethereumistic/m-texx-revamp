@@ -41,8 +41,8 @@ export default async function NewsPagePaginated({ params }: PageProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">News & Updates</h1>
-        <p className="mt-2 text-muted-foreground">Stay informed about the latest developments in textile recycling</p>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Новини и Статии</h1>
+        <p className="mt-2 text-muted-foreground">Бъдете информирани за най-новите разработки в рециклирането на текстил</p>
       </div>
 
       {posts.length > 0 ? (

@@ -113,3 +113,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.group-hover\:animate-scroll {
+  animation: scroll 20s linear infinite;
+  animation-play-state: paused;
+}
+
+.group:hover .group-hover\:animate-scroll {
+  animation-play-state: running;
+}
+
+/* For touch devices */
+.touch .group-hover\:animate-scroll {
+  animation-play-state: running;
+}
+
+/* Add smooth transition when animation stops */
+.category-ribbon {
+  transition: transform 0.5s ease-out;
+  transform: translateX(0);
+  will-change: transform;
+}
+
+.category-ribbon.animate-scroll {
+  transition: none;
+}
