@@ -12,9 +12,9 @@ import { PortableText } from "@/components/Blog/portable-text"
 import { AuthorBio } from "@/components/Blog/author-bio"
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export const revalidate = 3600 // Revalidate every hour
