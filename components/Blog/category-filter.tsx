@@ -28,7 +28,11 @@ export function CategoryFilter({ categories, className }: CategoryFilterProps) {
 
   const handleCategoryClick = (categorySlug: string | null) => {
     const params = new URLSearchParams(searchParams.toString())
-    categorySlug ? params.set("category", categorySlug) : params.delete("category")
+    if (categorySlug) {
+      params.set("category", categorySlug)
+    } else {
+      params.delete("category")
+    }
     router.push(`/news?${params.toString()}`)
   }
 
