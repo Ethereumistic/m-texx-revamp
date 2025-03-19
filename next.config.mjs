@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: 'cdn.jsdelivr.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+      },
     ],
   },
 };
