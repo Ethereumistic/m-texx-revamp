@@ -5,34 +5,36 @@ import { PostCard } from "@/components/Blog/post-card"
 import { Pagination } from "@/components/Blog/pagination"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     page: string
-  }
+  }>
 }
 
 export const revalidate = 3600 // Revalidate every hour
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const page = Number.parseInt(params.page)
+  const { page } = await params
+  const pageNumber = Number.parseInt(page)
 
   return {
-    title: `News & Blog - Page ${page}`,
+    title: `News & Blog - Page ${pageNumber}`,
     description: "Latest news and updates about textile recycling",
   }
 }
 
 export default async function NewsPagePaginated({ params }: PageProps) {
-  const page = Number.parseInt(params.page)
+  const { page } = await params
+  const pageNumber = Number.parseInt(page)
 
-  if (isNaN(page) || page < 2) {
+  if (isNaN(pageNumber) || pageNumber < 2) {
     notFound()
   }
 
   const postsPerPage = 9
-  const { posts, total } = await getPosts(page, postsPerPage)
+  const { posts, total } = await getPosts(pageNumber, postsPerPage)
   const totalPages = Math.ceil(total / postsPerPage)
 
-  if (page > totalPages) {
+  if (pageNumber > totalPages) {
     notFound()
   }
 
@@ -51,7 +53,7 @@ export default async function NewsPagePaginated({ params }: PageProps) {
             ))}
           </div>
 
-          <Pagination currentPage={page} totalPages={totalPages} />
+          <Pagination currentPage={pageNumber} totalPages={totalPages} />
         </>
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
