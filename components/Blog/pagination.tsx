@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button"
 interface PaginationProps {
   currentPage: number
   totalPages: number
+  baseUrl?: string
 }
 
-export function Pagination({ currentPage, totalPages }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, baseUrl = "/news" }: PaginationProps) {
   const prevPage = currentPage > 1 ? currentPage - 1 : null
   const nextPage = currentPage < totalPages ? currentPage + 1 : null
 
@@ -58,11 +59,19 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
     }
   }
 
+  const getPageUrl = (page: number) => {
+    const url = new URL(baseUrl, "http://placeholder.com")
+    if (page > 1) {
+      url.searchParams.set("page", page.toString())
+    }
+    return `${url.pathname}${url.search}`
+  }
+
   return (
     <nav className="flex items-center justify-center gap-1 py-8">
       {prevPage ? (
         <Button variant="outline" size="icon" asChild>
-          <Link href={`/news${prevPage > 1 ? `/page/${prevPage}` : ""}`} aria-label="Previous page">
+          <Link href={getPageUrl(prevPage)} aria-label="Previous page">
             <ChevronLeft className="h-4 w-4" />
           </Link>
         </Button>
@@ -81,7 +90,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
             asChild={currentPage !== page}
           >
             {currentPage !== page ? (
-              <Link href={`/news${page > 1 ? `/page/${page}` : ""}`}>{page}</Link>
+              <Link href={getPageUrl(page)}>{page}</Link>
             ) : (
               <span>{page}</span>
             )}
@@ -95,7 +104,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
 
       {nextPage ? (
         <Button variant="outline" size="icon" asChild>
-          <Link href={`/news/page/${nextPage}`} aria-label="Next page">
+          <Link href={getPageUrl(nextPage)} aria-label="Next page">
             <ChevronRight className="h-4 w-4" />
           </Link>
         </Button>

@@ -23,7 +23,7 @@ export async function getPosts(page: number = 1, limit: number = 9) {
   const countQuery = `count(*[_type == "post" && defined(slug.current)])`
   const total = await client.fetch(countQuery)
 
-  // Query for posts with pagination
+  // Query for posts with pagination - ensure categories are properly referenced
   const query = `
     *[_type == "post" && defined(slug.current)] | order(publishedAt desc) [$offset...$limit] {
       _id,
@@ -31,13 +31,25 @@ export async function getPosts(page: number = 1, limit: number = 9) {
       "slug": slug.current,
       mainImage,
       publishedAt,
-      "categories": categories[]->{ title, "slug": slug.current },
+      "categories": categories[]->{ 
+        title, 
+        "slug": slug.current 
+      },
       "author": author->{ name, image }
     }
   `
   const posts = await client.fetch<Post[]>(query, { offset, limit: offset + limit })
-
-  return { posts, total }
+  
+  // Also fetch all categories for filtering
+  const categoriesQuery = `
+    *[_type == "category"] {
+      title,
+      "slug": slug.current
+    }
+  `
+  const allCategories = await client.fetch<{ title: string; slug: string }[]>(categoriesQuery)
+  
+  return { posts, total, allCategories }
 }
 
 export async function getPost(slug: string) {
@@ -77,6 +89,15 @@ export async function getPostsByCategory(category: string, page: number = 1, lim
     }
   `
   const posts = await client.fetch<Post[]>(query, { category, offset, limit: offset + limit })
+  
+  // Also fetch all categories for filtering
+  const categoriesQuery = `
+    *[_type == "category"] {
+      title,
+      "slug": slug.current
+    }
+  `
+  const allCategories = await client.fetch<{ title: string; slug: string }[]>(categoriesQuery)
 
-  return { posts, total }
+  return { posts, total, allCategories }
 } 
