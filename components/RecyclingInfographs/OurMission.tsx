@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { Recycle, School, Heart, Target, ArrowRight } from "lucide-react"
 import { ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Area, ComposedChart } from "recharts"
+import Link from "next/link"
 
 // Data for the recycling progress chart
 const currentYear = new Date().getFullYear()
@@ -467,7 +468,8 @@ export function OurMission() {
                   "Предоставяме безплатни услуги за събиране и рециклиране на текстил за домакинства и организации в цяла България.",
                 icon: <Recycle className="w-6 h-6" />,
                 color: "var(--emerald)",
-                stat: { value: 500, label: "пункта за събиране" },
+                stat: { value: 450, label: "пункта за събиране" },
+                href: "/locations",
               },
               {
                 title: "Образование",
@@ -476,6 +478,7 @@ export function OurMission() {
                 icon: <School className="w-6 h-6" />,
                 color: "var(--blue)",
                 stat: { value: 250, label: "училища до 2030" },
+                href: "/presentations",
               },
               {
                 title: "Партньорства",
@@ -484,38 +487,41 @@ export function OurMission() {
                 icon: <Heart className="w-6 h-6" />,
                 color: "var(--yellow)",
                 stat: { value: 80, label: "общински партньори" },
+                href: "/partners",
               },
             ].map((pillar, index) => (
-              <motion.div key={index} whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className="group">
-                <Card className="h-full border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden">
-                  <div className="h-2 w-full" style={{ backgroundColor: pillar.color }}></div>
-                  <CardContent className="pt-6 p-6">
-                    <div
-                      className="p-3 rounded-full inline-flex mb-4"
-                      style={{ backgroundColor: `${pillar.color}20`, color: pillar.color }}
-                    >
-                      {pillar.icon}
-                    </div>
-                    <h4 className="text-xl font-semibold mb-2">{pillar.title}</h4>
-                    <p className="text-muted-foreground mb-6">{pillar.description}</p>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                      <div>
-                        <p className="text-2xl font-bold">
-                          <AnimatedCounter value={pillar.stat.value} />+
-                        </p>
-                        <p className="text-sm text-muted-foreground">{pillar.stat.label}</p>
-                      </div>
+              <Link key={index} href={pillar.href} className="block">
+                <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className="group">
+                  <Card className="h-full border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden">
+                    <div className="h-2 w-full" style={{ backgroundColor: pillar.color }}></div>
+                    <CardContent className="pt-6 p-6">
                       <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-primary/10 transition-colors"
-                        style={{ color: pillar.color }}
+                        className="p-3 rounded-full inline-flex mb-4"
+                        style={{ backgroundColor: `${pillar.color}20`, color: pillar.color }}
                       >
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        {pillar.icon}
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                      <h4 className="text-xl font-semibold mb-2">{pillar.title}</h4>
+                      <p className="text-muted-foreground mb-6">{pillar.description}</p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                        <div>
+                          <p className="text-2xl font-bold">
+                            <AnimatedCounter value={pillar.stat.value} />+
+                          </p>
+                          <p className="text-sm text-muted-foreground">{pillar.stat.label}</p>
+                        </div>
+                        <div
+                          className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-primary/10 transition-colors"
+                          style={{ color: pillar.color }}
+                        >
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </motion.div>
