@@ -10,10 +10,25 @@ import {
 } from "@portabletext/react"
 import { urlForImage } from "@/sanity/lib/image"
 
-export function PortableText({ value }: { value: any }) {
+interface PortableTextProps {
+  value: PortableTextBlock[]
+}
+
+interface PortableTextImage {
+  _type: 'image'
+  asset: {
+    _ref: string
+    _type: 'reference'
+  }
+  alt?: string
+  caption?: string
+  [key: string]: any
+}
+
+export function PortableText({ value }: PortableTextProps) {
   const components = {
     types: {
-      image: ({ value }: { value: any }) => {
+      image: ({ value }: { value: PortableTextImage }) => {
         return (
           <div className="my-8 space-y-2">
             <div className="relative mx-auto h-96 w-full overflow-hidden rounded-lg">
