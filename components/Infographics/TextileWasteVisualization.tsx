@@ -77,11 +77,6 @@ const educationTabsData = {
     ],
     content:
       "Училищата са най-важният фокус на нашите образователни програми, защото бъдещите поколения трябва да бъдат информирани за рисковете от неправилното изхвърляне на текстил и ползите от рециклирането. Чрез интерактивни работилници, презентации и практически дейности, ние помагаме на учениците да развият устойчиви навици от ранна възраст. Нашите училищни програми включват събиране на текстил, творчески работилници за преизползване и образователни материали за учители.",
-    initiatives: [
-      { title: "Еко клубове", description: "Създаваме училищни еко клубове с фокус върху текстилното рециклиране" },
-      { title: "Творчески работилници", description: "Учим децата как да преработват стари дрехи в нови продукти" },
-      { title: "Образователни материали", description: "Предоставяме безплатни ресурси за учители по темата" },
-    ],
   },
   homes: {
     title: "Домакинства",
@@ -94,12 +89,7 @@ const educationTabsData = {
       { value: "90%", label: "от изхвърления текстил може да бъде рециклиран или преизползван" },
     ],
     content:
-      "Голяма част от българските домакинства не са запознати с правилните начини за изхвърляне на текстилни отпадъци. Около 78% от домакинствата изхвърлят ненужните дрехи и други текстилни изделия в общите контейнери за смесени отпадъци, което води до замърсяване и пропуснати възможности за рециклиране. Нашите програми за домакинства включват информационни кампании, безплатни услуги за събиране на текстил и практически съвети за удължаване живота на текстилните продукти.",
-    initiatives: [
-      { title: "Безплатно събиране", description: "Организираме редовно събиране на текстил от домовете" },
-      { title: "Информационни кампании", description: "Разясняваме ползите от правилното изхвърляне на текстил" },
-      { title: "Практически наръчници", description: "Споделяме съвети за удължаване живота на дрехите" },
-    ],
+      "Голяма част от българските домакинства не са запознати с правилните начини за изхвърляне на текстилни отпадъци. Около 78% от домакинствата изхвърлят ненужните дрехи и други текстилни изделия в общите контейнери за смесени отпадъци, което води до замърсяване и пропуснати възможности за рециклиране. Нашите програми за домакинства включват информационни кампании, контейнери за събиране на текстил и практически съвети за удължаване живота на текстилните продукти.",
   },
   organizations: {
     title: "Организации",
@@ -113,11 +103,6 @@ const educationTabsData = {
     ],
     content:
       "Текстилната индустрия е един от най-големите замърсители в световен мащаб. Около 65% от организациите, свързани с текстилната индустрия, прилагат вредни, увреждащи и неморални практики за изхвърляне на текстилни химикали, оцветители и отпадъци. Нашите програми за организации включват консултации за устойчивост, партньорства за рециклиране и обучения за служители. Работим с компании от всички сектори, не само текстилни, за да внедрим устойчиви практики в техните операции.",
-    initiatives: [
-      { title: "Корпоративни партньорства", description: "Създаваме дългосрочни партньорства за устойчивост" },
-      { title: "Обучения за служители", description: "Провеждаме обучения за устойчиви практики" },
-      { title: "Консултации", description: "Предлагаме експертни съвети за намаляване на текстилните отпадъци" },
-    ],
   },
 }
 
@@ -136,15 +121,20 @@ export function TextileWasteVisualization() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Запази околната среда, чрез преизползване, рециклиране и намаляване
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance">
+            Запази околната среда чрез <span className="bg-gradient-to-r from-green-300 to-green-600 bg-clip-text text-transparent">преизползване, рециклиране и намаляване</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            През 2022г. България е генерирала повече от 100 000 тона текстилни и кожени отпадъци, но само 2% от този
-            отпадък се рециклира.
-          </p>
+          <div className="max-w-4xl mx-auto space-y-6">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+              През 2022 г. България генерира над <span className="font-bold text-foreground">100 000 тона</span> текстилни и кожени отпадъци.
+            </p>
+            <div className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-semibold text-lg md:text-xl border border-red-200 dark:border-red-800">
+              <AlertTriangle className="mr-2 h-6 w-6 shrink-0" />
+              <span>Само 2% от този отпадък се рециклира</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Waste Visualization - REDESIGNED */}
@@ -294,7 +284,7 @@ export function TextileWasteVisualization() {
                 transition={{ duration: 0.2 }}
                 onClick={() => setActivePillar(pillar.id)}
                 className={`p-4 rounded-full ${activePillar === pillar.id ? 'ring-2 ring-offset-2' : ''}`}
-                style={{ 
+                style={{
                   backgroundColor: `${pillar.color}20`,
                   ...(activePillar === pillar.id && { '--tw-ring-color': pillar.color })
                 }}
@@ -311,7 +301,7 @@ export function TextileWasteVisualization() {
                 <Card
                   className={`h-full cursor-pointer border-2 ${activePillar === pillar.id ? "" : "border-transparent"}`}
                   onClick={() => setActivePillar(pillar.id)}
-                  style={{ 
+                  style={{
                     borderColor: activePillar === pillar.id ? pillar.color : 'transparent'
                   }}
                 >
@@ -421,20 +411,10 @@ export function TextileWasteVisualization() {
                           </div>
                         </div>
 
-                        <div className="prose max-w-none mb-6">
-                          <p>{selectedEducationTab.content}</p>
-                        </div>
-
-                        <h5 className="text-lg font-semibold mb-3">Нашите инициативи</h5>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {selectedEducationTab.initiatives.map((initiative, index) => (
-                            <Card key={index} className="bg-muted/30">
-                              <CardContent className="p-4">
-                                <h6 className="font-semibold mb-1">{initiative.title}</h6>
-                                <p className="text-sm text-gray-600">{initiative.description}</p>
-                              </CardContent>
-                            </Card>
-                          ))}
+                        <div className="prose prose-blue dark:prose-invert max-w-none">
+                          <p className="text-lg leading-relaxed text-muted-foreground">
+                            {selectedEducationTab.content}
+                          </p>
                         </div>
                       </div>
 

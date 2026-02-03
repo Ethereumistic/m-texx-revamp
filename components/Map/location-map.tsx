@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react"
 import { type Location } from "@/types/locations"
 import dynamic from "next/dynamic"
 import { Icon } from 'leaflet';
+import { Button } from "@/components/ui/button"
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 // Dynamically import Leaflet components to avoid SSR issues
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false })
@@ -18,9 +20,9 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { 
 const MapComponent = dynamic(() => import("./map-controls").then((mod) => mod.MapControls), { ssr: false })
 
 const customIcon = new Icon({
-    iconUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/pin.png",
-    iconSize: [34, 34]
-  })
+  iconUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/lrpin.png",
+  iconSize: [34, 34]
+})
 
 // Center of Bulgaria
 const DEFAULT_CENTER: [number, number] = [42.733883, 25.48583]
@@ -72,10 +74,24 @@ export function LocationMap({ locations, selectedLocation, onMarkerClick }: Loca
             }}
           >
             <Popup>
-              <div>
-                <h3 className="font-bold">{location.name}</h3>
-                <p>{location.address}</p>
-                <p className="text-sm text-muted-foreground">{location.city}</p>
+              <div className="p-1 min-w-[200px]">
+                <div className="mb-2">
+                  <h3 className="font-bold text-base m-0 text-black">{location.city}</h3>
+                  <p className="text-sm m-0 text-black/80 leading-tight">{location.address}</p>
+                </div>
+                <div className="flex flex-col gap-2 mt-3">
+                  <Button
+                    size="sm"
+                    className="w-full text-xs h-8 bg-black text-white"
+                    onClick={() => {
+                      const [lat, lng] = location.coordinates;
+                      window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank');
+                    }}
+                  >
+                    <span>Упътване</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             </Popup>
           </Marker>

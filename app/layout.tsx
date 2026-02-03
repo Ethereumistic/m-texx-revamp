@@ -1,9 +1,14 @@
 import "./globals.css"
 import { Geist, Geist_Mono } from "next/font/google"
-import { Navbar } from "@/components/Navbar/navbar"
 import { ThemeProvider } from "@/components/Theme/theme-provider"
 import { Toaster } from 'sonner'
-import { Footer } from "@/components/ui/footer"
+import { ClientLayoutWrapper } from "@/components/Layout/ClientLayoutWrapper"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'M-Texx Recycling',
+  description: 'Sustainable textile recycling solutions.',
+}
 
 // Initialize fonts
 const geist = Geist({
@@ -23,21 +28,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geist.variable} ${geistMono.variable} font-sans
-                      `}>
-      {/* <body className={`${geist.variable} ${geistMono.variable} font-sans
-                      absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]
-                      `}> */}
+      <body className={`${geist.variable} ${geistMono.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
-          <Toaster position="bottom-left" />
-          <Footer />
+          <ClientLayoutWrapper>
+            {children}
+            <Toaster position="bottom-left" />
+          </ClientLayoutWrapper>
         </ThemeProvider>
       </body>
     </html>

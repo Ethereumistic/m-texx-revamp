@@ -33,12 +33,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Продукция",
     icon: <Factory className="h-6 w-6" />,
     description:
-      "Производството на дрехи е сложен процес, който включва множество етапи от добиването на суровини до крайния продукт. Този процес често има значително въздействие върху околната среда.",
+      "Производството на текстил е един от най-ресурсоемките процеси в света. То изисква огромни количества вода, енергия и химикали, оставяйки сериозен отпечатък върху екосистемите.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/production.png",
     statistics: [
-      { label: "Water Usage", value: "20,000L", icon: "💧", color: "blue" },
-      { label: "CO2 Emissions", value: "195M tons", icon: "🌫️", color: "gray" },
-      { label: "Pesticide Usage", value: "25%", icon: "🌿", color: "green" },
+      { label: "Изразходвана вода", value: "2,700 л", icon: "💧", color: "blue" },
+      { label: "Глобални CO2 емисии", value: "10%", icon: "🌫️", color: "gray" },
+      { label: "Замърсяване на води", value: "20%", icon: "⚗️", color: "indigo" },
     ],
   },
   {
@@ -46,12 +46,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Продажби",
     icon: <Store className="h-6 w-6" />,
     description:
-      "„Търговията с дрехи е важен икономически сектор, но бързата мода води до прекомерно потребление и генериране на текстилни отпадъци.",
+      "Модната индустрия произвежда над 80 милиарда нови облекла всяка година. Бързата мода стимулира свръхпотребление, което води до огромни количества нереализирана и излишна стока.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/selling.jpg",
     statistics: [
-      { label: "Water Usage", value: "20,000L", icon: "💧", color: "blue" },
-      { label: "CO2 Emissions", value: "195M tons", icon: "🌫️", color: "gray" },
-      { label: "Pesticide Usage", value: "25%", icon: "🌿", color: "green" },
+      { label: "Свръхпроизводство", value: "30%", icon: "🏷️", color: "red" },
+      { label: "Ръст в покупките", value: "+60%", icon: "📈", color: "blue" },
+      { label: "Нови дрехи годишно", value: "80 млрд.", icon: "👗", color: "green" },
     ],
   },
   {
@@ -59,12 +59,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Употреба",
     icon: <User className="h-6 w-6" />,
     description:
-      "По време на употребата дрехите се перат и поддържат, което консумира вода и енергия. Правилната грижа може да удължи живота им.",
+      "Масово дрехите се изхвърлят след по-малко от 10 обличания. Удължаването на живота на една дреха само с 9 месеца може да намали нейния отпечатък с над 30%.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/wear.jpg",
     statistics: [
-      { label: "Usage Decrease", value: "-50%", icon: "⏱️", color: "red" },
-      { label: "Purchase Increase", value: "+60%", icon: "📈", color: "blue" },
-      { label: "CO2 Reduction Potential", value: "24%", icon: "🌱", color: "green" },
+      { label: "Средно носения", value: "7-10 пъти", icon: "⌚", color: "orange" },
+      { label: "Микропластмаса", value: "500к т.", icon: "🌊", color: "blue" },
+      { label: "Пестене на ресурси", value: "30%", icon: "🌱", color: "green" },
     ],
   },
   {
@@ -72,12 +72,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Оставяне в контейнер",
     icon: <Container className="h-6 w-6" />,
     description:
-      "Специализираните контейнери за текстил позволяват правилното събиране и сортиране на ненужните дрехи за рециклиране.",
+      "Изхвърлянето в специализирани контейнери е първата стъпка към кръговата икономика. Това гарантира, че ценните ресурси ще бъдат сортирани и върнати в цикъла вместо загробени.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/container-crop.jpg",
     statistics: [
-      { label: "Recycling Potential", value: "95%", icon: "♻️", color: "green" },
-      { label: "Collection Points", value: "500+", icon: "📍", color: "blue" },
-      { label: "Waste Reduction", value: "High", icon: "📉", color: "green" },
+      { label: "Потенциал за спасяване", value: "95%", icon: "♻️", color: "green" },
+      { label: "Спестени емисии", value: "3.6 кг/кг", icon: "🌍", color: "blue" },
+      { label: "Спасен текстил/мес.", value: "1,500 т.", icon: "👚", color: "orange" },
     ],
   },
   {
@@ -85,12 +85,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Сортиране",
     icon: <PackageSearch className="h-6 w-6" />,
     description:
-      "Сортирането определя кои дрехи могат да бъдат повторно използвани, рециклирани или преработени в нови продукти.",
+      "Всеки събран килограм преминава през прецизно ръчно сортиране. Това разделя годните за повторна употреба дрехи от тези, които ще бъдат рециклирани в нови продукти.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/sorting.jpg",
     statistics: [
-      { label: "Reusable Items", value: "60%", icon: "👕", color: "green" },
-      { label: "Recyclable Materials", value: "35%", icon: "♻️", color: "blue" },
-      { label: "Non-recoverable", value: "5%", icon: "⚠️", color: "red" },
+      { label: "За преизползване", value: "60%", icon: "👕", color: "green" },
+      { label: "За рециклиране", value: "35%", icon: "🧵", color: "blue" },
+      { label: "Невъзстановими", value: "5%", icon: "⚠️", color: "red" },
     ],
   },
   {
@@ -98,12 +98,12 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Рециклиране",
     icon: <Recycle className="h-6 w-6" />,
     description:
-      "Рециклирането превръща стари дрехи в нови материали и продукти, спестявайки ресурси и намалявайки отпадъците.",
+      "Текстилът, който не може да се носи, се преработва в индустриални материали, изолации или нови влакна, спестявайки ресурси и намалявайки енергийните нужди.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/recycling-crop.png",
     statistics: [
-      { label: "Energy Saved", value: "80%", icon: "⚡", color: "yellow" },
-      { label: "Water Saved", value: "4000L", icon: "💧", color: "blue" },
-      { label: "Landfill Reduced", value: "95%", icon: "🗑️", color: "green" },
+      { label: "Спестена енергия", value: "80%", icon: "⚡", color: "yellow" },
+      { label: "Спестена вода", value: "15,000 л/т", icon: "💧", color: "blue" },
+      { label: "Технически текстил", value: "Висок", icon: "⚙️", color: "gray" },
     ],
   },
   {
@@ -111,13 +111,13 @@ const lifecycleSteps: LifecycleStep[] = [
     title: "Изхвърляне на боклука",
     icon: <Trash2 className="h-6 w-6" />,
     description:
-      "Изхвърлянето на текстил в общия боклук води до замърсяване на околната среда и пропуснати възможности за рециклиране.",
+      "Текстилът в общия боклук гние с десетилетия, отделяйки метан и замърсявайки почвата. Това е невъзвратима загуба на енергия, ресурси и пари.",
     image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/trash.jpg",
     isRed: true,
     statistics: [
-      { label: "Environmental Impact", value: "Severe", icon: "⚠️", color: "red" },
-      { label: "Decomposition Time", value: "200+ years", icon: "⏳", color: "red" },
-      { label: "Recyclable Loss", value: "100%", icon: "❌", color: "red" },
+      { label: "Разграждане", value: "200г+", icon: "⏳", color: "red" },
+      { label: "Загуба на ресурс", value: "100%", icon: "❌", color: "red" },
+      { label: "Метанови емисии", value: "Критични", icon: "🔥", color: "red" },
     ],
   },
 ]
@@ -258,18 +258,38 @@ export function TextileLifecycle2() {
                             className="object-cover rounded-lg"
                           />
                         </div>
-                        {/* Mobile description (visible only on smaller screens) */}
-                        <div className="lg:hidden p-6">
+                        {/* Mobile description & stats (visible only on smaller screens) */}
+                        <div className="lg:hidden p-6 space-y-6">
                           <div
                             className={cn(
-                              "flex items-center gap-3 mb-4",
+                              "flex items-center gap-3",
                               step.isRed ? "text-red-500" : "text-green-500",
                             )}
                           >
-                            <div className="p-3 rounded-full bg-background">{step.icon}</div>
+                            <div className="p-3 rounded-full bg-background border">{step.icon}</div>
                             <h3 className="text-xl font-semibold">{step.title}</h3>
                           </div>
-                          <p className="text-muted-foreground">{step.description}</p>
+                          <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+
+                          {/* Mobile Statistics Grid */}
+                          <div className="grid grid-cols-1 gap-3 pt-2">
+                            {step.statistics.map((stat, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-center justify-between p-3 rounded-lg border bg-muted/30"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xl">{stat.icon}</span>
+                                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                                    {stat.label}
+                                  </span>
+                                </div>
+                                <span className={cn("font-bold", `text-${stat.color}-500`)}>
+                                  {stat.value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
@@ -280,31 +300,31 @@ export function TextileLifecycle2() {
           </div>
         </div>
         <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Card className="bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900 mt-4 overflow-hidden shadow-sm">
-                <CardContent className="">
-                  <div className="flex flex-col sm:flex-row items-center gap-4 pl-4 relative">
-                    <div className="flex-shrink-0 bg-red-100 dark:bg-red-900/40 p-3 rounded-full">
-                      <AlertTriangle className="size-8 sm:size-10 text-red-500 dark:text-red-400" />
-                    </div>
-                    <div className="flex-1 text-center sm:text-left">
-                      <h4 className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
-                        <span className="font-bold text-red-900 dark:text-red-200 block sm:inline sm:mr-2">
-                          Само 2%
-                        </span>
-                        от текстилните отпадъци в България се рециклират, което е най-ниският процент сред всички
-                        материали
-                      </h4>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Card className="bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900 mt-4 overflow-hidden shadow-sm">
+            <CardContent className="">
+              <div className="flex flex-col sm:flex-row items-center gap-4 pl-4 relative">
+                <div className="flex-shrink-0 bg-red-100 dark:bg-red-900/40 p-3 rounded-full">
+                  <AlertTriangle className="size-8 sm:size-10 text-red-500 dark:text-red-400" />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <h4 className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
+                    <span className="font-bold text-red-900 dark:text-red-200 block sm:inline sm:mr-2">
+                      Само 2%
+                    </span>
+                    от текстилните отпадъци в България се рециклират, което е най-ниският процент сред всички
+                    материали
+                  </h4>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-    </div>
+      </div>
     </section>
   )
 }

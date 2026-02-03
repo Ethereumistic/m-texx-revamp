@@ -8,16 +8,24 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { MobileNav } from "./mobile-nav"
-import { LanguageSelector } from "@/components/ui/language-selector"
 import { ThemeToggle } from "@/components/Theme/theme-toggle"
+import {
+  Newspaper,
+  Recycle,
+  MapPin,
+  Phone,
+  Mail,
+  Users,
+  Zap
+} from "lucide-react"
 
 const navItems = [
-  { title: "Новини", href: "/news" },
-  { title: "Рециклиране", href: "/recycling" },
-  { title: "Локации", href: "/locations" },
-  { title: "Контакти", href: "/contacts" },
-  { title: "Партньори", href: "/partners" },
-  { title: "Друзет", href: "/druzet" },
+  { title: "Новини", href: "/news", icon: Newspaper },
+  { title: "Рециклиране", href: "/recycling", icon: Recycle },
+  { title: "Локации", href: "/locations", icon: MapPin },
+  { title: "Контакти", href: "/contacts", icon: Phone },
+  { title: "Партньори", href: "/partners", icon: Users },
+  { title: "Друзет", href: "/druzet", icon: Zap },
 ]
 
 export function Navbar() {
@@ -26,34 +34,58 @@ export function Navbar() {
   return (
     // <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <header className="sticky top-0 z-[5000] w-full border-b bg-white/80 dark:bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 lg:h-[4.2rem] items-center transition-all duration-300">
-        <div className="mr-4 flex">
+      <div className="container flex h-16 md:h-[4.2rem] items-center justify-between transition-all duration-300">
+        {/* Logo Section */}
+        <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-          <Image 
-              src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/logo/logo.svg" 
-              alt="Logo" 
-              width={120} 
-              height={40} // Adjusted to maintain aspect ratio
-              priority // Add priority since it's above the fold
-              className="" // Add this to maintain aspect ratio
+            <Image
+              src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/logo/logo.svg"
+              alt="Logo"
+              width={160}
+              height={100}
+              priority
+              className="h-12 md:h-16 w-auto"
             />
-            </Link>
+          </Link>
         </div>
-        <Separator orientation="vertical" className="mx-4 h-6" />
-        <nav className="hidden lg:flex md:flex-1 md:items-center md:justify-start md:gap-2 lg:gap-4">
+
+        {/* Navigation Links - Centered - Now visible from MD */}
+        <nav className="hidden md:flex flex-1 items-center justify-center gap-0.5 lg:gap-1 xl:gap-2 px-2 lg:px-4">
           {navItems.map((item) => (
             <Button
               key={item.href}
               variant={pathname === item.href ? "default" : "ghost"}
               asChild
-              className={cn("text-sm", pathname === item.href && "bg-primary text-primary-foreground")}
+              className={cn(
+                "h-8 lg:h-9 px-2 lg:px-3 text-[11px] lg:text-xs xl:text-sm font-medium",
+                pathname === item.href && "bg-primary text-primary-foreground hover:bg-primary/90"
+              )}
             >
-              <Link href={item.href}>{item.title}</Link>
+              <Link href={item.href}>
+                {item.title}
+              </Link>
             </Button>
           ))}
         </nav>
-        <div className="hidden lg:flex ml-auto items-center gap-2">
-          <LanguageSelector />
+
+        {/* Contact & Theme Section - Now visible from MD */}
+        <div className="hidden md:flex items-center justify-end gap-2 lg:gap-3 xl:gap-6">
+          <div className="flex flex-col xl:flex-row items-start xl:items-center gap-0.5 lg:gap-1 xl:gap-4 text-[9px] lg:text-[10px] xl:text-xs font-medium text-muted-foreground whitespace-nowrap">
+            <a
+              href="tel:+359876600139"
+              className="flex items-center gap-1 hover:text-primary transition-colors"
+            >
+              <Phone className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-primary" />
+              <span>+359 876 600 139</span>
+            </a>
+            <a
+              href="mailto:office@m-texx.com"
+              className="flex items-center gap-1 hover:text-primary transition-colors"
+            >
+              <Mail className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-primary" />
+              <span>office@m-texx.com</span>
+            </a>
+          </div>
           <ThemeToggle />
         </div>
         <MobileNav navItems={navItems} />

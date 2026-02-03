@@ -18,17 +18,17 @@ export interface PresentationProps {
 export function Presentation({ id, title, description, imageUrl, pdfUrl, category }: PresentationProps) {
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="p-0">
+      <CardHeader className="p-0 -mt-6">
         <div className="relative h-48 w-full">
           <Image src={imageUrl || "/placeholder.svg"} alt={title} fill className="object-cover" />
           <Badge className="absolute top-4 right-4">{category}</Badge>
         </div>
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent className="px-6">
         <h3 className="text-xl font-bold">{title}</h3>
         <p className="mt-2 text-muted-foreground">{description}</p>
       </CardContent>
-      <CardFooter className="flex justify-end p-6 pt-0">
+      <CardFooter className="flex justify-end px-6">
         <Button variant="default" className="flex items-center gap-2" onClick={() => window.open(pdfUrl, "_blank")}>
           <ExternalLink className="h-4 w-4" />
           Отвори презентацията
