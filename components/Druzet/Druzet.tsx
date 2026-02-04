@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
@@ -134,33 +134,24 @@ export function Druzet() {
   const rotationTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [userInteracted, setUserInteracted] = useState(false)
 
-  // Function to rotate to the next tab
-  const rotateToNextTab = () => {
-    const currentIndex = applicationsData.findIndex((app) => app.id === activeTab)
-    const nextIndex = (currentIndex + 1) % applicationsData.length
-    setActiveTab(applicationsData[nextIndex].id)
-  }
+  const rotateToNextTab = useCallback(() => {
+    setActiveTab((prevTab) => {
+      const currentIndex = applicationsData.findIndex((app) => app.id === prevTab)
+      const nextIndex = (currentIndex + 1) % applicationsData.length
+      return applicationsData[nextIndex].id
+    })
+  }, [])
 
   // Handle manual tab selection
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId)
     setUserInteracted(true)
-
-    // Reset the timer when user manually selects a tab
-    if (rotationTimerRef.current) {
-      clearInterval(rotationTimerRef.current)
-    }
-
-    // Start a new timer
-    rotationTimerRef.current = setInterval(() => {
-      rotateToNextTab()
-    }, 15000)
   }
 
   // Set up the automatic rotation timer
   useEffect(() => {
     // Start the rotation timer
-    rotationTimerRef.current = setInterval(() => {
+    const timer = setInterval(() => {
       if (!userInteracted) {
         rotateToNextTab()
       } else {
@@ -168,13 +159,9 @@ export function Druzet() {
       }
     }, 15000)
 
-    // Clean up the timer when component unmounts
-    return () => {
-      if (rotationTimerRef.current) {
-        clearInterval(rotationTimerRef.current)
-      }
-    }
-  }, [activeTab])
+    // Clean up the timer when component unmounts or dependencies change
+    return () => clearInterval(timer)
+  }, [rotateToNextTab, userInteracted, activeTab])
 
   return (
     <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">

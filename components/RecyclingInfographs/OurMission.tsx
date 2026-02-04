@@ -476,7 +476,7 @@ export function OurMission() {
                   "Провеждаме образователни програми в училищата, за да насърчим младите хора да мислят устойчиво за текстила.",
                 icon: <School className="w-6 h-6" />,
                 color: "var(--blue)",
-                stat: { value: 250, label: "училища до 2030" },
+                stat: { value: 50, label: "училища до 2030" },
                 href: "/presentations",
               },
               {
@@ -485,7 +485,7 @@ export function OurMission() {
                   "Изграждаме стратегически партньорства с бизнеси, общини и организации за максимално въздействие.",
                 icon: <Heart className="w-6 h-6" />,
                 color: "var(--yellow)",
-                stat: { value: 80, label: "общински партньори" },
+                stat: { value: 60, label: "общински партньори" },
                 href: "/partners",
               },
             ].map((pillar, index) => (

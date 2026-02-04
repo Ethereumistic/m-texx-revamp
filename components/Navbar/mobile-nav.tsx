@@ -15,7 +15,6 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { LanguageSelector } from "@/components/ui/language-selector"
 import { ThemeToggle } from "@/components/Theme/theme-toggle"
 
 interface MobileNavProps {
@@ -53,7 +52,6 @@ export function MobileNav({ navItems }: MobileNavProps) {
               ))}
             </nav>
             <div className="flex items-center mt-6 px-4 gap-2 border-t pt-6">
-              {/* <LanguageSelector /> */}
               <ThemeToggle />
               <span className="text-sm text-muted-foreground font-medium ml-2">Смени тема</span>
             </div>

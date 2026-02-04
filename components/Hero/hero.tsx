@@ -35,7 +35,7 @@ export function Hero() {
   }, [])
 
   return (
-    <div className="relative w-full h-[50vh] lg:h-[80vh] overflow-hidden">
+    <div className="relative  w-full h-[50vh] lg:h-[80vh] overflow-hidden">
       {/* Video Background */}
       <video
         ref={videoRef}
@@ -61,33 +61,33 @@ export function Hero() {
         </div> */}
         <TextGenerateEffect words={words} />
 
-        <motion.div 
-        className="hidden lg:block absolute top-[29rem] right-8"
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
-      >
-        <Button 
-          size="lg" 
-          variant='outline' 
-          className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 hover:text-white 
-                    transition-colors border-white text-white backdrop-blur"
-          asChild
+        <motion.div
+          className="hidden lg:block absolute top-[29rem] right-8"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1 }}
         >
-          <Link href="/recycling">Рециклиране на Текстил</Link>
-        </Button>
-      </motion.div>
-        
+          <Button
+            size="lg"
+            variant='outline'
+            className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 hover:text-white 
+                    transition-colors border-white text-white backdrop-blur"
+            asChild
+          >
+            <Link href="/recycling">Рециклиране на Текстил</Link>
+          </Button>
+        </motion.div>
+
         {/* Button for mobile/tablet - centered */}
-        <motion.div 
+        <motion.div
           className="lg:hidden mt-8"
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
-          <Button 
-            size="lg" 
-            variant='outline' 
+          <Button
+            size="lg"
+            variant='outline'
             className="text-lg px-8 py-6 bg-white/10  hover:bg-white/20 hover:text-white
                       transition-colors text-white border border-white backdrop-blur"
             asChild
@@ -97,7 +97,7 @@ export function Hero() {
         </motion.div>
       </div>
       <div className="absolute bottom-0 dark:bg-gradient-to-b dark:from-background/0 dark:to-background bg-gradient-to-b from-white/0 to-white w-full h-16 z-50"></div>
-      </div>
+    </div>
   )
 }
 

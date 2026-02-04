@@ -3,10 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import { MobileNav } from "./mobile-nav"
 import { ThemeToggle } from "@/components/Theme/theme-toggle"
 import {
@@ -33,7 +31,7 @@ export function Navbar() {
 
   return (
     // <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <header className="sticky top-0 z-[5000] w-full border-b bg-white/80 dark:bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-[5000] w-full border-b bg-white/80 dark:bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 md:h-[4.2rem] items-center justify-between transition-all duration-300">
         {/* Logo Section */}
         <div className="flex items-center">

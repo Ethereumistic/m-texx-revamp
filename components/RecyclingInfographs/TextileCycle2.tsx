@@ -77,7 +77,7 @@ const benefits = [
     icon: <Building className="w-6 h-6" />,
     color: "var(--yellow)",
     stats: [
-      { value: "80+", label: "общински партньори", icon: "🏢" },
+      { value: "60+", label: "общински партньори", icon: "🏢" },
       //   { value: "15+", label: "държави партньори", icon: "🌍" },
     ],
     chartData: [
@@ -225,6 +225,7 @@ const AnimatedCounter = ({ value, suffix = "", prefix = "" }: { value: string; s
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    const matches = value.match(/^(\d+)(.*?)$/)
     if (matches && isInView) {
       const numericValue = parseInt(matches[1])
       const increment = Math.ceil(numericValue / 20)
