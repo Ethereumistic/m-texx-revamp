@@ -145,12 +145,12 @@ export function Druzet() {
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId)
     setUserInteracted(true)
-    
+
     // Reset the timer when user manually selects a tab
     if (rotationTimerRef.current) {
       clearInterval(rotationTimerRef.current)
     }
-    
+
     // Start a new timer
     rotationTimerRef.current = setInterval(() => {
       rotateToNextTab()
@@ -178,9 +178,7 @@ export function Druzet() {
 
   return (
     <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background" />
+
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div

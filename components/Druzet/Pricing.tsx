@@ -70,9 +70,7 @@ export function Pricing() {
 
   return (
     <section className="relative py-8 px-4 md:px-6 lg:px-8 overflow-hidden">
-      {/* Background Elements - matching the Druzet component */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background" />
+
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div
@@ -117,11 +115,10 @@ export function Pricing() {
                 <button
                   key={index}
                   onClick={() => setActiveImageIndex(index)}
-                  className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                    activeImageIndex === index
+                  className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${activeImageIndex === index
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border/50 hover:border-primary/50"
-                  }`}
+                    }`}
                 >
                   <Image
                     src={image || "/placeholder.svg"}

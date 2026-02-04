@@ -7,9 +7,8 @@ import { ArrowRight, RefreshCw, AlertTriangle, Check, X } from "lucide-react"
 
 export function Economy() {
   return (
-    <section className="py-16 px-4 md:px-6 lg:px-8 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]">
-            {/* <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]" /> */}
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background" /> */}
+    <section className="py-16 px-4 md:px-6 lg:px-8 ">
+
 
       <div className="max-w-7xl mx-auto ">
         <motion.div
@@ -38,7 +37,7 @@ export function Economy() {
             <Card className="bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900 h-full">
               <CardHeader className="pb-2 text-center">
                 <div className="mx-auto -mb-8 flex items-center justify-center">
-                <CardTitle className="text-xl font-bold text-red-900 dark:text-red-200">Линейна Икономика</CardTitle>
+                  <CardTitle className="text-xl font-bold text-red-900 dark:text-red-200">Линейна Икономика</CardTitle>
                   <ArrowRight className="ml-4 h-12 w-12 text-red-500 dark:text-red-400" />
                 </div>
               </CardHeader>
@@ -114,9 +113,9 @@ export function Economy() {
             <Card className="bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900 h-full">
               <CardHeader className="pb-2 text-center">
                 <div className="mx-auto -mb-8 flex items-center justify-center">
-                <CardTitle className="text-xl font-bold text-green-900 dark:text-green-200">
-                  Кръгова Икономика
-                </CardTitle>
+                  <CardTitle className="text-xl font-bold text-green-900 dark:text-green-200">
+                    Кръгова Икономика
+                  </CardTitle>
                   <RefreshCw className="ml-4 h-12 w-12 text-green-500 dark:text-green-400" />
                 </div>
               </CardHeader>

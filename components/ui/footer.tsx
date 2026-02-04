@@ -23,6 +23,7 @@ import {
   Cookie,
   ExternalLink
 } from "lucide-react"
+import { SOCIAL_LINKS } from "@/lib/constants"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -77,13 +78,15 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4">
               {[
-                { label: "Facebook", icon: <Facebook className="w-4 h-4" /> },
-                { label: "Instagram", icon: <Instagram className="w-4 h-4" /> },
-                { label: "LinkedIn", icon: <Linkedin className="w-4 h-4" /> },
+                { label: "Facebook", icon: <Facebook className="w-4 h-4" />, href: SOCIAL_LINKS.facebook },
+                { label: "Instagram", icon: <Instagram className="w-4 h-4" />, href: SOCIAL_LINKS.instagram },
+                { label: "LinkedIn", icon: <Linkedin className="w-4 h-4" />, href: SOCIAL_LINKS.linkedin },
               ].map((social) => (
                 <Link
                   key={social.label}
-                  href="#"
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-2.5 rounded-full border border-border hover:border-primary hover:text-primary transition-all bg-background/50 backdrop-blur-sm shadow-sm"
                   aria-label={social.label}
                 >
@@ -190,7 +193,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-xs text-muted-foreground/80 tracking-wide text-center md:text-left">
-            © {currentYear} <span className="text-foreground font-bold">M-TEXX</span>. Всички права запазени.
+            © {currentYear} <span className="text-foreground font-bold">M-Texx Textile Recycling</span>. Всички права запазени.
           </div>
 
           <div className="flex flex-col items-center gap-2">

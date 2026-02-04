@@ -20,12 +20,12 @@ import {
 } from "lucide-react"
 
 const navItems = [
-  { title: "Новини", href: "/news", icon: Newspaper },
-  { title: "Рециклиране", href: "/recycling", icon: Recycle },
   { title: "Локации", href: "/locations", icon: MapPin },
-  { title: "Контакти", href: "/contacts", icon: Phone },
+  { title: "Рециклиране", href: "/recycling", icon: Recycle },
+  { title: "Новини", href: "/news", icon: Newspaper },
   { title: "Партньори", href: "/partners", icon: Users },
   { title: "Друзет", href: "/druzet", icon: Zap },
+  { title: "Контакти", href: "/contacts", icon: Phone },
 ]
 
 export function Navbar() {

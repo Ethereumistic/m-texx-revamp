@@ -5,7 +5,8 @@ import category from './schemas/category'
 import post from './schemas/post'
 import author from './schemas/author'
 import cityLocations from './schemas/location'
+import partners from './schemas/partners'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, author, category, blockContent, cityLocations],
+  types: [post, author, category, blockContent, cityLocations, partners],
 }

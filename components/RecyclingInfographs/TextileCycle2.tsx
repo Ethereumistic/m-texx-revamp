@@ -78,7 +78,7 @@ const benefits = [
     color: "var(--yellow)",
     stats: [
       { value: "80+", label: "общински партньори", icon: "🏢" },
-    //   { value: "15+", label: "държави партньори", icon: "🌍" },
+      //   { value: "15+", label: "държави партньори", icon: "🌍" },
     ],
     chartData: [
       { name: "2019", value: 100 },
@@ -228,7 +228,7 @@ const AnimatedCounter = ({ value, suffix = "", prefix = "" }: { value: string; s
     if (matches && isInView) {
       const numericValue = parseInt(matches[1])
       const increment = Math.ceil(numericValue / 20)
-      
+
       const timer = setInterval(() => {
         setCount((prev) => {
           const next = prev + increment
@@ -246,7 +246,7 @@ const AnimatedCounter = ({ value, suffix = "", prefix = "" }: { value: string; s
   }
 
   const trailingText = matches[2] || "" // Captures any non-numeric part (like +, %, литра, etc.)
-  
+
   return (
     <span ref={ref} className="tabular-nums">
       {prefix}
@@ -415,9 +415,7 @@ export function TextileCycle2() {
 
   return (
     <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background" />
+
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div
