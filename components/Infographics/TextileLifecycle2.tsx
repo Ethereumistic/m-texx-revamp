@@ -229,7 +229,7 @@ export function TextileLifecycle2() {
                       <span className="text-2xl">{stat.icon}</span>
                       <span className="text-sm font-medium">{stat.label}</span>
                     </div>
-                    <span className={cn("text-lg font-bold", `text-${stat.color}-500`)}>{stat.value}</span>
+                    <span className={cn("text-lg font-bold text-white")}>{stat.value}</span>
                   </motion.div>
                 ))}
             </motion.div>
@@ -284,7 +284,7 @@ export function TextileLifecycle2() {
                                     {stat.label}
                                   </span>
                                 </div>
-                                <span className={cn("font-bold", `text-${stat.color}-500`)}>
+                                <span className={cn("font-bold text-white")}>
                                   {stat.value}
                                 </span>
                               </div>

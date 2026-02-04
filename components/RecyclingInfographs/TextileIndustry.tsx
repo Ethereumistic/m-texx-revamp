@@ -151,6 +151,112 @@ const PercentagePieChart = ({ percentage, color }: { percentage: number; color: 
   )
 }
 
+const TabContent = ({ tab, activeColor }: { tab: TabData; activeColor: string }) => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      {/* Left Column - Pie Chart */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 }}
+        className="flex flex-col items-center justify-center space-y-6"
+      >
+        <PercentagePieChart percentage={tab.content.leftChart.percentage} color={activeColor} />
+        <p className="text-center text-muted-foreground max-w-xs z-50">
+          {tab.content.leftChart.text}
+        </p>
+      </motion.div>
+
+      {/* Middle Column - Image */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="flex items-center justify-center"
+      >
+        <div className="relative w-full aspect-square max-w-[300px] rounded-2xl overflow-hidden shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 dark:to-black/40" />
+          <Image
+            src={tab.image || "/placeholder.svg"}
+            alt={tab.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+      </motion.div>
+
+      {/* Right Column - Variable Content */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.4 }}
+        className="flex flex-col items-center justify-center"
+      >
+        {tab.content.rightContent.type === "chart" &&
+          (tab.content.rightContent.data ? (
+            // Bar Chart
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  layout="vertical"
+                  data={tab.content.rightContent.data}
+                  margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
+                >
+                  <XAxis type="number" hide />
+                  <YAxis
+                    dataKey="name"
+                    type="category"
+                    width={150}
+                    tick={{
+                      fill: "var(--muted-foreground)",
+                      fontSize: 12,
+                    }}
+                  />
+                  <Bar dataKey="value" fill={activeColor} radius={[4, 4, 4, 4]}>
+                    <LabelList
+                      dataKey="value"
+                      position="right"
+                      formatter={(value: number) => `${value}%`}
+                      style={{
+                        fill: "var(--muted-foreground)",
+                        fontSize: 12,
+                        fontWeight: 500,
+                      }}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            // Pie Chart
+            <div className="space-y-6 z-50">
+              <PercentagePieChart
+                percentage={tab.content.rightContent.percentage || 0}
+                color={activeColor}
+              />
+              <p className="text-center text-muted-foreground max-w-xs">
+                {tab.content.rightContent.text}
+              </p>
+            </div>
+          ))}
+
+        {tab.content.rightContent.type === "text" && (
+          <div className="text-center space-y-4 z-50">
+            <motion.h3
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-5xl font-bold bg-clip-text "
+            >
+              {tab.content.rightContent.title}
+            </motion.h3>
+            <p className="text-muted-foreground max-w-xs">{tab.content.rightContent.text}</p>
+          </div>
+        )}
+      </motion.div>
+    </div>
+  )
+}
 export function TextileIndustry() {
   const [activeTab, setActiveTab] = useState<string>("water-usage")
   const activeTabData = tabsData.find((tab) => tab.id === activeTab)
@@ -173,7 +279,7 @@ export function TextileIndustry() {
   const activeColor = getTabColor(activeTab)
 
   return (
-    <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-8 px-4 md:px-6 lg:px-8 overflow-hidden">
 
 
       <div className="relative max-w-7xl mx-auto">
@@ -190,187 +296,157 @@ export function TextileIndustry() {
           <p className="text-xl text-muted-foreground font-medium">ВЛИЯНИЕТО ВЪРХУ ОКОЛНАТА СРЕДА</p>
         </motion.div>
 
-        {/* Tab Buttons */}
-        <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-16">
-          {tabsData.map((tab, index) => (
-            <motion.div
-              key={tab.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center group"
-            >
-              <motion.button
-                onClick={() => setActiveTab(tab.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={cn(
-                  "relative rounded-full transition-all duration-300",
-                  "flex items-center justify-center",
-                  "w-24 h-24 md:w-32 md:h-32",
-                  "bg-gradient-to-b from-background to-background/80",
-                  "border border-border/50",
-                  "overflow-hidden backdrop-blur-sm",
-                  activeTab === tab.id && "border-transparent shadow-lg",
-                )}
-                style={{
-                  boxShadow: activeTab === tab.id ? `0 0 30px ${getTabColor(tab.id)}40` : "",
-                }}
+        {/* Desktop View: Separate Buttons and Content */}
+        <div className="hidden md:block">
+          {/* Tab Buttons */}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-16">
+            {tabsData.map((tab, index) => (
+              <motion.div
+                key={tab.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col items-center group"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 dark:to-white/10" />
-                <Image
-                  src={tab.image || "/placeholder.svg"}
-                  alt={tab.title}
-                  fill
-                  className={cn("object-cover transition-transform duration-300", "group-hover:scale-110", "")}
-                />
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 border-4 rounded-full"
-                    style={{ borderColor: getTabColor(tab.id) }}
-                    transition={{ duration: 0.3 }}
+                <motion.button
+                  onClick={() => setActiveTab(tab.id)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "relative rounded-full transition-all duration-300",
+                    "flex items-center justify-center",
+                    "w-24 h-24 md:w-32 md:h-32",
+                    "bg-gradient-to-b from-background to-background/80",
+                    "border border-border/50",
+                    "overflow-hidden backdrop-blur-sm",
+                    activeTab === tab.id && "border-transparent shadow-lg",
+                  )}
+                  style={{
+                    boxShadow: activeTab === tab.id ? `0 0 30px ${getTabColor(tab.id)}40` : "",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 dark:to-white/10" />
+                  <Image
+                    src={tab.image || "/placeholder.svg"}
+                    alt={tab.title}
+                    fill
+                    className={cn("object-cover transition-transform duration-300", "group-hover:scale-110", "")}
                   />
-                )}
-              </motion.button>
-              <motion.span
-                className={cn(
-                  "mt-4 text-sm font-medium text-center transition-colors duration-300",
-                  "relative py-2 px-4 rounded-full",
-                  activeTab === tab.id ? "text-white" : "text-muted-foreground hover:text-foreground",
-                )}
-                style={{
-                  background: activeTab === tab.id ? getTabColor(tab.id) : "transparent",
-                }}
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="activeTabDesktop"
+                      className="absolute inset-0 border-4 rounded-full"
+                      style={{ borderColor: getTabColor(tab.id) }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.button>
+                <motion.span
+                  className={cn(
+                    "mt-4 text-sm font-bold text-center transition-colors duration-300",
+                    "relative py-2 px-4 rounded-full",
+                    activeTab === tab.id ? "text-white" : "text-muted-foreground hover:text-foreground",
+                  )}
+                  style={{
+                    background: activeTab === tab.id ? getTabColor(tab.id) : "transparent",
+                  }}
+                >
+                  {tab.title}
+                </motion.span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Content Area */}
+          <AnimatePresence mode="wait">
+            {activeTabData && (
+              <motion.div
+                key={activeTabData.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
               >
-                {tab.title}
-              </motion.span>
-            </motion.div>
-          ))}
+                <div className="absolute inset-0 rounded-3xl bg-background border" />
+                <Card className="overflow-hidden border-0 bg-transparent">
+                  <CardContent className="p-8">
+                    <TabContent tab={activeTabData} activeColor={activeColor} />
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Content Area */}
-        <AnimatePresence mode="wait">
-          {activeTabData && (
-            <motion.div
-              key={activeTabData.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="relative"
+        {/* Mobile View: Accordion-style layout */}
+        <div className="flex flex-col space-y-2 md:hidden">
+          {tabsData.map((tab, index) => (
+            <div
+              key={tab.id}
+              className={cn(
+                "rounded-2xl overflow-hidden border transition-all duration-300",
+                activeTab === tab.id ? "border-transparent ring-2" : "border-border/50 bg-background/50"
+              )}
+              style={{
+                "--tw-ring-color": activeTab === tab.id ? getTabColor(tab.id) : "transparent",
+                boxShadow: activeTab === tab.id ? `0 0 20px ${getTabColor(tab.id)}20` : "",
+              } as React.CSSProperties}
             >
-              <div className="absolute inset-0 rounded-3xl bg-background border" />
-              <Card className="overflow-hidden border-0 bg-transparent">
-                <CardContent className="p-8">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                    {/* Left Column - Pie Chart */}
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="flex flex-col items-center justify-center space-y-6"
-                    >
-                      <PercentagePieChart percentage={activeTabData.content.leftChart.percentage} color={activeColor} />
-                      <p className="text-center text-muted-foreground max-w-xs z-50">
-                        {activeTabData.content.leftChart.text}
-                      </p>
-                    </motion.div>
+              <button
+                onClick={() => setActiveTab(activeTab === tab.id ? "" : tab.id)}
+                className="w-full p-4 flex items-center gap-4 text-left"
+              >
+                <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2" style={{ borderColor: getTabColor(tab.id) }}>
+                  <Image
+                    src={tab.image || "/placeholder.svg"}
+                    alt={tab.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1">
+                  <span
+                    className={cn(
+                      "text-sm font-bold px-3 py-1 rounded-full inline-block mb-1",
+                      activeTab === tab.id ? "text-white" : "text-muted-foreground"
+                    )}
+                    style={{
+                      backgroundColor: activeTab === tab.id ? getTabColor(tab.id) : `${getTabColor(tab.id)}10`
+                    }}
+                  >
+                    {tab.title}
+                  </span>
+                </div>
+                <motion.div
+                  animate={{ rotate: activeTab === tab.id ? 180 : 0 }}
+                  className="text-muted-foreground"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </motion.div>
+              </button>
 
-                    {/* Middle Column - Image */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="flex items-center justify-center"
-                    >
-                      <div className="relative w-full aspect-square max-w-[300px] rounded-2xl overflow-hidden shadow-lg">
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 dark:to-black/40" />
-                        <Image
-                          src={activeTabData.image || "/placeholder.svg"}
-                          alt={activeTabData.title}
-                          fill
-                          className="object-cover"
-                        />
+              <AnimatePresence>
+                {activeTab === tab.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="p-4 pt-0 bg-background">
+                      <div className="pt-6 border-t border-border/50">
+                        <TabContent tab={tab} activeColor={getTabColor(tab.id)} />
                       </div>
-                    </motion.div>
-
-                    {/* Right Column - Variable Content */}
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="flex flex-col items-center justify-center"
-                    >
-                      {activeTabData.content.rightContent.type === "chart" &&
-                        (activeTabData.content.rightContent.data ? (
-                          // Bar Chart
-                          <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                              <BarChart
-                                layout="vertical"
-                                data={activeTabData.content.rightContent.data}
-                                margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
-                              >
-                                <XAxis type="number" hide />
-                                <YAxis
-                                  dataKey="name"
-                                  type="category"
-                                  width={150}
-                                  tick={{
-                                    fill: "var(--muted-foreground)",
-                                    fontSize: 12,
-                                  }}
-                                />
-                                <Bar dataKey="value" fill={activeColor} radius={[4, 4, 4, 4]}>
-                                  <LabelList
-                                    dataKey="value"
-                                    position="right"
-                                    formatter={(value: number) => `${value}%`}
-                                    style={{
-                                      fill: "var(--muted-foreground)",
-                                      fontSize: 12,
-                                      fontWeight: 500,
-                                    }}
-                                  />
-                                </Bar>
-                              </BarChart>
-                            </ResponsiveContainer>
-                          </div>
-                        ) : (
-                          // Pie Chart
-                          <div className="space-y-6 z-50">
-                            <PercentagePieChart
-                              percentage={activeTabData.content.rightContent.percentage || 0}
-                              color={activeColor}
-                            />
-                            <p className="text-center text-muted-foreground max-w-xs">
-                              {activeTabData.content.rightContent.text}
-                            </p>
-                          </div>
-                        ))}
-
-                      {activeTabData.content.rightContent.type === "text" && (
-                        <div className="text-center space-y-4 z-50">
-                          <motion.h3
-                            initial={{ scale: 0.5, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                            className="text-5xl font-bold bg-clip-text "
-
-                          >
-                            {activeTabData.content.rightContent.title}
-                          </motion.h3>
-                          <p className="text-muted-foreground max-w-xs">{activeTabData.content.rightContent.text}</p>
-                        </div>
-                      )}
-                    </motion.div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

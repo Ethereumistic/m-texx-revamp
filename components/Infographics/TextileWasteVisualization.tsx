@@ -126,14 +126,11 @@ export function TextileWasteVisualization() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance">
             Запази околната среда чрез <span className="bg-gradient-to-r from-green-300 to-green-600 bg-clip-text text-transparent">преизползване, рециклиране и намаляване</span>
           </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto py-2 md:py-8">
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
               През 2022 г. България генерира над <span className="font-bold text-foreground">100 000 тона</span> текстилни и кожени отпадъци.
             </p>
-            <div className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-semibold text-lg md:text-xl border border-red-200 dark:border-red-800">
-              <AlertTriangle className="mr-2 h-6 w-6 shrink-0" />
-              <span>Само 2% от този отпадък се рециклира</span>
-            </div>
+
           </div>
         </motion.div>
 
@@ -222,7 +219,7 @@ export function TextileWasteVisualization() {
                 </div>
 
                 {/* Second row: Key facts */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 -mt-8 sm:mt-10">
                   <Card className="bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900">
                     <CardContent className="p-6 flex flex-col items-center text-center">
                       <AlertTriangle className="h-10 w-10 text-red-500 dark:text-red-400 mb-3" />
@@ -275,82 +272,85 @@ export function TextileWasteVisualization() {
             </p>
           </div>
 
-          {/* Mobile view - Icons only */}
-          <div className="flex md:hidden justify-center gap-8 mb-8">
-            {approachPillars.map((pillar) => (
-              <motion.button
-                key={pillar.id}
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setActivePillar(pillar.id)}
-                className={`p-4 rounded-full ${activePillar === pillar.id ? 'ring-2 ring-offset-2' : ''}`}
-                style={{
-                  backgroundColor: `${pillar.color}20`,
-                  ...(activePillar === pillar.id && { '--tw-ring-color': pillar.color })
-                }}
-              >
-                <div style={{ color: pillar.color }}>{pillar.icon}</div>
-              </motion.button>
-            ))}
-          </div>
+          <Card>
+            <CardContent className="">
+              {/* Mobile view - Icons only */}
+              <div className="flex md:hidden justify-center gap-8 mb-8">
+                {approachPillars.map((pillar) => (
+                  <motion.button
+                    key={pillar.id}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => setActivePillar(pillar.id)}
+                    className={`p-4 rounded-full ${activePillar === pillar.id ? 'ring-2 ring-offset-2' : ''}`}
+                    style={{
+                      backgroundColor: `${pillar.color}20`,
+                      ...(activePillar === pillar.id && { '--tw-ring-color': pillar.color } as React.CSSProperties)
+                    }}
+                  >
+                    <div style={{ color: pillar.color }}>{pillar.icon}</div>
+                  </motion.button>
+                ))}
+              </div>
 
-          {/* Desktop view - Full cards */}
-          <div className="hidden md:grid md:grid-cols-3 gap-6 mb-8">
-            {approachPillars.map((pillar) => (
-              <motion.div key={pillar.id} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
-                <Card
-                  className={`h-full cursor-pointer border-2 ${activePillar === pillar.id ? "" : "border-transparent"}`}
-                  onClick={() => setActivePillar(pillar.id)}
-                  style={{
-                    borderColor: activePillar === pillar.id ? pillar.color : 'transparent'
-                  }}
+              {/* Desktop view - Full cards */}
+              <div className="hidden md:grid md:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
+                {approachPillars.map((pillar) => (
+                  <motion.div key={pillar.id} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
+                    <Card
+                      className={`h-full cursor-pointer border-2 ${activePillar === pillar.id ? "" : "border-transparent"}`}
+                      onClick={() => setActivePillar(pillar.id)}
+                      style={{
+                        borderColor: activePillar === pillar.id ? pillar.color : 'transparent'
+                      }}
+                    >
+                      <CardContent className=" flex flex-col items-center text-center">
+                        <div className="mb-2 rounded-full" style={{ backgroundColor: `${pillar.color}20` }}>
+                          <div style={{ color: pillar.color }}>{pillar.icon}</div>
+                        </div>
+                        <h4 className="text-xl font-semibold mb-2">{pillar.title}</h4>
+                        {/* <p className="text-gray-600 text-sm mb-4">{pillar.description}</p> */}
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePillar}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <CardContent className="pt-6 flex flex-col items-center text-center">
-                    <div className="mb-4 p-3 rounded-full" style={{ backgroundColor: `${pillar.color}20` }}>
-                      <div style={{ color: pillar.color }}>{pillar.icon}</div>
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span style={{ color: selectedPillar?.color }}>{selectedPillar?.icon}</span>
+                        <h4 className="text-2xl font-bold">{selectedPillar?.title}</h4>
+                      </div>
+                      <p className="text-muted-foreground">{selectedPillar?.description}</p>
                     </div>
-                    <h4 className="text-xl font-semibold mb-2">{pillar.title}</h4>
-                    <p className="text-gray-600 text-sm mb-4">{pillar.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePillar}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <span style={{ color: selectedPillar?.color }}>{selectedPillar?.icon}</span>
-                    <span>{selectedPillar?.title}</span>
-                  </CardTitle>
-                  <CardDescription>{selectedPillar?.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {selectedPillar?.stats.map((stat, index) => (
-                      <Card key={index} className="bg-muted/50">
-                        <CardContent className="ml-4 p-2 md:p-4 flex items-center gap-3">
-                          <div className="text-2xl">{stat.icon}</div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">{stat.name}</p>
-                            <p className="text-lg font-bold">{stat.value}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {selectedPillar?.stats.map((stat, index) => (
+                        <Card key={index} className="bg-muted/50">
+                          <CardContent className="p-4 flex items-center gap-3">
+                            <div className="text-2xl">{stat.icon}</div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">{stat.name}</p>
+                              <p className="text-lg font-bold">{stat.value}</p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Education Focus - REDESIGNED */}
@@ -361,103 +361,123 @@ export function TextileWasteVisualization() {
           viewport={{ once: true }}
         >
           <Card>
-            <CardHeader className="text-center">
-              <CardTitle>Образование и ангажиране</CardTitle>
-              <CardDescription>
-                Насърчаваме преизползването, рециклирането и намаляването на използването, чрез образование, с акцент
-                върху ангажирането на младежите в училищата
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs value={activeEducationTab} onValueChange={setActiveEducationTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-3 mb-8">
-                  <TabsTrigger value="schools" className="flex items-center gap-2">
-                    <School className="h-4 w-4" />
-                    <span>Училища</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="homes" className="flex items-center gap-2">
-                    <Home className="h-4 w-4" />
-                    <span>Домакинства</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="organizations" className="flex items-center gap-2">
-                    <Building className="h-4 w-4" />
-                    <span>Организации</span>
-                  </TabsTrigger>
-                </TabsList>
 
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeEducationTab}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
+            <CardContent className="pt-8">
+              {/* Mobile view - Icons only */}
+              <div className="flex md:hidden justify-center gap-8 mb-8">
+                {Object.entries(educationTabsData).map(([key, tab]) => (
+                  <motion.button
+                    key={key}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => setActiveEducationTab(key)}
+                    className={`p-4 rounded-full ${activeEducationTab === key ? 'ring-2 ring-offset-2' : ''}`}
+                    style={{
+                      backgroundColor: `${tab.color}20`,
+                      ...(activeEducationTab === key && { '--tw-ring-color': tab.color } as React.CSSProperties)
+                    }}
                   >
-                    <div className="flex flex-col md:flex-row gap-8">
-                      <div className="w-full md:w-2/3">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div
-                            className="p-2 rounded-full"
-                            style={{
-                              backgroundColor: `${selectedEducationTab.color}20`,
-                              color: selectedEducationTab.color,
-                            }}
-                          >
-                            {selectedEducationTab.icon}
-                          </div>
-                          <div>
-                            <h4 className="text-xl font-bold">{selectedEducationTab.title}</h4>
-                            <p className="text-gray-600">{selectedEducationTab.description}</p>
-                          </div>
-                        </div>
+                    <div style={{ color: tab.color }}>{tab.icon}</div>
+                  </motion.button>
+                ))}
+              </div>
 
-                        <div className="prose prose-blue dark:prose-invert max-w-none">
-                          <p className="text-lg leading-relaxed text-muted-foreground">
-                            {selectedEducationTab.content}
-                          </p>
+              {/* Desktop view - Full cards */}
+              <div className="hidden md:grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+                {Object.entries(educationTabsData).map(([key, tab]) => (
+                  <motion.div key={key} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
+                    <Card
+                      className={`h-full cursor-pointer border-2 ${activeEducationTab === key ? "" : "border-transparent"}`}
+                      onClick={() => setActiveEducationTab(key)}
+                      style={{
+                        borderColor: activeEducationTab === key ? tab.color : 'transparent'
+                      }}
+                    >
+                      <CardContent className=" flex flex-col items-center text-center">
+                        <div className="mb-2 rounded-full" style={{ backgroundColor: `${tab.color}20` }}>
+                          <div className="" style={{ color: tab.color }}>{tab.icon}</div>
+                        </div>
+                        <h4 className="text-xl font-semibold mb-2">{tab.title}</h4>
+                        {/* <p className="text-gray-600 text-sm mb-4">{tab.description}</p> */}
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeEducationTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="w-full lg:w-2/3">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div
+                          className="p-2 rounded-full"
+                          style={{
+                            backgroundColor: `${selectedEducationTab.color}20`,
+                            color: selectedEducationTab.color,
+                          }}
+                        >
+                          {selectedEducationTab.icon}
+                        </div>
+                        <div>
+                          <h4 className="text-2xl font-bold">{selectedEducationTab.title}</h4>
+                          <p className="text-gray-600">{selectedEducationTab.description}</p>
                         </div>
                       </div>
 
-                      <div className="w-full md:w-1/3">
-                        <Card className="bg-muted/20 h-full">
-                          <CardHeader>
-                            <CardTitle className="text-lg">Ключови статистики</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-4">
-                              {selectedEducationTab.stats.map((stat, index) => (
-                                <li key={index} className="flex items-start gap-3">
-                                  <div
-                                    className="p-1 rounded-full mt-1"
-                                    style={{
-                                      backgroundColor: `${selectedEducationTab.color}20`,
-                                      color: selectedEducationTab.color,
-                                    }}
-                                  >
-                                    {index === 0 ? (
-                                      <AlertTriangle className="h-4 w-4" />
-                                    ) : index === 1 ? (
-                                      <Info className="h-4 w-4" />
-                                    ) : (
-                                      <BookOpen className="h-4 w-4" />
-                                    )}
-                                  </div>
-                                  <div>
-                                    <span className="font-bold text-lg" style={{ color: selectedEducationTab.color }}>
-                                      {stat.value}
-                                    </span>{" "}
-                                    <span className="text-gray-700">{stat.label}</span>
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
-                          </CardContent>
-                        </Card>
+                      <div className="prose prose-blue dark:prose-invert max-w-none">
+                        <p className="text-lg leading-relaxed text-muted-foreground">
+                          {selectedEducationTab.content}
+                        </p>
                       </div>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-              </Tabs>
+
+                    <div className="w-full lg:w-1/3">
+                      <Card className="bg-muted/20 h-full">
+                        <CardHeader>
+                          <CardTitle className="text-lg">Ключови статистики</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ul className="space-y-4">
+                            {selectedEducationTab.stats.map((stat, index) => (
+                              <li key={index} className="flex items-start gap-3">
+                                <div
+                                  className="p-1 rounded-full mt-1"
+                                  style={{
+                                    backgroundColor: `${selectedEducationTab.color}20`,
+                                    color: selectedEducationTab.color,
+                                  }}
+                                >
+                                  {index === 0 ? (
+                                    <AlertTriangle className="h-4 w-4" />
+                                  ) : index === 1 ? (
+                                    <Info className="h-4 w-4" />
+                                  ) : (
+                                    <BookOpen className="h-4 w-4" />
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <span className="font-bold text-lg block" >
+                                    {stat.value}
+                                  </span>{" "}
+                                  <span className="text-muted-foreground text-sm">{stat.label}</span>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </CardContent>
           </Card>
         </motion.div>

@@ -410,12 +410,63 @@ const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
   return null
 }
 
+const BenefitDetails = ({ selectedBenefit }: { selectedBenefit: (typeof benefits)[0] }) => {
+  return (
+    <Card className="h-full overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
+      <div className="h-2 w-full" style={{ backgroundColor: selectedBenefit.color }}></div>
+
+      <CardContent className="p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div
+            className="p-2 rounded-full"
+            style={{
+              backgroundColor: `${selectedBenefit.color}20`,
+              color: selectedBenefit.color,
+            }}
+          >
+            {selectedBenefit.id === "resources" ? (
+              <BarChart3 className="w-5 h-5" />
+            ) : selectedBenefit.id === "pollution" ? (
+              <PieChart className="w-5 h-5" />
+            ) : (
+              <LineChart className="w-5 h-5" />
+            )}
+          </div>
+          <h4 className="text-xl font-semibold">{selectedBenefit.title}</h4>
+        </div>
+
+        <BenefitChart benefit={selectedBenefit} />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+          {selectedBenefit.stats.map((stat, index) => (
+            <div
+              key={index}
+              className="p-4 rounded-xl bg-muted/50"
+              style={{ borderLeft: `3px solid ${selectedBenefit.color}` }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="text-2xl">{stat.icon}</div>
+                <div>
+                  <p className="text-2xl font-bold">
+                    <AnimatedCounter value={stat.value} />
+                  </p>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
 export function TextileCycle2() {
   const [activeBenefit, setActiveBenefit] = useState<string>("resources")
   const selectedBenefit = benefits.find((benefit) => benefit.id === activeBenefit)
 
   return (
-    <section className="relative py-24 px-4 md:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-8 px-4 md:px-6 lg:px-8 overflow-hidden">
 
 
       <div className="relative max-w-7xl mx-auto">
@@ -441,7 +492,7 @@ export function TextileCycle2() {
 
         {/* Cycle Visualization */}
         <div className="mb-24">
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-5xl mx-auto">
             {/* Circular Connection Line */}
             <div className="hidden md:block absolute inset-0 z-0">
               <svg className="w-full h-full" viewBox="0 0 800 250" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -471,8 +522,8 @@ export function TextileCycle2() {
                   className="relative"
                 >
                   <Card className="h-full bg-card/80 backdrop-blur-sm border border-border/50">
-                    <CardContent className="pt-6 p-6 flex flex-col items-center text-center">
-                      <div className="mb-4 p-3 rounded-full bg-primary/10 text-primary">{step.icon}</div>
+                    <CardContent className="px-8 md:px-2 flex flex-col items-center text-center">
+                      <div className="mb-2 p-2 rounded-full bg-primary/10 text-primary">{step.icon}</div>
                       <h4 className="text-lg font-semibold mb-2">{step.title}</h4>
                       <p className="text-sm text-muted-foreground">{step.description}</p>
                     </CardContent>
@@ -490,9 +541,12 @@ export function TextileCycle2() {
         </div>
 
         {/* Benefits Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-16">
-          {/* Left Column - Benefits List */}
-          <div>
+        <div className="mb-16">
+          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center lg:text-left">Ползи от затворения цикъл</h3>
+
+          {/* Desktop View: 2-Column Grid */}
+          <div className="hidden lg:grid grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left Column - Benefits List */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -500,8 +554,6 @@ export function TextileCycle2() {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <h3 className="text-2xl md:text-3xl font-bold">Ползи от затворения цикъл</h3>
-
               <div className="space-y-4">
                 {benefits.map((benefit) => (
                   <motion.div
@@ -514,9 +566,10 @@ export function TextileCycle2() {
                       activeBenefit === benefit.id ? "ring-2 shadow-lg" : "hover:bg-card/80",
                     )}
                     style={{
+                      "--tw-ring-color": activeBenefit === benefit.id ? benefit.color : "transparent",
                       boxShadow: activeBenefit === benefit.id ? `0 0 20px ${benefit.color}30` : "",
                       borderColor: activeBenefit === benefit.id ? benefit.color : "",
-                    }}
+                    } as React.CSSProperties}
                     onClick={() => setActiveBenefit(benefit.id)}
                   >
                     <div className="flex items-start gap-4">
@@ -530,7 +583,7 @@ export function TextileCycle2() {
                         {benefit.icon}
                       </div>
 
-                      <div>
+                      <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <h4 className="text-lg font-semibold">{benefit.title}</h4>
                           {activeBenefit === benefit.id && <Check className="w-4 h-4 text-primary" />}
@@ -555,69 +608,99 @@ export function TextileCycle2() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Right Column - Visualization */}
+            <div className="lg:sticky lg:top-24">
+              <AnimatePresence mode="wait">
+                {selectedBenefit && (
+                  <motion.div
+                    key={selectedBenefit.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4 }}
+                    className="h-full"
+                  >
+                    <BenefitDetails selectedBenefit={selectedBenefit} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
-          {/* Right Column - Active Benefit Visualization */}
-          <div className="lg:sticky lg:top-24">
-            <AnimatePresence mode="wait">
-              {selectedBenefit && (
-                <motion.div
-                  key={selectedBenefit.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
-                  className="h-full"
+          {/* Mobile View: Accordion-style layout */}
+          <div className="flex flex-col space-y-4 lg:hidden">
+            {benefits.map((benefit) => (
+              <div
+                key={benefit.id}
+                className={cn(
+                  "rounded-2xl overflow-hidden border transition-all duration-300",
+                  activeBenefit === benefit.id ? "border-transparent ring-2" : "border-border/50 bg-background/50"
+                )}
+                style={{
+                  "--tw-ring-color": activeBenefit === benefit.id ? benefit.color : "transparent",
+                  boxShadow: activeBenefit === benefit.id ? `0 0 20px ${benefit.color}20` : "",
+                } as React.CSSProperties}
+              >
+                <button
+                  onClick={() => setActiveBenefit(activeBenefit === benefit.id ? "" : benefit.id)}
+                  className="w-full p-4 flex items-start gap-4 text-left"
                 >
-                  <Card className="h-full overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
-                    <div className="h-2 w-full" style={{ backgroundColor: selectedBenefit.color }}></div>
+                  <div
+                    className="p-2 rounded-full shrink-0"
+                    style={{
+                      backgroundColor: `${benefit.color}20`,
+                      color: benefit.color,
+                    }}
+                  >
+                    {benefit.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold">{benefit.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                      {benefit.description}
+                    </p>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: activeBenefit === benefit.id ? 180 : 0 }}
+                    className="text-muted-foreground mt-1"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </motion.div>
+                </button>
 
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-6">
-                        <div
-                          className="p-2 rounded-full"
-                          style={{
-                            backgroundColor: `${selectedBenefit.color}20`,
-                            color: selectedBenefit.color,
-                          }}
-                        >
-                          {selectedBenefit.id === "resources" ? (
-                            <BarChart3 className="w-5 h-5" />
-                          ) : selectedBenefit.id === "pollution" ? (
-                            <PieChart className="w-5 h-5" />
-                          ) : (
-                            <LineChart className="w-5 h-5" />
-                          )}
+                <AnimatePresence>
+                  {activeBenefit === benefit.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="p-4 pt-0">
+                        <div className="pt-4 border-t border-border/50">
+                          <BenefitDetails selectedBenefit={benefit} />
                         </div>
-                        <h4 className="text-xl font-semibold">{selectedBenefit.title}</h4>
                       </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
 
-                      <BenefitChart benefit={selectedBenefit} />
-
-                      <div className="grid grid-cols-2 gap-4 mt-6">
-                        {selectedBenefit.stats.map((stat, index) => (
-                          <div
-                            key={index}
-                            className="p-4 rounded-xl bg-muted/50"
-                            style={{ borderLeft: `3px solid ${selectedBenefit.color}` }}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="text-2xl">{stat.icon}</div>
-                              <div>
-                                <p className="text-2xl font-bold">
-                                  <AnimatedCounter value={stat.value} />
-                                </p>
-                                <p className="text-sm text-muted-foreground">{stat.label}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="p-4 rounded-xl border border-border/50 bg-muted/30 backdrop-blur-sm mt-4">
+              <div className="flex items-start gap-3">
+                <div className="p-1 rounded-full bg-primary/10 text-primary shrink-0 mt-1">
+                  <Info className="w-4 h-4" />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Събраните материали за рециклиране на M-Texx се продават на вносители на текстил втора употреба в
+                  различни развиващи се страни.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

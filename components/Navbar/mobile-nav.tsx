@@ -3,18 +3,12 @@
 import * as React from "react"
 import Link from "next/link"
 import {
-  Menu,
-  Newspaper,
-  Recycle,
-  MapPin,
   Phone,
   Mail,
-  Users,
-  Zap
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/Theme/theme-toggle"
 
 interface MobileNavProps {
@@ -25,6 +19,26 @@ interface MobileNavProps {
   }[]
 }
 
+// Animated hamburger icon that transforms to X
+function AnimatedHamburger({ isOpen }: { isOpen: boolean }) {
+  return (
+    <div className="relative h-5 w-5 flex flex-col justify-center items-center">
+      <span
+        className={`absolute h-0.5 w-5 bg-current rounded-full transition-all duration-300 ease-in-out ${isOpen ? "rotate-45" : "-translate-y-1.5"
+          }`}
+      />
+      <span
+        className={`absolute h-0.5 w-5 bg-current rounded-full transition-all duration-300 ease-in-out ${isOpen ? "opacity-0 scale-0" : "opacity-100"
+          }`}
+      />
+      <span
+        className={`absolute h-0.5 w-5 bg-current rounded-full transition-all duration-300 ease-in-out ${isOpen ? "-rotate-45" : "translate-y-1.5"
+          }`}
+      />
+    </div>
+  )
+}
+
 export function MobileNav({ navItems }: MobileNavProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -33,9 +47,10 @@ export function MobileNav({ navItems }: MobileNavProps) {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="right"
-          className="w-[19.8rem] sm:w-[400px] [&_button]:top-[22px] [&_button]:right-[16px]"
+          className="w-[16rem] mt-16"
+          hideCloseButton
         >
-          <div className="flex flex-col gap-4 py-16 px-2">
+          <div className="flex flex-col gap-4 py-0 px-2">
             <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <Link
@@ -51,11 +66,11 @@ export function MobileNav({ navItems }: MobileNavProps) {
                 </Link>
               ))}
             </nav>
-            <div className="flex items-center mt-6 px-4 gap-2 border-t pt-6">
+            <div className="flex items-center mx-auto gap-2 border-t pt-6">
               <ThemeToggle />
               <span className="text-sm text-muted-foreground font-medium ml-2">Смени тема</span>
             </div>
-            <div className="flex flex-col gap-4 px-4 mt-4 text-muted-foreground">
+            <div className="flex flex-col gap-4 mx-auto px-4 mt-4 text-muted-foreground">
               <a
                 href="tel:+359876600139"
                 className="flex items-center gap-3 text-sm font-medium hover:text-primary transition-colors"
@@ -73,14 +88,18 @@ export function MobileNav({ navItems }: MobileNavProps) {
             </div>
           </div>
         </SheetContent>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </SheetTrigger>
       </Sheet>
+
+      {/* Animated hamburger button - positioned outside Sheet to stay visible */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setOpen(!open)}
+        className="z-[5002]"
+      >
+        <AnimatedHamburger isOpen={open} />
+        <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+      </Button>
     </div>
   )
 }
-

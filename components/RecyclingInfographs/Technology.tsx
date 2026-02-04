@@ -70,6 +70,118 @@ const technologies = [
   },
 ]
 
+const TechDetails = ({ tech, hoveredStep, setHoveredStep }: {
+  tech: (typeof technologies)[0],
+  hoveredStep: number | null,
+  setHoveredStep: (index: number | null) => void
+}) => {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+      {/* Left Column - Image (visible only on desktop) */}
+      <div className="relative hidden lg:block">
+        <Image
+          src={tech.image || "/placeholder.svg"}
+          alt={`${tech.title} рециклиране`}
+          fill
+          className="object-cover rounded-lg"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div
+            className="inline-flex items-center px-3 py-1 rounded-full text-white text-sm font-medium mb-2"
+            style={{ backgroundColor: tech.color }}
+          >
+            {tech.icon}
+            <span className="ml-2">{tech.title} рециклиране</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column - Content */}
+      <div className="p-6 lg:p-8">
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-2xl font-bold mb-4" style={{ color: tech.color }}>
+              {tech.title} рециклиране на текстил
+            </h3>
+
+            {/* Mobile image (visible only on mobile) */}
+            <div className="relative w-32 h-32 float-right ml-4 -translate-y-2 lg:hidden">
+              <Image
+                src={tech.image || "/placeholder.svg"}
+                alt={`${tech.title} рециклиране`}
+                fill
+                className="object-cover rounded-xl shadow-md "
+              />
+              <div
+                className="absolute inset-0 rounded-xl"
+                style={{
+                  background: `linear-gradient(135deg, transparent 70%, ${tech.color}80)`,
+                }}
+              />
+              <div
+                className="absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: tech.color }}
+              >
+                {tech.icon}
+              </div>
+            </div>
+
+            <p className="text-sm text-muted-foreground">{tech.description}</p>
+          </div>
+
+          <div className="bg-muted/30 p-4 rounded-lg border border-border/50">
+            <div className="flex items-start gap-3">
+              <Lightbulb className="w-5 h-5 text-amber-500 shrink-0 mt-1" />
+              <p className="text-xs italic">{tech.funFact}</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold mb-3">Процес</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {tech.steps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  onMouseEnter={() => setHoveredStep(index)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                >
+                  <div
+                    className={cn(
+                      "p-3 rounded-lg border border-border/50 transition-all duration-300 h-20 flex items-center",
+                      hoveredStep === index ? "bg-muted/50" : "bg-muted/20",
+                    )}
+                  >
+                    <div className="flex items-center gap-2 w-full">
+                      <div
+                        className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0"
+                        style={{
+                          backgroundColor: tech.color,
+                          color: "white",
+                        }}
+                      >
+                        {index + 1}
+                      </div>
+                      <span className="text-sm text-center w-full">{step}</span>
+                    </div>
+                  </div>
+
+                  {index < tech.steps.length - 1 && (
+                    <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2 z-10">
+                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Technology() {
   const [activeTab, setActiveTab] = useState("mechanical")
   const [hoveredStep, setHoveredStep] = useState<number | null>(null)
@@ -100,148 +212,114 @@ export function Technology() {
           </p>
         </motion.div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="flex justify-center mb-4">
-            <TabsList className="grid grid-cols-3 w-full max-w-2xl h-14">
-              {technologies.map((tech) => (
-                <TabsTrigger
-                  key={tech.id}
-                  value={tech.id}
-                  className="flex items-center gap-2 py-3 px-4 data-[state=active]:text-white transition-all duration-300"
-                  style={{
-                    backgroundColor: activeTab === tech.id ? tech.color : "transparent",
-                    color: activeTab === tech.id ? "white" : "var(--foreground)",
-                  }}
-                >
-                  <span className="hidden sm:inline-flex">{tech.icon}</span>
-                  <span>{tech.title}</span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
+        {/* Desktop View: Tabs */}
+        <div className="hidden lg:block">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="flex justify-center mb-8">
+              <TabsList className="grid grid-cols-3 w-full max-w-2xl h-14">
+                {technologies.map((tech) => (
+                  <TabsTrigger
+                    key={tech.id}
+                    value={tech.id}
+                    className="flex items-center gap-2 py-3 px-4 data-[state=active]:text-white transition-all duration-300"
+                    style={{
+                      backgroundColor: activeTab === tech.id ? tech.color : "transparent",
+                      color: activeTab === tech.id ? "white" : "var(--foreground)",
+                    } as React.CSSProperties}
+                  >
+                    <span className="hidden sm:inline-flex">{tech.icon}</span>
+                    <span>{tech.title}</span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
 
+            {technologies.map((tech) => (
+              <TabsContent key={tech.id} value={tech.id} className="outline-none">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={tech.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Card className="overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
+                      <CardContent className="p-0 pl-6">
+                        <TechDetails
+                          tech={tech}
+                          hoveredStep={hoveredStep}
+                          setHoveredStep={setHoveredStep}
+                        />
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </AnimatePresence>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
+
+        {/* Mobile View: Accordion */}
+        <div className="flex flex-col space-y-4 lg:hidden">
           {technologies.map((tech) => (
-            <TabsContent key={tech.id} value={tech.id} className="outline-none">
-              <AnimatePresence mode="wait">
+            <div
+              key={tech.id}
+              className={cn(
+                "rounded-2xl overflow-hidden border transition-all duration-300",
+                activeTab === tech.id ? "border-transparent ring-2" : "border-border/50 bg-background/50"
+              )}
+              style={{
+                "--tw-ring-color": activeTab === tech.id ? tech.color : "transparent",
+                boxShadow: activeTab === tech.id ? `0 0 20px ${tech.color}20` : "",
+              } as React.CSSProperties}
+            >
+              <button
+                onClick={() => setActiveTab(activeTab === tech.id ? "" : tech.id)}
+                className="w-full p-6 flex items-center justify-between text-left"
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className="p-3 rounded-xl"
+                    style={{ backgroundColor: `${tech.color}20`, color: tech.color }}
+                  >
+                    {tech.icon}
+                  </div>
+                  <h3 className="text-xl font-bold">{tech.title}</h3>
+                </div>
                 <motion.div
-                  key={tech.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ rotate: activeTab === tech.id ? 180 : 0 }}
+                  className="text-muted-foreground"
                 >
-                  <Card className="overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
-                    <CardContent className="p-0 pl-6">
-                      <div className="grid grid-cols-1 lg:grid-cols-2">
-                        {/* Left Column - Image (visible only on desktop) */}
-                        <div className="relative hidden lg:block">
-                          <Image
-                            src={tech.image || "/placeholder.svg"}
-                            alt={`${tech.title} рециклиране`}
-                            fill
-                            className="object-cover rounded-lg"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
-                          <div className="absolute bottom-0 left-0 right-0 p-6">
-                            <div
-                              className="inline-flex items-center px-3 py-1 rounded-full text-white text-sm font-medium mb-2"
-                              style={{ backgroundColor: tech.color }}
-                            >
-                              {tech.icon}
-                              <span className="ml-2">{tech.title} рециклиране</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Right Column - Content */}
-                        <div className="p-6 lg:p-8">
-                          <div className="space-y-6">
-                            <div>
-                              <h3 className="text-2xl font-bold mb-4" style={{ color: tech.color }}>
-                                {tech.title} рециклиране на текстил
-                              </h3>
-
-                              {/* Mobile image (visible only on mobile) */}
-                              <div className="relative w-32 h-32 float-right ml-4 -translate-y-8 lg:hidden">
-                                <Image
-                                  src={tech.image || "/placeholder.svg"}
-                                  alt={`${tech.title} рециклиране`}
-                                  fill
-                                  className="object-cover rounded-xl shadow-md "
-                                />
-                                <div
-                                  className="absolute inset-0 rounded-xl"
-                                  style={{
-                                    background: `linear-gradient(135deg, transparent 70%, ${tech.color}80)`,
-                                  }}
-                                />
-                                <div
-                                  className="absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center"
-                                  style={{ backgroundColor: tech.color }}
-                                >
-                                  {tech.icon}
-                                </div>
-                              </div>
-
-                              <p className="text-sm text-muted-foreground">{tech.description}</p>
-                            </div>
-
-                            <div className="bg-muted/30 p-4 rounded-lg border border-border/50">
-                              <div className="flex items-start gap-3">
-                                <Lightbulb className="w-5 h-5 text-amber-500 shrink-0 mt-1" />
-                                <p className="text-xs italic">{tech.funFact}</p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <h4 className="text-lg font-semibold mb-3">Процес</h4>
-                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {tech.steps.map((step, index) => (
-                                  <motion.div
-                                    key={index}
-                                    className="relative"
-                                    onMouseEnter={() => setHoveredStep(index)}
-                                    onMouseLeave={() => setHoveredStep(null)}
-                                  >
-                                    <div
-                                      className={cn(
-                                        "p-3 rounded-lg border border-border/50 transition-all duration-300 h-20 flex items-center",
-                                        hoveredStep === index ? "bg-muted/50" : "bg-muted/20",
-                                      )}
-                                    >
-                                      <div className="flex items-center gap-2 w-full">
-                                        <div
-                                          className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0"
-                                          style={{
-                                            backgroundColor: tech.color,
-                                            color: "white",
-                                          }}
-                                        >
-                                          {index + 1}
-                                        </div>
-                                        <span className="text-sm text-center w-full">{step}</span>
-                                      </div>
-                                    </div>
-
-                                    {index < tech.steps.length - 1 && (
-                                      <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2 z-10">
-                                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                                      </div>
-                                    )}
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
                 </motion.div>
+              </button>
+
+              <AnimatePresence>
+                {activeTab === tech.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="p-6 pt-0 border-t border-border/50 bg-card/30">
+                      <div className="pt-6">
+                        <TechDetails
+                          tech={tech}
+                          hoveredStep={hoveredStep}
+                          setHoveredStep={setHoveredStep}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </AnimatePresence>
-            </TabsContent>
+            </div>
           ))}
-        </Tabs>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
