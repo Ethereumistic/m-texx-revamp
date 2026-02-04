@@ -192,56 +192,56 @@ export function Druzet() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{activeTabData?.title}</h1>
         </motion.div>
 
-        {/* Content Card with Integrated Tabs */}
-        <AnimatePresence mode="wait">
-          {activeTabData && (
-            <motion.div
-              key={activeTabData.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
-                <CardHeader className="p-4 pb-0">
-                  <TooltipProvider>
-                    <div className="flex justify-center gap-6   px-2 -mx-2 scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent">
-                      {applicationsData.map((app, index) => (
-                        <Tooltip key={app.id}>
-                          <TooltipTrigger asChild>
-                            <motion.button
-                              onClick={() => handleTabClick(app.id)}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: index * 0.05 }}
-                              className={cn(
-                                "relative rounded-full transition-all duration-300",
-                                "flex items-center justify-center",
-                                "p-4",
-                                "bg-gradient-to-b from-background/80 to-background/40",
-                                "border border-border/50 hover:border-primary/50",
-                                "group cursor-pointer",
-                                "w-16 h-16",
-                                activeTab === app.id && "border-primary shadow-lg ring-1 ring-primary/20"
-                              )}
-                              style={{
-                                boxShadow: activeTab === app.id ? `0 0 20px ${app.color}20` : "",
-                                color: activeTab === app.id ? app.color : "currentColor",
-                              }}
-                            >
-                              {app.icon}
-                              <span className="sr-only">{app.title}</span>
-                            </motion.button>
-                          </TooltipTrigger>
-                          <TooltipContent side="bottom" className="font-medium">
-                            {app.title}
-                          </TooltipContent>
-                        </Tooltip>
-                      ))}
-                    </div>
-                  </TooltipProvider>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8">
+        <Card className="overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
+          <CardHeader className="p-4 pb-0">
+            <TooltipProvider>
+              <div className="flex justify-center gap-6 px-2 -mx-2 scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent">
+                {applicationsData.map((app, index) => (
+                  <Tooltip key={app.id}>
+                    <TooltipTrigger asChild>
+                      <motion.button
+                        onClick={() => handleTabClick(app.id)}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        className={cn(
+                          "relative rounded-full transition-all duration-300",
+                          "flex items-center justify-center",
+                          "p-4",
+                          "bg-gradient-to-b from-background/80 to-background/40",
+                          "border border-border/50 hover:border-primary/50",
+                          "group cursor-pointer",
+                          "w-16 h-16",
+                          activeTab === app.id && "border-primary shadow-lg ring-1 ring-primary/20"
+                        )}
+                        style={{
+                          boxShadow: activeTab === app.id ? `0 0 20px ${app.color}20` : "",
+                          color: activeTab === app.id ? app.color : "currentColor",
+                        }}
+                      >
+                        {app.icon}
+                        <span className="sr-only">{app.title}</span>
+                      </motion.button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="font-medium">
+                      {app.title}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
+          </CardHeader>
+
+          <CardContent className="p-6 md:p-8">
+            <AnimatePresence mode="wait">
+              {activeTabData && (
+                <motion.div
+                  key={activeTabData.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                >
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* Left side - Main Image */}
                     <motion.div
@@ -305,7 +305,7 @@ export function Druzet() {
                                     className="object-cover"
                                   />
                                 </div>
-                                <div className="text-sm font-medium" style={{ color: activeTabData.color }}>
+                                <div className="text-sm font-bold text-foreground">
                                   {activeTabData.content.leftContent.title}
                                 </div>
                               </div>
@@ -318,7 +318,7 @@ export function Druzet() {
                                     className="object-cover"
                                   />
                                 </div>
-                                <div className="text-sm font-medium" style={{ color: activeTabData.color }}>
+                                <div className="text-sm font-bold text-foreground">
                                   {activeTabData.content.rightContent.title}
                                 </div>
                               </div>
@@ -328,11 +328,11 @@ export function Druzet() {
                       </div>
                     </motion.div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )

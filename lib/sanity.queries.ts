@@ -18,7 +18,7 @@ export interface Post extends SanityDocument {
 
 export async function getPosts(page: number = 1, limit: number = 9) {
   const offset = (page - 1) * limit
-  
+
   // Query for posts count
   const countQuery = `count(*[_type == "post" && defined(slug.current)])`
   const total = await client.fetch(countQuery)
@@ -39,7 +39,7 @@ export async function getPosts(page: number = 1, limit: number = 9) {
     }
   `
   const posts = await client.fetch<Post[]>(query, { offset, limit: offset + limit })
-  
+
   // Also fetch all categories for filtering
   const categoriesQuery = `
     *[_type == "category"] {
@@ -48,7 +48,7 @@ export async function getPosts(page: number = 1, limit: number = 9) {
     }
   `
   const allCategories = await client.fetch<{ title: string; slug: string }[]>(categoriesQuery)
-  
+
   return { posts, total, allCategories }
 }
 
@@ -62,16 +62,20 @@ export async function getPost(slug: string) {
       publishedAt,
       "categories": categories[]->{ title, "slug": slug.current },
       "author": author->{ name, image, bio },
-      body
+      body,
+      focusKeyword,
+      seoTitle,
+      faqs,
+      "excerpt": excerpt
     }
   `
-  const post = await client.fetch<Post>(query, { slug })
+  const post = await client.fetch<Post & { focusKeyword?: string, seoTitle?: string, faqs?: any[], excerpt?: string }>(query, { slug })
   return post
 }
 
 export async function getPostsByCategory(category: string, page: number = 1, limit: number = 9) {
   const offset = (page - 1) * limit
-  
+
   // Query for posts count by category
   const countQuery = `count(*[_type == "post" && defined(slug.current) && $category in categories[]->slug.current])`
   const total = await client.fetch(countQuery, { category })
@@ -89,7 +93,7 @@ export async function getPostsByCategory(category: string, page: number = 1, lim
     }
   `
   const posts = await client.fetch<Post[]>(query, { category, offset, limit: offset + limit })
-  
+
   // Also fetch all categories for filtering
   const categoriesQuery = `
     *[_type == "category"] {

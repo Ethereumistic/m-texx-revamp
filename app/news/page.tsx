@@ -6,8 +6,8 @@ import { CategoryFilter } from "@/components/Blog/category-filter"
 import type { Post } from "@/lib/sanity.queries"
 
 export const metadata: Metadata = {
-  title: "Новини | M-Texx Textile Recycling",
-  description: "Бъдете информирани за най-новите разработки в рециклирането на текстил",
+  title: "Новини и Полезна Информация за Рециклирането",
+  description: "Бъдете в крак с последните новини от света на устойчивата мода, екологията и дейността на М-Текс в България.",
 }
 
 export const revalidate = 3600 // Revalidate every hour
@@ -27,12 +27,12 @@ export default async function NewsPage({ searchParams }: PageProps) {
 
   // Fetch posts and categories from Sanity
   const { posts, total, allCategories } = await getPosts(1, 100)
-  
+
   // Use the direct categories from Sanity instead of extracting from posts
   const uniqueCategories = allCategories || []
-  
+
   // Get filtered posts based on category
-  const { posts: filteredPosts, total: filteredTotal } = categorySlug 
+  const { posts: filteredPosts, total: filteredTotal } = categorySlug
     ? await getPostsByCategory(categorySlug, currentPage)
     : await getPosts(currentPage)
 

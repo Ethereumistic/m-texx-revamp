@@ -1,6 +1,12 @@
 import { Presentation } from "@/components/Presentations/presentation-card"
 import { PageHeader } from "@/components/Presentations/page-header"
 import { VideoPlayer } from "@/components/Presentations/video-player"
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Презентации и Образователни Материали",
+  description: "Разгледайте нашите презентации и видеа за училища и бизнес, разкриващи процеса на текстилно рециклиране и ползите от него.",
+}
 
 export default function PresentationsPage() {
   const presentations = [

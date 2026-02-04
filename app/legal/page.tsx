@@ -2,9 +2,8 @@ import { Suspense } from "react"
 import { LegalContent } from "@/components/ui/legal-content"
 
 export const metadata = {
-  title: "Правна информация | M-Texx Textile Recycling",
-  description:
-    "Правна информация, политика за поверителност, бисквитки и условия за ползване на M-Texx Textile Recycling.",
+  title: "Правна Информация и Общи Условия",
+  description: "Правни документи, политика за поверителност и условия за ползване на уебсайта и услугите на М-Текс.",
 }
 
 export default function LegalPage() {

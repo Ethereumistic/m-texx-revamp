@@ -7,11 +7,11 @@ import { Economy } from "@/components/RecyclingInfographs/Economy"
 import { Technology } from "@/components/RecyclingInfographs/Technology"
 
 export const metadata: Metadata = {
-  title: "Рециклиране на Текстил | M-Texx",
-  description: "Научете повече за влиянието на текстилната индустрия върху околната среда и как можете да допринесете за устойчивото ѝ развитие чрез рециклиране.",
+  title: "Технологии за Рециклиране на Текстил",
+  description: "Научете как М-Текс използва иновативни технологии за пълно оползотворяване на текстилни отпадъци и опазване на околната среда.",
   openGraph: {
-    title: "Рециклиране на Текстил | M-Texx",
-    description: "Научете повече за влиянието на текстилната индустрия върху околната среда и как можете да допринесете за устойчивото ѝ развитие чрез рециклиране.",
+    title: "Технологии за Рециклиране на Текстил | M-Texx",
+    description: "Процесът на рециклиране: от събирането на старите дрехи до производството на нови суровини.",
     type: "website",
   },
 }
@@ -27,7 +27,7 @@ export default function RecyclingPage() {
         <Economy />
         <Technology />
         {/* <TextileIndustry2 /> */}
-        
+
       </div>
     </main>
   )

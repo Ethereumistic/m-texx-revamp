@@ -1,8 +1,8 @@
 import { Contact } from "@/components/ui/contact"
 
 export const metadata = {
-  title: "Контакт | M-Texx Textile Recycling",
-  description: "Свържете се с нас за запитвания, проблеми с контейнери, покупка на друзет или партньорство.",
+  title: "Контакти и Събиране на Текстил",
+  description: "Свържете се с М-Текс за безплатно събиране на големи количества текстил, въпроси относно контейнерите или бизнес партньорство.",
 }
 
 export default function ContactsPage() {

@@ -1,8 +1,8 @@
 import Partners from "@/components/Partners/partners"
 
 export const metadata = {
-    title: "Партньори | M-Texx Textile Recycling",
-    description: "Общините, с които си партнираме за устойчиво рециклиране на текстил.",
+    title: "Партньорства с Общини и Организации",
+    description: "М-Текс работи съвместно с българските общини за по-чиста природа чрез изграждане на устойчиви системи за рециклиране на текстил.",
 }
 
 export default function PartnersPage() {
