@@ -195,7 +195,7 @@ export function Druzet() {
         <Card className="overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
           <CardHeader className="p-4 pb-0">
             <TooltipProvider>
-              <div className="flex justify-center gap-6 px-2 -mx-2 scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent">
+              <div className="flex justify-center gap-1 md:gap-4 px-2 -mx-2 scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent">
                 {applicationsData.map((app, index) => (
                   <Tooltip key={app.id}>
                     <TooltipTrigger asChild>
@@ -207,7 +207,7 @@ export function Druzet() {
                         className={cn(
                           "relative rounded-full transition-all duration-300",
                           "flex items-center justify-center",
-                          "p-4",
+                          "p-5",
                           "bg-gradient-to-b from-background/80 to-background/40",
                           "border border-border/50 hover:border-primary/50",
                           "group cursor-pointer",

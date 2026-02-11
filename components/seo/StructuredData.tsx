@@ -18,7 +18,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
             url: 'https://m-texx.com',
             logo: 'https://m-texx.com/logo.png', // Fallback, user can update
             image: 'https://m-texx.com/og-image.jpg',
-            description: 'Водеща фирма за текстилно рециклиране в България с над 500 контейнера',
+            description: 'Водеща фирма за текстилно рециклиране в България с над 450 контейнера',
             address: {
                 '@type': 'PostalAddress',
                 streetAddress: data?.address || 'ул.Риmer 123', // Placeholder from docs

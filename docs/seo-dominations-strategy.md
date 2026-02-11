@@ -93,11 +93,11 @@ export const metadata: Metadata = {
     alternateLocale: ['en_US'],
     url: baseUrl,
     siteName: 'М-Текс Текстилно Рециклиране',
-    title: 'М-Текс Текстилно Рециклиране | #1 в България',
-    description: 'Професионално оползотворяване на текстилни отпадъци. Над 500 контейнера в цяла България. ISO 9001 & 14001 сертифицирани.',
+    title: 'М-Текс Текстилно Рециклиране | Устойчиво решение за текстилни отпадъци',
+    description: 'Професионално оползотворяване на текстилни отпадъци. Над 450 контейнера в цяла България. ISO 9001 & 14001 сертифицирани.',
     images: [
       {
-        url: '/og-image-bg.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'М-Текс Текстилно Рециклиране - Контейнери за Текстил'
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'М-Текс Текстилно Рециклиране | #1 в България',
+    title: 'М-Текс Текстилно Рециклиране | Устойчиво решение за текстилни отпадъци',
     description: 'Професионално оползотворяване на текстилни отпадъци в цяла България',
     images: ['/twitter-image-bg.jpg']
   },
@@ -158,8 +158,8 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
       alternateName: ['M-Texx Textile Recycling', 'M-Texx', 'М-Текс'],
       url: 'https://m-texx.com',
       logo: 'https://m-texx.com/logo.png',
-      image: 'https://m-texx.com/og-image-bg.jpg',
-      description: 'Водеща фирма за текстилно рециклиране в България с над 500 контейнера',
+      image: 'https://m-texx.com/og-image.jpg',
+      description: 'Водеща фирма за текстилно рециклиране в България с над 450 контейнера',
       address: {
         '@type': 'PostalAddress',
         streetAddress: data?.address || 'ул.Ример 123',
@@ -602,7 +602,7 @@ export async function generateMetadata({
       title: `${count} Текстилни Контейнери в ${city} | М-Текс`,
       description: `Интерактивна карта с всички ${count} контейнера за текстил в ${city}`,
       images: [{
-        url: `/og-images/${params.city}.jpg`,
+        url: `/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: `Карта на текстилни контейнери М-Текс в ${city}`
