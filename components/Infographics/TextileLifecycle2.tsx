@@ -34,7 +34,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Factory className="h-6 w-6" />,
     description:
       "Производството на текстил е един от най-ресурсоемките процеси в света. То изисква огромни количества вода, енергия и химикали, оставяйки сериозен отпечатък върху екосистемите.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/production.png",
+    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell3.png",
     statistics: [
       { label: "Изразходвана вода", value: "2,700 л", icon: "💧", color: "blue" },
       { label: "Глобални CO2 емисии", value: "10%", icon: "🌫️", color: "gray" },
@@ -60,7 +60,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <User className="h-6 w-6" />,
     description:
       "Масово дрехите се изхвърлят след по-малко от 10 обличания. Удължаването на живота на една дреха само с 9 месеца може да намали нейния отпечатък с над 30%.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/wear.jpg",
+    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/m-texx-assets/images/woman-clothes.jpg",
     statistics: [
       { label: "Средно носения", value: "7-10 пъти", icon: "⌚", color: "orange" },
       { label: "Микропластмаса", value: "500к т.", icon: "🌊", color: "blue" },
@@ -112,7 +112,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Trash2 className="h-6 w-6" />,
     description:
       "Текстилът в общия боклук гние с десетилетия, отделяйки метан и замърсявайки почвата. Това е невъзвратима загуба на енергия, ресурси и пари.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/trash.jpg",
+    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/m-texx-assets/images/textile-dump.jpg",
     isRed: true,
     statistics: [
       { label: "Разграждане", value: "200г+", icon: "⏳", color: "red" },
