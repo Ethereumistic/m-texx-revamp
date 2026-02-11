@@ -5,12 +5,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { TextGenerateEffect } from "../ui/text-generate-effect";
+import { Recycle } from "lucide-react";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [displayText, setDisplayText] = useState("")
-  const fullText = "Рециклиране на текстил: Втори живот за стари дрехи, първа стъпка към..."
-  const words = `Рециклиране на текстил: Втори живот за стари дрехи, първа стъпка към...
+  const fullText = "Трансформираме текстилен отпадък във възможности за по-чисто бъдеще"
+  const words = `Трансформираме текстилен отпадък във възможности за по-чисто бъдеще
   `;
   useEffect(() => {
     // Video autoplay
@@ -50,7 +51,7 @@ export function Hero() {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Content */}
       <div className="relative -mt-8 lg:-mt-16 z-10 flex flex-col h-full px-4 md:px-6 lg:px-8 justify-center items-center mx-auto max-w-7xl">
@@ -71,10 +72,13 @@ export function Hero() {
             size="lg"
             variant='outline'
             className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 hover:text-white 
-                    transition-colors border-white text-white backdrop-blur"
+                    transition-colors border-white text-white backdrop-blur gap-2"
             asChild
           >
-            <Link href="/recycling">Рециклиране на Текстил</Link>
+            <Link href="/recycling">
+              <Recycle className="w-5 h-5" />
+              Рециклиране на текстил
+            </Link>
           </Button>
         </motion.div>
 
@@ -86,17 +90,20 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 1 }}
         >
           <Button
-            size="lg"
+            size="sm"
             variant='outline'
-            className="text-lg px-8 py-6 bg-white/10  hover:bg-white/20 hover:text-white
-                      transition-colors text-white border border-white backdrop-blur"
+            className="text-base  py-4 bg-white/10  hover:bg-white/20 hover:text-white
+                      transition-colors text-white border border-white backdrop-blur gap-2"
             asChild
           >
-            <Link href="/recycling">Рециклиране на Текстил</Link>
+            <Link href="/recycling">
+              <Recycle className="w-5 h-5" />
+              Рециклиране на текстил
+            </Link>
           </Button>
         </motion.div>
       </div>
-      <div className="absolute bottom-0 dark:bg-gradient-to-b dark:from-background/0 dark:to-background bg-gradient-to-b from-white/0 to-white w-full h-16 z-50"></div>
+      <div className="absolute bottom-0 dark:bg-gradient-to-b dark:from-background/0 dark:to-background bg-gradient-to-b from-transparent to-transparent w-full h-16 z-50"></div>
     </div>
   )
 }

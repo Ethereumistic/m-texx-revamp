@@ -123,7 +123,7 @@ export function TextileWasteVisualization() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance">
             Запази околната среда чрез <span className="bg-gradient-to-r from-green-300 to-green-600 bg-clip-text text-transparent">преизползване, рециклиране и намаляване</span>
           </h2>
           <div className="max-w-4xl mx-auto py-2 md:py-8">
