@@ -70,7 +70,7 @@ type PartnershipForm = BaseForm & {
 
 type FormValues = InquiryForm | ContainerForm | PurchaseForm | PartnershipForm
 
-const WEB3FORMS_API_KEY = "0cef4aab-a071-4dc9-a3aa-62274afadcf8"
+const WEB3FORMS_API_KEY = "01f6a210-afd3-47c2-990e-fda2938d5eac"
 
 const getFormTypeName = (formType: string) => {
   switch (formType) {
