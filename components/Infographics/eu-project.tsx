@@ -34,7 +34,7 @@ export function EUProjectInfo() {
                         <div>
                             <h3 className="text-lg font-bold text-primary mb-2">Наименование на проекта:</h3>
                             <p className="text-foreground text-base sm:text-lg font-semibold">
-                                BG16RFPR001-2.004-1373 „Енергийна ефективност и използване на енергия от възобновяеми източници в предприятията"
+                                BG16RFPR001-2.004-1373 &bdquo;Енергийна ефективност и използване на енергия от възобновяеми източници в предприятията&ldquo;
                             </p>
                         </div>
 
@@ -42,7 +42,7 @@ export function EUProjectInfo() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="border-l-4 border-primary pl-4">
                                 <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">Програма</p>
-                                <p className="text-foreground font-semibold">„Конкурентоспособност и иновации в предприятията" 2021-2027</p>
+                                <p className="text-foreground font-semibold">&bdquo;Конкурентоспособност и иновации в предприятията&ldquo; 2021-2027</p>
                             </div>
                             <div className="border-l-4 border-primary pl-4">
                                 <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">Дата на стартиране</p>
@@ -54,12 +54,12 @@ export function EUProjectInfo() {
                         <div>
                             <h3 className="text-lg font-bold text-primary mb-3">Кратко описание на проекта:</h3>
                             <p className="text-foreground leading-relaxed mb-4">
-                                От 05.05.2026 г. „М_ТЕКС РЕЦИКЛИРАНЕ НА ТЕКСТИЛ" ООД стартира изпълнението на
-                                договор за безвъзмездна финансова помощ BG16RFPR001-2.004-1373 по процедура „Енергийна
-                                ефективност и използване на енергия от възобновяеми източници в предприятията".
+                                От 05.05.2026 г. &bdquo;М_ТЕКС РЕЦИКЛИРАНЕ НА ТЕКСТИЛ&ldquo; ООД стартира изпълнението на
+                                договор за безвъзмездна финансова помощ BG16RFPR001-2.004-1373 по процедура &bdquo;Енергийна
+                                ефективност и използване на енергия от възобновяеми източници в предприятията&ldquo;.
                             </p>
                             <p className="text-foreground leading-relaxed">
-                                Проектът се финансира по Програма „Конкурентоспособност и иновации в предприятията" 2021-2027 и
+                                Проектът се финансира по Програма &bdquo;Конкурентоспособност и иновации в предприятията&ldquo; 2021-2027 и
                                 срокът за неговото изпълнение е 12 месеца.
                             </p>
                         </div>
