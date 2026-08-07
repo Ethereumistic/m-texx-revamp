@@ -315,20 +315,17 @@ export default async function CityPage({
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
                             <div className="lg:col-span-7 space-y-6">
                                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 text-white font-black text-[10px] tracking-[0.2em] uppercase">
-                                    Партньорство в {cityName}
+                                    Рециклиране в {cityName}
                                 </div>
                                 <h2 className="text-4xl md:text-6xl font-black leading-[1] uppercase tracking-tighter">
-                                    Имате голямо <br className="hidden sm:block" /> количество <br /> текстил <br />
-                                    <span className="text-green-500 italic">в {cityName}?</span>
+                                    Научете повече за <br className="hidden sm:block" /> рециклирането <br /> на текстил <br />
+                                    <span className="text-green-500 italic">в {cityName}</span>
                                 </h2>
                                 <p className="text-lg opacity-90 max-w-xl leading-relaxed font-medium">
-                                    Предлагаме безплатни решения за фирми, хотели и частни лица при големи обеми над 50 кг. Свържете се с нашия екип за индивидуално събиране директно от вашия адрес.
+                                    Разберете как, къде и кога да предавате използваните си текстилни изделия в нашите контейнерни точки в {cityName}. Запознайте се с процеса и правилата за прием на дрехи и платове.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                                     <Button size="lg" variant="secondary" className="rounded-full px-10 text-primary font-black uppercase text-sm tracking-widest shadow-2xl hover:scale-105 transition-transform" asChild>
-                                        <Link href="/contacts">Поискай събиране</Link>
-                                    </Button>
-                                    <Button size="lg" variant="outline" className="rounded-full px-10 border-white/40 bg-white/5 hover:bg-white/20 text-white font-bold uppercase text-xs" asChild>
                                         <Link href="/recycling">Научете повече</Link>
                                     </Button>
                                 </div>
