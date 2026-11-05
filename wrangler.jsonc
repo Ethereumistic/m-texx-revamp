@@ -8,5 +8,14 @@
     "directory": "./out",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
-  }
+  },
+  // Routes rather than custom domains: the zone's proxied DNS records for these
+  // hostnames still name the old Netlify origin, which a custom domain can't replace.
+  // The route takes all their traffic, so that origin is never contacted.
+  "routes": [
+    { "pattern": "m-texx.com/*", "zone_name": "m-texx.com" },
+    { "pattern": "www.m-texx.com/*", "zone_name": "m-texx.com" }
+  ],
+  // Setting routes would otherwise turn this address off.
+  "workers_dev": true
 }

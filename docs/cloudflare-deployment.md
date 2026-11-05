@@ -24,12 +24,13 @@ Set these as **build** variables. They are read at build time and end up in the 
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`
 - `NEXT_PUBLIC_SANITY_DATASET`
 
-Check the site on its `*.workers.dev` URL, then attach `m-texx.com` under
-**Settings → Domains & Routes**. The domain's DNS must be on Cloudflare.
+`m-texx.com` and `www.m-texx.com` reach the Worker through the `routes` in `wrangler.jsonc`.
+Their proxied DNS records still name the old Netlify origin, but routes take all their
+traffic, so it is never contacted. Those records must stay **Proxied**: switching one to
+DNS-only sends that hostname back to Netlify.
 
 `/studio` only works from origins allowed in [Sanity Manage](https://www.sanity.io/manage) →
-**API → CORS origins**, with credentials enabled. Add the `*.workers.dev` URL if you want to
-use Studio there before the domain moves.
+**API → CORS origins**, with credentials enabled. `m-texx.com` is already allowed.
 
 ## Deploying by hand
 
