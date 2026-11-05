@@ -34,7 +34,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Factory className="h-6 w-6" />,
     description:
       "Производството на текстил е един от най-ресурсоемките процеси в света. То изисква огромни количества вода, енергия и химикали, оставяйки сериозен отпечатък върху екосистемите.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell3.png",
+    image: "/img/obshtini/druzet/druzet-sell3.webp",
     statistics: [
       { label: "Изразходвана вода", value: "2,700 л", icon: "💧", color: "blue" },
       { label: "Глобални CO2 емисии", value: "10%", icon: "🌫️", color: "gray" },
@@ -47,7 +47,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Store className="h-6 w-6" />,
     description:
       "Модната индустрия произвежда над 80 милиарда нови облекла всяка година. Бързата мода стимулира свръхпотребление, което води до огромни количества нереализирана и излишна стока.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/selling.jpg",
+    image: "/img/obshtini/carousel/selling.webp",
     statistics: [
       { label: "Свръхпроизводство", value: "30%", icon: "🏷️", color: "red" },
       { label: "Ръст в покупките", value: "+60%", icon: "📈", color: "blue" },
@@ -60,7 +60,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <User className="h-6 w-6" />,
     description:
       "Масово дрехите се изхвърлят след по-малко от 10 обличания. Удължаването на живота на една дреха само с 9 месеца може да намали нейния отпечатък с над 30%.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/m-texx-assets/images/woman-clothes.jpg",
+    image: "/img/m-texx-assets/images/woman-clothes.webp",
     statistics: [
       { label: "Средно носения", value: "7-10 пъти", icon: "⌚", color: "orange" },
       { label: "Микропластмаса", value: "500к т.", icon: "🌊", color: "blue" },
@@ -73,7 +73,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Container className="h-6 w-6" />,
     description:
       "Изхвърлянето в специализирани контейнери е първата стъпка към кръговата икономика. Това гарантира, че ценните ресурси ще бъдат сортирани и върнати в цикъла вместо загробени.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/container-crop.jpg",
+    image: "/img/obshtini/carousel/container-crop.webp",
     statistics: [
       { label: "Потенциал за спасяване", value: "95%", icon: "♻️", color: "green" },
       { label: "Спестени емисии", value: "3.6 кг/кг", icon: "🌍", color: "blue" },
@@ -86,7 +86,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <PackageSearch className="h-6 w-6" />,
     description:
       "Всеки събран килограм преминава през прецизно ръчно сортиране. Това разделя годните за повторна употреба дрехи от тези, които ще бъдат рециклирани в нови продукти.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/sorting.jpg",
+    image: "/img/obshtini/carousel/sorting.webp",
     statistics: [
       { label: "За преизползване", value: "60%", icon: "👕", color: "green" },
       { label: "За рециклиране", value: "35%", icon: "🧵", color: "blue" },
@@ -99,7 +99,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Recycle className="h-6 w-6" />,
     description:
       "Текстилът, който не може да се носи, се преработва в индустриални материали, изолации или нови влакна, спестявайки ресурси и намалявайки енергийните нужди.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/carousel/recycling-crop.png",
+    image: "/img/obshtini/carousel/recycling-crop.webp",
     statistics: [
       { label: "Спестена енергия", value: "80%", icon: "⚡", color: "yellow" },
       { label: "Спестена вода", value: "15,000 л/т", icon: "💧", color: "blue" },
@@ -112,7 +112,7 @@ const lifecycleSteps: LifecycleStep[] = [
     icon: <Trash2 className="h-6 w-6" />,
     description:
       "Текстилът в общия боклук гние с десетилетия, отделяйки метан и замърсявайки почвата. Това е невъзвратима загуба на енергия, ресурси и пари.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/m-texx-assets/images/textile-dump.jpg",
+    image: "/img/m-texx-assets/images/textile-dump.webp",
     isRed: true,
     statistics: [
       { label: "Разграждане", value: "200г+", icon: "⏳", color: "red" },
@@ -255,6 +255,7 @@ export function TextileLifecycle2() {
                             src={step.image || "/placeholder.svg"}
                             alt={step.title}
                             fill
+                            sizes="(max-width: 1024px) 100vw, 640px"
                             className="object-cover rounded-lg"
                           />
                         </div>

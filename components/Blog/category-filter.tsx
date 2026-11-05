@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import {
@@ -18,24 +18,11 @@ interface Category {
 
 interface CategoryFilterProps {
   categories: Category[]
+  currentCategory?: string
   className?: string
 }
 
-export function CategoryFilter({ categories, className }: CategoryFilterProps) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const currentCategory = searchParams.get("category")
-
-  const handleCategoryClick = (categorySlug: string | null) => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (categorySlug) {
-      params.set("category", categorySlug)
-    } else {
-      params.delete("category")
-    }
-    router.push(`/news?${params.toString()}`)
-  }
-
+export function CategoryFilter({ categories, currentCategory, className }: CategoryFilterProps) {
   return (
     <div className={cn("relative px-8", className)}>
       <Carousel
@@ -48,12 +35,12 @@ export function CategoryFilter({ categories, className }: CategoryFilterProps) {
         <CarouselContent>
           <CarouselItem key="all" className="basis-auto">
             <Button
-              variant={currentCategory === null ? "secondary" : "ghost"}
+              variant={currentCategory ? "ghost" : "secondary"}
               size="sm"
-              onClick={() => handleCategoryClick(null)}
               className="shrink-0 whitespace-nowrap"
+              asChild
             >
-              Всички
+              <Link href="/news" prefetch={false}>Всички</Link>
             </Button>
           </CarouselItem>
           {categories.map((category) => (
@@ -61,10 +48,10 @@ export function CategoryFilter({ categories, className }: CategoryFilterProps) {
               <Button
                 variant={currentCategory === category.slug ? "secondary" : "ghost"}
                 size="sm"
-                onClick={() => handleCategoryClick(category.slug)}
                 className="shrink-0 whitespace-nowrap"
+                asChild
               >
-                {category.title}
+                <Link href={`/news/category/${category.slug}`} prefetch={false}>{category.title}</Link>
               </Button>
             </CarouselItem>
           ))}
@@ -74,4 +61,4 @@ export function CategoryFilter({ categories, className }: CategoryFilterProps) {
       </Carousel>
     </div>
   )
-} 
+}

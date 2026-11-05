@@ -4,9 +4,11 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import dynamic from "next/dynamic"
 import { Recycle, RefreshCw, MinusCircle, School, Home, Building, AlertTriangle, Info, BookOpen } from "lucide-react"
+
+const WasteVolumeChart = dynamic(() => import("./WasteCharts").then((m) => m.WasteVolumeChart), { ssr: false })
+const RecyclingRatesChart = dynamic(() => import("./WasteCharts").then((m) => m.RecyclingRatesChart), { ssr: false })
 
 // Data for the approach pillars
 const approachPillars = [
@@ -156,64 +158,14 @@ export function TextileWasteVisualization() {
                   <div className="w-full md:w-1/2">
                     <h4 className="text-lg font-semibold mb-4 text-center">Обем на отпадъците в България (2022)</h4>
                     <div className="h-[300px]">
-                      <ChartContainer
-                        config={{
-                          "Текстилни отпадъци": { color: "#ef4444" },
-                          "Пластмасови отпадъци": { color: "#f59e0b" },
-                          "Хартиени отпадъци": { color: "#3b82f6" },
-                        }}
-                      >
-                        <ResponsiveContainer width="100%" height="100%">
-                          <BarChart data={wasteComparisonData} layout="vertical">
-                            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                            <XAxis type="number" tickFormatter={(value) => `${value / 1000}k тона`} />
-                            <YAxis dataKey="name" type="category" width={140} />
-                            <ChartTooltip
-                              content={
-                                <ChartTooltipContent
-                                  formatter={(value) => <span>{value.toLocaleString()} тона</span>}
-                                />
-                              }
-                            />
-                            <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                              {wasteComparisonData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color} />
-                              ))}
-                            </Bar>
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </ChartContainer>
+                      <WasteVolumeChart wasteComparisonData={wasteComparisonData} />
                     </div>
                   </div>
 
                   <div className="w-full md:w-1/2">
                     <h4 className="text-lg font-semibold mb-4 text-center">Процент на рециклиране по материали</h4>
                     <div className="h-[300px]">
-                      <ChartContainer
-                        config={recyclingRatesData.reduce(
-                          (acc, item) => {
-                            acc[item.name] = { color: item.color }
-                            return acc
-                          },
-                          {} as Record<string, { color: string }>,
-                        )}
-                      >
-                        <ResponsiveContainer width="100%" height="100%">
-                          <BarChart data={recyclingRatesData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis tickFormatter={(value) => `${value}%`} domain={[0, 100]} />
-                            <ChartTooltip
-                              content={<ChartTooltipContent formatter={(value) => <span>{value}% рециклиране</span>} />}
-                            />
-                            <Bar dataKey="rate" radius={[4, 4, 0, 0]}>
-                              {recyclingRatesData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color} />
-                              ))}
-                            </Bar>
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </ChartContainer>
+                      <RecyclingRatesChart recyclingRatesData={recyclingRatesData} />
                     </div>
                   </div>
                 </div>

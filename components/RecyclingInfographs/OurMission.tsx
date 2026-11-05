@@ -5,8 +5,10 @@ import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { Recycle, School, Heart, Target, ArrowRight } from "lucide-react"
-import { ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Area, ComposedChart } from "recharts"
+import dynamic from "next/dynamic"
 import Link from "next/link"
+
+const ProgressChart = dynamic(() => import("./charts").then((m) => m.ProgressChart), { ssr: false })
 
 // Data for the recycling progress chart
 const currentYear = new Date().getFullYear()
@@ -268,121 +270,7 @@ export function OurMission() {
 
               <div className="p-6">
                 <div className="h-[300px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    {activeView === "all" ? (
-                      <ComposedChart data={recyclingProgressData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                        <defs>
-                          <linearGradient id="colorProjected" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="var(--emerald)" stopOpacity={0.2} />
-                            <stop offset="95%" stopColor="var(--emerald)" stopOpacity={0} />
-                          </linearGradient>
-                          <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="var(--blue)" stopOpacity={0.2} />
-                            <stop offset="95%" stopColor="var(--blue)" stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                        <XAxis
-                          dataKey="year"
-                          tick={{ fill: "var(--muted-foreground)" }}
-                          axisLine={{ stroke: "var(--border)" }}
-                        />
-                        <YAxis
-                          tickFormatter={(value) => `${value}%`}
-                          domain={[0, 8]}
-                          tick={{ fill: "var(--muted-foreground)" }}
-                          axisLine={{ stroke: "var(--border)" }}
-                        />
-                        <Tooltip
-                          formatter={(value) => [`${value}%`, "Рециклиран текстил"]}
-                          labelFormatter={(label) => `Година: ${label}`}
-                          contentStyle={{
-                            backgroundColor: "var(--card)",
-                            borderColor: "var(--border)",
-                            borderRadius: "0.5rem",
-                            color: "var(--foreground)",
-                          }}
-                        />
-
-                        {/* Projected data area */}
-                        <Area
-                          type="monotone"
-                          dataKey="projected"
-                          stroke="var(--emerald)"
-                          strokeWidth={2}
-                          strokeDasharray="5 5"
-                          fillOpacity={1}
-                          fill="url(#colorProjected)"
-                          isAnimationActive={isChartInView}
-                          connectNulls={true}
-                        />
-
-                        {/* Current data line */}
-                        <Line
-                          type="monotone"
-                          dataKey="percentage"
-                          stroke="var(--blue)"
-                          strokeWidth={3}
-                          dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
-                          activeDot={{ r: 8 }}
-                          isAnimationActive={isChartInView}
-                        />
-                      </ComposedChart>
-                    ) : (
-                      <ComposedChart data={currentData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                        <defs>
-                          <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="var(--blue)" stopOpacity={0.2} />
-                            <stop offset="95%" stopColor="var(--blue)" stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                        <XAxis
-                          dataKey="year"
-                          tick={{ fill: "var(--muted-foreground)" }}
-                          axisLine={{ stroke: "var(--border)" }}
-                        />
-                        <YAxis
-                          tickFormatter={(value) => `${value}%`}
-                          domain={[0, 8]}
-                          tick={{ fill: "var(--muted-foreground)" }}
-                          axisLine={{ stroke: "var(--border)" }}
-                        />
-                        <Tooltip
-                          formatter={(value) => [`${value}%`, "Рециклиран текстил"]}
-                          labelFormatter={(label) => `Година: ${label}`}
-                          contentStyle={{
-                            backgroundColor: "var(--card)",
-                            borderColor: "var(--border)",
-                            borderRadius: "0.5rem",
-                            color: "var(--foreground)",
-                          }}
-                        />
-
-                        {/* Current data with area */}
-                        <Area
-                          type="monotone"
-                          dataKey="percentage"
-                          stroke="var(--blue)"
-                          strokeWidth={3}
-                          fillOpacity={1}
-                          fill="url(#colorCurrent)"
-                          isAnimationActive={isChartInView}
-                        />
-
-                        {/* Current data line */}
-                        <Line
-                          type="monotone"
-                          dataKey="percentage"
-                          stroke="var(--blue)"
-                          strokeWidth={3}
-                          dot={{ r: 6, fill: "var(--blue)", strokeWidth: 2, stroke: "var(--background)" }}
-                          activeDot={{ r: 8 }}
-                          isAnimationActive={isChartInView}
-                        />
-                      </ComposedChart>
-                    )}
-                  </ResponsiveContainer>
+                  <ProgressChart activeView={activeView} allData={recyclingProgressData} currentData={currentData} animate={isChartInView} />
                 </div>
 
                 <div className="flex justify-center gap-8 mt-6">

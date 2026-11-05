@@ -93,6 +93,7 @@ export function PostCard({ post, index }: PostCardProps) {
                     src={urlForImage(post.author.image).width(50).height(50).url() || "/placeholder.svg"}
                     alt={post.author.name}
                     fill
+                    sizes="32px"
                     className="object-cover"
                   />
                 </div>

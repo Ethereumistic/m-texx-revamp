@@ -15,7 +15,7 @@ const technologies = [
     title: "Механично",
     icon: <Cog className="w-6 h-6" />,
     color: "var(--blue)",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/technology/mechanic.png",
+    image: "/img/obshtini/technology/mechanic.webp",
     description:
       "Механичното рециклиране на текстил включва процеси като събиране, сортиране и физическо преработване на използваните текстилни материали. Текстилните отпадъци се раздробяват и претоварват, след което се обработват механично, за да се получат влакна, които могат да бъдат използвани за производство на нови текстилни продукти. Този метод спестява енергия, но понякога може да доведе до загуба на качество на материала.",
     funFact:
@@ -34,7 +34,7 @@ const technologies = [
     title: "Химично",
     icon: <Flask className="w-6 h-6" />,
     color: "var(--purple)",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/technology/chemical.png",
+    image: "/img/obshtini/technology/chemical.webp",
     description:
       "Химичното рециклиране използва химикали, за да разгради текстилните материали на молекулярно ниво. Процесът включва химически реакции, които отделят полимерните вериги и позволяват възстановяването на влакната. Този метод е по-ефективен при запазването на качеството на текстила в сравнение с механичното рециклиране, но може да изисква по-големи инвестиции в енергия и ресурси.",
     funFact:
@@ -54,7 +54,7 @@ const technologies = [
     // icon: <Leaf className="w-6 h-6" />,
     icon: <Microchip className="w-6 h-6" />,
     color: "var(--emerald)",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/technology/biological.png",
+    image: "/img/obshtini/technology/biological.webp",
     description:
       "Биологичното рециклиране използва микроорганизми или ензими, които разграждат текстилните материали в екосистемата. Този подход се основава на природните процеси на разлагане и може да бъде по-устойчив от гледна точка на използваната енергията. Този метод може да бъде успешен за почистването на океаните и депата. Биологичното рециклиране е в ранен етап на развитие и продължава да се проучва.",
     funFact:
@@ -83,6 +83,7 @@ const TechDetails = ({ tech, hoveredStep, setHoveredStep }: {
           src={tech.image || "/placeholder.svg"}
           alt={`${tech.title} рециклиране`}
           fill
+          sizes="50vw"
           className="object-cover rounded-lg"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
@@ -111,6 +112,7 @@ const TechDetails = ({ tech, hoveredStep, setHoveredStep }: {
                 src={tech.image || "/placeholder.svg"}
                 alt={`${tech.title} рециклиране`}
                 fill
+                sizes="128px"
                 className="object-cover rounded-xl shadow-md "
               />
               <div

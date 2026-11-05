@@ -20,7 +20,7 @@ export function Presentation({ id, title, description, imageUrl, pdfUrl, categor
     <Card className="overflow-hidden">
       <CardHeader className="p-0 -mt-6">
         <div className="relative h-48 w-full">
-          <Image src={imageUrl || "/placeholder.svg"} alt={title} fill className="object-cover" />
+          <Image src={imageUrl || "/placeholder.svg"} alt={title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
           <Badge className="absolute top-4 right-4">{category}</Badge>
         </div>
       </CardHeader>

@@ -15,19 +15,19 @@ const steps: Step[] = [
     id: 1,
     title: "Съберете",
     description: "Съберете чистите си дрехи, обувки и други текстилни изделия в торба.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/cards/clothes.png",
+    image: "/img/obshtini/cards/clothes.webp",
   },
   {
     id: 2,
     title: "Поставете",
     description: "Издърпайте дръжката максимално надолу и пъхнете торбата на обозначеното място.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/cards/container-bag-bg.png",
+    image: "/img/obshtini/cards/container-bag-bg.webp",
   },
   {
     id: 3,
     title: "Освободете",
     description: "Вдигнете дръжката нагоре и я освободете.",
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/cards/container-bg.png",
+    image: "/img/obshtini/cards/container-bg.webp",
   },
 ]
 
@@ -66,6 +66,7 @@ export function CollectSteps() {
                     src={step.image || "/placeholder.svg"}
                     alt={`Step ${step.id}: ${step.title}`}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute top-4 left-4 z-20 flex items-center justify-center">

@@ -65,11 +65,10 @@ export function Footer() {
           <div className="space-y-6 flex flex-col items-center md:items-start">
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/logo/logo.svg"
+                src="/img/obshtini/logo/logo.webp"
                 alt="M-Texx Logo"
                 width={160}
                 height={100}
-                priority
                 className="h-20 md:h-24 w-auto drop-shadow-sm"
               />
             </Link>

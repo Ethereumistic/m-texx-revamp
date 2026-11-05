@@ -1,0 +1,2 @@
+# Sanity Studio is a client-side app with its own router: serve its shell for deep links.
+/studio/* /studio 200

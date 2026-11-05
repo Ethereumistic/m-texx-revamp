@@ -44,9 +44,10 @@ export function Economy() {
               <CardContent className="">
                 <div className="relative w-full aspect-[4/3]  rounded-lg overflow-hidden">
                   <Image
-                    src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/economy/linear.png"
+                    src="/img/obshtini/economy/linear.webp"
                     alt="Линейна икономика"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-contain"
                   />
                 </div>
@@ -122,9 +123,10 @@ export function Economy() {
               <CardContent className="">
                 <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
-                    src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/economy/circular.png"
+                    src="/img/obshtini/economy/circular.webp"
                     alt="Кръгова икономика"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-contain"
                   />
                 </div>

@@ -1,17 +1,20 @@
-'use client'
-
 /**
- * This route is responsible for the built-in authoring environment using Sanity Studio.
- * All routes under your studio path is handled by this file using Next.js' catch-all routes:
- * https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
- *
- * You can learn more about the next-sanity package here:
- * https://github.com/sanity-io/next-sanity
+ * Sanity Studio, mounted at /studio. The Studio is a client-side app, so only the
+ * /studio shell is exported; public/_redirects sends its deep links to that shell.
+ * Its 1.4 MB of JS loads only on this route.
  */
+import type { Metadata } from 'next'
+import Studio from './Studio'
 
-import { NextStudio } from 'next-sanity/studio'
-import config from '../../../sanity.config'
+export const metadata: Metadata = {
+  title: 'Studio',
+  robots: { index: false, follow: false },
+}
+
+export function generateStaticParams() {
+  return [{ index: [] }]
+}
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <Studio />
 }

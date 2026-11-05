@@ -23,6 +23,7 @@ export function AuthorBio({ author }: AuthorBioProps) {
               src={urlForImage(author.image).width(100).height(100).url() || "/placeholder.svg"}
               alt={author.name}
               fill
+              sizes="96px"
               className="object-cover"
             />
           </div>

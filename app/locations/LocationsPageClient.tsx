@@ -8,8 +8,6 @@ import { UpButton } from "@/components/Map/up-button"
 
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
-import "react-leaflet-cluster/lib/assets/MarkerCluster.css"
-import "react-leaflet-cluster/lib/assets/MarkerCluster.Default.css"
 
 interface LocationsPageClientProps {
     initialCities: City[]

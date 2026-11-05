@@ -1,5 +1,8 @@
+import { cache } from "react"
 import { client } from "@/sanity/lib/client"
-import type { SanityDocument } from "next-sanity"
+import type { SanityDocument } from "@sanity/client"
+
+export const POSTS_PER_PAGE = 9
 
 export interface Post extends SanityDocument {
   title: string
@@ -16,43 +19,50 @@ export interface Post extends SanityDocument {
   estimatedReadingTime?: number
 }
 
-export async function getPosts(page: number = 1, limit: number = 9) {
-  const offset = (page - 1) * limit
-
-  // Query for posts count
-  const countQuery = `count(*[_type == "post" && defined(slug.current)])`
-  const total = await client.fetch(countQuery)
-
-  // Query for posts with pagination - ensure categories are properly referenced
-  const query = `
-    *[_type == "post" && defined(slug.current)] | order(publishedAt desc) [$offset...$limit] {
-      _id,
-      title,
-      "slug": slug.current,
-      mainImage,
-      publishedAt,
-      "categories": categories[]->{ 
-        title, 
-        "slug": slug.current 
-      },
-      "author": author->{ name, image }
-    }
-  `
-  const posts = await client.fetch<Post[]>(query, { offset, limit: offset + limit })
-
-  // Also fetch all categories for filtering
-  const categoriesQuery = `
-    *[_type == "category"] {
-      title,
-      "slug": slug.current
-    }
-  `
-  const allCategories = await client.fetch<{ title: string; slug: string }[]>(categoriesQuery)
-
-  return { posts, total, allCategories }
+export interface Category {
+  title: string
+  slug: string
 }
 
-export async function getPost(slug: string) {
+const POST_LIST_FIELDS = `
+  _id,
+  title,
+  "slug": slug.current,
+  mainImage,
+  publishedAt,
+  "categories": categories[]->{ title, "slug": slug.current },
+  "author": author->{ name, image }
+`
+
+// Each listing is one round trip instead of the previous three.
+export async function getPosts(page: number = 1, limit: number = POSTS_PER_PAGE) {
+  const offset = (page - 1) * limit
+
+  return client.fetch<{ posts: Post[]; total: number; allCategories: Category[] }>(
+    `{
+      "total": count(*[_type == "post" && defined(slug.current)]),
+      "posts": *[_type == "post" && defined(slug.current)] | order(publishedAt desc) [$offset...$end] { ${POST_LIST_FIELDS} },
+      "allCategories": *[_type == "category"] { title, "slug": slug.current }
+    }`,
+    { offset, end: offset + limit },
+  )
+}
+
+export async function getPostsByCategory(category: string, page: number = 1, limit: number = POSTS_PER_PAGE) {
+  const offset = (page - 1) * limit
+
+  return client.fetch<{ posts: Post[]; total: number; allCategories: Category[] }>(
+    `{
+      "total": count(*[_type == "post" && defined(slug.current) && $category in categories[]->slug.current]),
+      "posts": *[_type == "post" && defined(slug.current) && $category in categories[]->slug.current] | order(publishedAt desc) [$offset...$end] { ${POST_LIST_FIELDS} },
+      "allCategories": *[_type == "category"] { title, "slug": slug.current }
+    }`,
+    { category, offset, end: offset + limit },
+  )
+}
+
+// cache(): generateMetadata and the page both call this while rendering one post.
+export const getPost = cache(async (slug: string) => {
   const query = `
     *[_type == "post" && slug.current == $slug][0] {
       _id,
@@ -69,39 +79,23 @@ export async function getPost(slug: string) {
       "excerpt": excerpt
     }
   `
-  const post = await client.fetch<Post & { focusKeyword?: string, seoTitle?: string, faqs?: any[], excerpt?: string }>(query, { slug })
-  return post
+  return client.fetch<Post & { focusKeyword?: string, seoTitle?: string, faqs?: any[], excerpt?: string }>(query, { slug })
+})
+
+export async function getAllPostSlugs() {
+  return client.fetch<string[]>(`*[_type == "post" && defined(slug.current)].slug.current`)
 }
 
-export async function getPostsByCategory(category: string, page: number = 1, limit: number = 9) {
-  const offset = (page - 1) * limit
-
-  // Query for posts count by category
-  const countQuery = `count(*[_type == "post" && defined(slug.current) && $category in categories[]->slug.current])`
-  const total = await client.fetch(countQuery, { category })
-
-  // Query for posts by category with pagination
-  const query = `
-    *[_type == "post" && defined(slug.current) && $category in categories[]->slug.current] | order(publishedAt desc) [$offset...$limit] {
-      _id,
-      title,
+/** Every category with its post count, for generating listing pages at build time. */
+export async function getCategoryPageCounts() {
+  const categories = await client.fetch<{ slug: string; total: number }[]>(`
+    *[_type == "category" && defined(slug.current)] {
       "slug": slug.current,
-      mainImage,
-      publishedAt,
-      "categories": categories[]->{ title, "slug": slug.current },
-      "author": author->{ name, image }
+      "total": count(*[_type == "post" && defined(slug.current) && references(^._id)])
     }
-  `
-  const posts = await client.fetch<Post[]>(query, { category, offset, limit: offset + limit })
-
-  // Also fetch all categories for filtering
-  const categoriesQuery = `
-    *[_type == "category"] {
-      title,
-      "slug": slug.current
-    }
-  `
-  const allCategories = await client.fetch<{ title: string; slug: string }[]>(categoriesQuery)
-
-  return { posts, total, allCategories }
-} 
+  `)
+  return categories.map(({ slug, total }) => ({
+    slug,
+    pages: Math.max(1, Math.ceil(total / POSTS_PER_PAGE)),
+  }))
+}

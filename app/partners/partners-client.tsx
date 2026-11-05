@@ -255,6 +255,7 @@ export function PartnersClient({ partners }: PartnersClientProps) {
                                             src={getLogoSrc(logo)}
                                             alt={`Лого на община ${logo.title}`}
                                             fill
+                                            sizes="80px"
                                             className={cn("object-contain", logo.invert && "dark:invert dark:brightness-0 dark:contrast-200")}
                                         />
                                     </div>
@@ -296,6 +297,7 @@ export function PartnersClient({ partners }: PartnersClientProps) {
                                                         src={getLogoSrc(logo)}
                                                         alt={`Лого на община ${logo.title}`}
                                                         fill
+                                                        sizes="40px"
                                                         className={cn(
                                                             "object-contain",
                                                             logo.invert && "dark:invert dark:brightness-0 dark:contrast-200",

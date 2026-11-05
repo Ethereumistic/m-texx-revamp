@@ -35,7 +35,7 @@ const applicationsData: ApplicationData[] = [
     id: "druzet",
     title: "Друзет",
     icon: <Factory className="w-6 h-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druz.png",
+    image: "/img/obshtini/druzet/druz.webp",
     color: "var(--emerald)",
     description:
       "Дреб (друзет) е текстилна вата, която се получава след разкъсване и разчепкване на текстилни материи на тънки и фини влакна. Този продукт се използва широко в различни индустрии, включително в мебелната и автомобилната индустрия, строителството и други.",
@@ -46,7 +46,7 @@ const applicationsData: ApplicationData[] = [
     id: "automotive",
     title: "Автомобилна Индустрия",
     icon: <Car className="w-6 h-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/auto2.png",
+    image: "/img/obshtini/druzet/auto2.webp",
     color: "var(--blue)",
     description:
       "В автомобилната индустрия, друзетът намира широко приложение като материал за тапицерия и изолация. Благодарение на своите свойства, той осигурява отлична звукоизолация и комфорт в превозните средства.",
@@ -55,11 +55,11 @@ const applicationsData: ApplicationData[] = [
     content: {
       leftContent: {
         title: "Пълнеж и тапицерия",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/avto1.png",
+        image: "/img/obshtini/druzet/avto1.webp",
       },
       rightContent: {
         title: "Постелки",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/avto2.png",
+        image: "/img/obshtini/druzet/avto2.webp",
       },
     },
   },
@@ -67,7 +67,7 @@ const applicationsData: ApplicationData[] = [
     id: "insulation",
     title: "Изолация",
     icon: <Home className="w-6 h-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/ins.png",
+    image: "/img/obshtini/druzet/ins.webp",
     color: "var(--red)",
     description:
       "Друзетът е ефективен изолационен материал, който се използва в строителството за топло и звукоизолация. Неговата структура осигурява отлични изолационни свойства при минимална дебелина.",
@@ -76,11 +76,11 @@ const applicationsData: ApplicationData[] = [
     content: {
       leftContent: {
         title: "Топлоизолация",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/iso1.png",
+        image: "/img/obshtini/druzet/iso1.webp",
       },
       rightContent: {
         title: "Шумоизолация",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/iso2.png",
+        image: "/img/obshtini/druzet/iso2.webp",
       },
     },
   },
@@ -88,7 +88,7 @@ const applicationsData: ApplicationData[] = [
     id: "mattresses",
     title: "Матраци",
     icon: <BedDouble className="w-6 h-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/mat.png",
+    image: "/img/obshtini/druzet/mat.webp",
     color: "var(--purple)",
     description:
       "В производството на матраци, друзетът се използва като пълнеж, осигуряващ комфорт и дълготрайност. Материалът позволява добра въздухопропускливост и поддържа оптимална температура.",
@@ -97,11 +97,11 @@ const applicationsData: ApplicationData[] = [
     content: {
       leftContent: {
         title: "Пълнеж",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/mat1.png",
+        image: "/img/obshtini/druzet/mat1.webp",
       },
       rightContent: {
         title: "Калъфи",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/mat2.png",
+        image: "/img/obshtini/druzet/mat2.webp",
       },
     },
   },
@@ -109,7 +109,7 @@ const applicationsData: ApplicationData[] = [
     id: "furniture",
     title: "Обзавеждане",
     icon: <Sofa className="w-6 h-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/sofa.png",
+    image: "/img/obshtini/druzet/sofa.webp",
     color: "var(--yellow)",
     description:
       "В мебелната индустрия, друзетът се използва като пълнеж за дивани, кресла и други мебели. Той осигурява комфорт и издръжливост, като същевременно е екологично чист материал.",
@@ -118,11 +118,11 @@ const applicationsData: ApplicationData[] = [
     content: {
       leftContent: {
         title: "Пълнеж",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/chair1.png",
+        image: "/img/obshtini/druzet/chair1.webp",
       },
       rightContent: {
         title: "Структура",
-        image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/chair2.png",
+        image: "/img/obshtini/druzet/chair2.webp",
       },
     },
   },
@@ -254,6 +254,7 @@ export function Druzet() {
                           src={activeTabData.image || "/placeholder.svg"}
                           alt={activeTabData.title}
                           fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
                           className="object-cover rounded-2xl"
                         />
                         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
@@ -302,6 +303,7 @@ export function Druzet() {
                                     src={activeTabData.content.leftContent.image || "/placeholder.svg"}
                                     alt={activeTabData.content.leftContent.title}
                                     fill
+                                    sizes="(max-width: 1024px) 50vw, 25vw"
                                     className="object-cover"
                                   />
                                 </div>
@@ -315,6 +317,7 @@ export function Druzet() {
                                     src={activeTabData.content.rightContent.image || "/placeholder.svg"}
                                     alt={activeTabData.content.rightContent.title}
                                     fill
+                                    sizes="(max-width: 1024px) 50vw, 25vw"
                                     className="object-cover"
                                   />
                                 </div>

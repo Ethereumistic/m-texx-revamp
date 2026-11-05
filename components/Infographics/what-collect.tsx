@@ -11,19 +11,19 @@ type CollectItem = {
 }
 
 const collectItems: CollectItem[] = [
-  { id: "clothes", name: "Дрехи", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/clothes.svg" },
-  { id: "shoes", name: "Обувки", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/shoes.svg" },
-  { id: "bags", name: "Чанти", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/bag.svg" },
-  { id: "accessories", name: "Аксесоари", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/acc.svg" },
-  { id: "toys", name: "Плюшени играчки", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/toy.svg" },
-  { id: "home", name: "Домашен текстил", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/home.svg" },
+  { id: "clothes", name: "Дрехи", icon: "/img/obshtini/collect/clothes.svg" },
+  { id: "shoes", name: "Обувки", icon: "/img/obshtini/collect/shoes.svg" },
+  { id: "bags", name: "Чанти", icon: "/img/obshtini/collect/bag.svg" },
+  { id: "accessories", name: "Аксесоари", icon: "/img/obshtini/collect/acc.svg" },
+  { id: "toys", name: "Плюшени играчки", icon: "/img/obshtini/collect/toy.svg" },
+  { id: "home", name: "Домашен текстил", icon: "/img/obshtini/collect/home.svg" },
 ]
 
 const doNotCollectItems: CollectItem[] = [
-  { id: "glass", name: "Стъкло", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/glass.svg" },
-  { id: "books", name: "Хартия", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/book.svg" },
-  { id: "tins", name: "Метал", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/tin.svg" },
-  { id: "banned", name: "Битов Отпадък", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/ban.svg" },
+  { id: "glass", name: "Стъкло", icon: "/img/obshtini/collect/glass.svg" },
+  { id: "books", name: "Хартия", icon: "/img/obshtini/collect/book.svg" },
+  { id: "tins", name: "Метал", icon: "/img/obshtini/collect/tin.svg" },
+  { id: "banned", name: "Битов Отпадък", icon: "/img/obshtini/collect/ban.svg" },
 ]
 
 export function WhatCollect() {
@@ -72,7 +72,7 @@ export function WhatCollect() {
                       className="flex flex-col items-center text-center"
                     >
                       <div className="relative w-24 h-24 mb-3">
-                        <Image src={item.icon || "/placeholder.svg"} alt={item.name} fill className="object-contain dark:invert" />
+                        <Image src={item.icon || "/placeholder.svg"} alt={item.name} fill sizes="96px" className="object-contain dark:invert" />
                       </div>
                       <span className="text-sm font-medium text-green-900 dark:text-green-200">{item.name}</span>
                     </motion.div>
@@ -118,7 +118,7 @@ export function WhatCollect() {
                       className="flex flex-col items-center text-center"
                     >
                       <div className="relative w-24 h-24 mb-3">
-                        <Image src={item.icon || "/placeholder.svg"} alt={item.name} fill className="object-contain dark:invert" />
+                        <Image src={item.icon || "/placeholder.svg"} alt={item.name} fill sizes="96px" className="object-contain dark:invert" />
                       </div>
                       <span className="text-sm font-medium text-red-900 dark:text-red-200">{item.name}</span>
                     </motion.div>

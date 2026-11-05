@@ -1,10 +1,8 @@
 import { MetadataRoute } from 'next'
-import { createClient } from 'next-sanity'
-
-// Assuming Sanity client config exists in lib/sanity.ts or similar
-// For MVP, I'll use direct config if needed or fetch from existing lib
 import { client } from '@/sanity/lib/client'
 import { cyrillicToSlug } from '@/lib/utils'
+
+export const dynamic = 'force-static'
 
 interface Post {
     slug: { current: string }
@@ -59,23 +57,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9
         },
         {
-            url: `${baseUrl}/услуги`,
+            url: `${baseUrl}/recycling`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8
         },
         {
-            url: `${baseUrl}/за-нас`,
+            url: `${baseUrl}/partners`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.7
         },
         {
-            url: `${baseUrl}/контакти`,
+            url: `${baseUrl}/contacts`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8
-        }
+        },
+        ...['/news', '/druzet', '/presentations', '/legal'].map((path) => ({
+            url: `${baseUrl}${path}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.6
+        }))
     ]
 
     // Blog posts

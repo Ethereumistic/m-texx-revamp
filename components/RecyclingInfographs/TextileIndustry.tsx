@@ -8,7 +8,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { Droplet, Waves, CloudRain, Trash2 } from "lucide-react"
 import Image from "next/image"
-import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Cell, ResponsiveContainer, LabelList } from "recharts"
+import dynamic from "next/dynamic"
+
+const DonutChart = dynamic(() => import("./charts").then((m) => m.DonutChart), { ssr: false })
+const IndustryBarChart = dynamic(() => import("./charts").then((m) => m.IndustryBarChart), { ssr: false })
 
 type ChartDataItem = {
   name: string
@@ -40,7 +43,7 @@ const tabsData: TabData[] = [
     id: "water-usage",
     title: "ИЗПОЛЗВАНЕ НА ВОДА",
     icon: <Droplet className="h-6 w-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/pollution/1.png",
+    image: "/img/obshtini/pollution/1.webp",
     content: {
       leftChart: {
         percentage: 30,
@@ -61,7 +64,7 @@ const tabsData: TabData[] = [
     id: "water-pollution",
     title: "ЗАМЪРСЯВАНЕ НА ВОДА",
     icon: <Waves className="h-6 w-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/pollution/2.png",
+    image: "/img/obshtini/pollution/2.webp",
     content: {
       leftChart: {
         percentage: 20,
@@ -78,7 +81,7 @@ const tabsData: TabData[] = [
     id: "greenhouse-emissions",
     title: "ЕМИСИИ НА ПАРНИКОВИ ГАЗОВЕ",
     icon: <CloudRain className="h-6 w-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/pollution/3.png",
+    image: "/img/obshtini/pollution/3.webp",
     content: {
       leftChart: {
         percentage: 10,
@@ -95,7 +98,7 @@ const tabsData: TabData[] = [
     id: "landfill-pollution",
     title: "ЗАМЪРСЯВАНЕ НА ДЕПА",
     icon: <Trash2 className="h-6 w-6" />,
-    image: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/pollution/4.png",
+    image: "/img/obshtini/pollution/4.webp",
     content: {
       leftChart: {
         percentage: 87,
@@ -120,23 +123,7 @@ const PercentagePieChart = ({ percentage, color }: { percentage: number; color: 
   return (
     <div className="relative h-48 w-48 mx-auto group">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/5 rounded-full" />
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={40}
-            outerRadius={70}
-            startAngle={90}
-            endAngle={-270}
-            dataKey="value"
-          >
-            <Cell key={`cell-0`} fill={color} />
-            <Cell key={`cell-1`} fill="var(--chart-empty)" className="dark:opacity-20" />
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+      <DonutChart data={data} color={color} />
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -180,6 +167,7 @@ const TabContent = ({ tab, activeColor }: { tab: TabData; activeColor: string })
             src={tab.image || "/placeholder.svg"}
             alt={tab.title}
             fill
+            sizes="300px"
             className="object-cover"
           />
         </div>
@@ -196,36 +184,7 @@ const TabContent = ({ tab, activeColor }: { tab: TabData; activeColor: string })
           (tab.content.rightContent.data ? (
             // Bar Chart
             <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  layout="vertical"
-                  data={tab.content.rightContent.data}
-                  margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
-                >
-                  <XAxis type="number" hide />
-                  <YAxis
-                    dataKey="name"
-                    type="category"
-                    width={150}
-                    tick={{
-                      fill: "var(--muted-foreground)",
-                      fontSize: 12,
-                    }}
-                  />
-                  <Bar dataKey="value" fill={activeColor} radius={[4, 4, 4, 4]}>
-                    <LabelList
-                      dataKey="value"
-                      position="right"
-                      formatter={(value: number) => `${value}%`}
-                      style={{
-                        fill: "var(--muted-foreground)",
-                        fontSize: 12,
-                        fontWeight: 500,
-                      }}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+              <IndustryBarChart data={tab.content.rightContent.data} color={activeColor} />
             </div>
           ) : (
             // Pie Chart
@@ -330,6 +289,7 @@ export function TextileIndustry() {
                     src={tab.image || "/placeholder.svg"}
                     alt={tab.title}
                     fill
+                    sizes="128px"
                     className={cn("object-cover transition-transform duration-300", "group-hover:scale-110", "")}
                   />
                   {activeTab === tab.id && (
@@ -402,6 +362,7 @@ export function TextileIndustry() {
                     src={tab.image || "/placeholder.svg"}
                     alt={tab.title}
                     fill
+                    sizes="64px"
                     className="object-cover"
                   />
                 </div>

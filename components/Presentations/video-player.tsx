@@ -6,6 +6,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
+import { assetUrl } from "@/lib/assets"
 
 // Create a global variable to track the active player ID
 let activePlayerId: string | null = null
@@ -172,7 +173,7 @@ export function VideoPlayer({ src, title, thumbnailUrl, className, id }: VideoPl
       <video
         ref={videoRef}
         src={src}
-        poster={thumbnailUrl}
+        poster={thumbnailUrl && assetUrl(thumbnailUrl)}
         className="w-full h-full object-contain"
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleVideoEnded}

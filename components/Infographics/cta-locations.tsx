@@ -72,11 +72,11 @@ export function CtaLocations() {
               <Link href="/locations">
 
                 <Image
-                  src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/map.svg"
+                  src="/img/obshtini/locations/map.webp"
                   alt="Map of container locations across Bulgaria"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-contain"
-                  priority
                 />
                 </Link>
               </div>
@@ -94,11 +94,11 @@ export function CtaLocations() {
               <div className="relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden rounded-2xl">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 z-10"></div>
                 <Image
-                  src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/container-bg-plain.png"
+                  src="/img/obshtini/locations/container-bg-plain.webp"
                   alt="Textile recycling container"
                   fill
+                  sizes="(max-width: 448px) 100vw, 448px"
                   className="object-cover object-center"
-                  priority
                 />
               </div>
                 </Link>

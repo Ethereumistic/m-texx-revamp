@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Assets only, on purpose: with no "main" there is no Worker script to invoke, so
+  // every request is a free static asset request and none count towards Worker quota.
+  "name": "m-texx",
+  "compatibility_date": "2026-11-05",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

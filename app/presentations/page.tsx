@@ -14,25 +14,25 @@ export default function PresentationsPage() {
       id: "school",
       title: "Училищна Презентация",
       description: "Образователни материали за училища относно рециклирането на текстил и практиките за устойчивост.",
-      imageUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/presentations/school/tb.png",
+      imageUrl: "/img/obshtini/presentations/school/tb.webp",
       pdfUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/presentations/school/School-Presentation-2025.pdf",
       category: "Образование",
       videoSrc: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/videos/products-compressed.mp4",
       videoTitle: "Продукти произведенит от Рециклиран Текстил",
-      videoThumbnail: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/videos/tb-products.png",
+      videoThumbnail: "/img/obshtini/videos/tb-products-1080.webp",
     },
     {
       id: "business",
       title: "Бизнес Презентация",
       description:
         "Информация за бизнеса за прилагане на програми за рециклиране на текстил и корпоративна устойчивост.",
-      imageUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/presentations/business/1.png",
+      imageUrl: "/img/obshtini/presentations/business/1.webp",
       pdfUrl:
         "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/presentations/business/business-presentation_compressed.pdf",
       category: "Бизнес",
       videoSrc: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/videos/production-compressed.mp4",
       videoTitle: "Процес на продукция на Текстилна Вата",
-      videoThumbnail: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/videos/tb-production.png",
+      videoThumbnail: "/img/obshtini/videos/tb-production-1080.webp",
     },
   ]
 

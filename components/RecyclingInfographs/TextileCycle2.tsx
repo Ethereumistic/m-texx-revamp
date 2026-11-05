@@ -17,19 +17,12 @@ import {
   LineChart,
   Building,
 } from "lucide-react"
-import {
-  PieChart as RechartsPC,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts"
+import dynamic from "next/dynamic"
+
+const BenefitChart = dynamic(() => import("./charts").then((m) => m.BenefitChart), {
+  ssr: false,
+  loading: () => <div className="h-[300px] w-full" />,
+})
 
 // Data for the benefits
 const benefits = [
@@ -258,157 +251,6 @@ const AnimatedCounter = ({ value, suffix = "", prefix = "" }: { value: string; s
   )
 }
 
-// Chart component based on benefit type
-const BenefitChart = ({ benefit }: { benefit: (typeof benefits)[0] }) => {
-  // Define a consistent color palette for each chart type
-  const COLORS = [
-    benefit.color,
-    `${benefit.color}CC`,
-    `${benefit.color}99`,
-    `${benefit.color}66`,
-  ]
-
-  const POLLUTION_COLORS = [
-    "var(--yellow)",
-    "var(--red)",
-    "var(--emerald)",
-    "var(--blue)",
-  ]
-  const POLLUTION_EMOJIS = [
-    "🗑️",
-    "🔥",
-    "♻️",
-    "🔁",
-  ]
-  const WATER_EMOJIS = [
-    "👖",
-    "👕",
-    "👔",
-    "🧥",
-  ]
-
-  if (benefit.id === "resources") {
-    return (
-      <div className="h-[300px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={benefit.chartData} margin={{ top: 20, right: 20, left: 40, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-            <XAxis
-              dataKey="name"
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-              axisLine={{ stroke: "var(--border)" }}
-            />
-            <YAxis
-              label={{ value: "Литри вода", angle: -90, position: "insideLeft", fill: "var(--muted-foreground)" }}
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-              axisLine={{ stroke: "var(--border)" }}
-            />
-            <Tooltip
-              formatter={(value) => [`${value} литра`, "Консумация на вода"]}
-              contentStyle={{
-                backgroundColor: "var(--card)",
-                borderColor: "var(--border)",
-                borderRadius: "0.5rem",
-                color: "var(--foreground)",
-              }}
-            />
-            <Bar dataKey="value" fill={benefit.color} radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    )
-  }
-
-  if (benefit.id === "pollution") {
-    return (
-      <div className="h-[350px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <RechartsPC>
-            <Pie
-              data={benefit.chartData}
-              cx="40%"
-              cy="50%"
-              labelLine={false}
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-              outerRadius={120}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {benefit.chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={POLLUTION_COLORS[index % POLLUTION_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value, name, entry) => {
-                const index = benefit.chartData.findIndex(item => item.name === entry.payload.name);
-                const color = POLLUTION_COLORS[index % POLLUTION_COLORS.length];
-                const emoji = POLLUTION_EMOJIS[index % POLLUTION_EMOJIS.length];
-                return [
-                  <span key={`tooltip-${entry.payload.name}`} style={{ color: color, fontWeight: 500 }}>{`${emoji} ${entry.payload.name}: ${value}%`}</span>,
-                ];
-              }}
-              contentStyle={{
-                backgroundColor: "var(--card)",
-                borderColor: "var(--border)",
-                borderRadius: "0.5rem",
-                padding: "8px 12px",
-              }}
-            />
-            <Legend />
-          </RechartsPC>
-        </ResponsiveContainer>
-      </div>
-    )
-  }
-
-  if (benefit.id === "pricing") {
-    const partnershipData = [
-      { name: "2020", value: 10 },
-      { name: "2021", value: 25 },
-      { name: "2022", value: 45 },
-      { name: "2023", value: 65 },
-      { name: "2024", value: 80 },
-      { name: "2025", value: 85 },
-    ]
-
-    return (
-      <div className="h-[300px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={partnershipData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-            <XAxis
-              dataKey="name"
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-              axisLine={{ stroke: "var(--border)" }}
-            />
-            <YAxis
-              label={{
-                value: "Брой общини партньори",
-                angle: -90,
-                position: "insideLeft",
-                fill: "var(--muted-foreground)",
-              }}
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-              axisLine={{ stroke: "var(--border)" }}
-            />
-            <Tooltip
-              formatter={(value) => [`${value} общини`, "Партньорства"]}
-              contentStyle={{
-                backgroundColor: "var(--card)",
-                borderColor: "var(--border)",
-                borderRadius: "0.5rem",
-                color: "var(--foreground)",
-              }}
-            />
-            <Bar dataKey="value" fill="var(--yellow)" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    )
-  }
-
-  return null
-}
 
 const BenefitDetails = ({ selectedBenefit }: { selectedBenefit: (typeof benefits)[0] }) => {
   return (

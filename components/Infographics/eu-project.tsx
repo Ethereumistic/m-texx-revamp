@@ -18,8 +18,8 @@ export function EUProjectInfo() {
                                 src="https://flagcdn.com/eu.svg"
                                 alt="European Union Flag"
                                 fill
+                                sizes="192px"
                                 className="object-contain"
-                                priority
                             />
                         </div>
                         <div className="flex-1">

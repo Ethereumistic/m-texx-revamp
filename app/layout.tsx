@@ -1,4 +1,5 @@
 import "./globals.css"
+import { preconnect } from "react-dom"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/Theme/theme-provider"
 import { Toaster } from 'sonner'
@@ -97,6 +98,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  preconnect("https://cdn.jsdelivr.net")
+
   return (
     <html lang="bg" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans`}>

@@ -11,10 +11,10 @@ export function Pricing() {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
 
   const images = [
-    "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell2.png",
-    "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell1.png",
-    "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell3.png",
-    "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/druzet/druzet-sell4.png",
+    "/img/obshtini/druzet/druzet-sell2.webp",
+    "/img/obshtini/druzet/druzet-sell1.webp",
+    "/img/obshtini/druzet/druzet-sell3.webp",
+    "/img/obshtini/druzet/druzet-sell4.webp",
   ]
 
   const applications = [
@@ -105,6 +105,7 @@ export function Pricing() {
                 src={images[activeImageIndex] || "/placeholder.svg"}
                 alt="Дреб / Друзет материал"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-all duration-500"
               />
               <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
@@ -124,6 +125,7 @@ export function Pricing() {
                     src={image || "/placeholder.svg"}
                     alt={`Дреб / Друзет изображение ${index + 1}`}
                     fill
+                    sizes="128px"
                     className="object-cover"
                   />
                 </button>

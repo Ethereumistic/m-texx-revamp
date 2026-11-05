@@ -37,7 +37,7 @@ export function Navbar() {
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/logo/logo.svg"
+              src="/img/obshtini/logo/logo.webp"
               alt="Logo"
               width={160}
               height={100}

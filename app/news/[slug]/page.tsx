@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Clock } from "lucide-react"
-import { getPost } from "@/lib/sanity.queries"
+import { getAllPostSlugs, getPost } from "@/lib/sanity.queries"
 import { urlForImage } from "@/sanity/lib/image"
 import { formatDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -18,7 +18,10 @@ interface PostPageProps {
   }>
 }
 
-export const revalidate = 3600 // Revalidate every hour
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs()
+  return slugs.map((slug) => ({ slug }))
+}
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params
@@ -111,6 +114,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     src={urlForImage(post.author.image).width(80).height(80).url() || "/placeholder.svg"}
                     alt={post.author.name}
                     fill
+                    sizes="48px"
                     className="object-cover"
                   />
                 </div>

@@ -11,19 +11,19 @@ import { cyrillicToSlug } from '@/lib/utils'
 
 // Constants for Infographics
 const collectItems = [
-    { id: "clothes", name: "Дрехи", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/clothes.svg" },
-    { id: "shoes", name: "Обувки", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/shoes.svg" },
-    { id: "bags", name: "Чанти", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/bag.svg" },
-    { id: "accessories", name: "Аксесоари", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/acc.svg" },
-    { id: "toys", name: "Плюшени играчки", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/toy.svg" },
-    { id: "home", name: "Домашен текстил", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/home.svg" },
+    { id: "clothes", name: "Дрехи", icon: "/img/obshtini/collect/clothes.svg" },
+    { id: "shoes", name: "Обувки", icon: "/img/obshtini/collect/shoes.svg" },
+    { id: "bags", name: "Чанти", icon: "/img/obshtini/collect/bag.svg" },
+    { id: "accessories", name: "Аксесоари", icon: "/img/obshtini/collect/acc.svg" },
+    { id: "toys", name: "Плюшени играчки", icon: "/img/obshtini/collect/toy.svg" },
+    { id: "home", name: "Домашен текстил", icon: "/img/obshtini/collect/home.svg" },
 ]
 
 const doNotCollectItems = [
-    { id: "glass", name: "Стъкло", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/glass.svg" },
-    { id: "books", name: "Хартия", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/book.svg" },
-    { id: "tins", name: "Метал", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/tin.svg" },
-    { id: "banned", name: "Битов Отпадък", icon: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/collect/ban.svg" },
+    { id: "glass", name: "Стъкло", icon: "/img/obshtini/collect/glass.svg" },
+    { id: "books", name: "Хартия", icon: "/img/obshtini/collect/book.svg" },
+    { id: "tins", name: "Метал", icon: "/img/obshtini/collect/tin.svg" },
+    { id: "banned", name: "Битов Отпадък", icon: "/img/obshtini/collect/ban.svg" },
 ]
 
 interface Location {
@@ -36,8 +36,12 @@ interface CityData {
     locations: Location[]
 }
 
-async function getCityData(citySlug: string): Promise<CityData | null> {
-    const sanityData = await client.fetch(`
+// Slugs are derived in JS, so they can't be matched in GROQ. Share one fetch of
+// every city across all the city pages built by this process.
+let allCities: Promise<CityData[]> | undefined
+
+function getAllCities() {
+    allCities ??= client.fetch<CityData[]>(`
     *[_type == "cityLocations"] {
       cityName,
       locations[] {
@@ -46,12 +50,12 @@ async function getCityData(citySlug: string): Promise<CityData | null> {
       }
     }
   `)
+    return allCities
+}
 
-    const found = sanityData.find((c: any) =>
-        cyrillicToSlug(c.cityName) === citySlug
-    )
-
-    return found || null
+async function getCityData(citySlug: string): Promise<CityData | null> {
+    const cities = await getAllCities()
+    return cities.find((c) => cyrillicToSlug(c.cityName) === citySlug) || null
 }
 
 export async function generateMetadata({
@@ -173,9 +177,10 @@ export default async function CityPage({
                             <div className="relative aspect-[4/3] w-full">
                                 <div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-full translate-y-12" />
                                 <Image
-                                    src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/container-bg-plain.png"
+                                    src="/img/obshtini/locations/container-bg-plain.webp"
                                     alt="Textile container"
                                     fill
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
                                     className="object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.2)]"
                                     priority
                                 />
@@ -226,7 +231,7 @@ export default async function CityPage({
                                     {collectItems.map((item) => (
                                         <div key={item.id} className="flex flex-col items-center">
                                             <div className="relative w-20 h-20 mb-4 transition-transform hover:scale-110 duration-300">
-                                                <Image src={item.icon} alt={item.name} fill className="object-contain dark:invert" />
+                                                <Image src={item.icon} alt={item.name} fill sizes="80px" className="object-contain dark:invert" />
                                             </div>
                                             <span className="text-xs font-black uppercase tracking-widest opacity-80">{item.name}</span>
                                         </div>
@@ -252,7 +257,7 @@ export default async function CityPage({
                                     {doNotCollectItems.map((item) => (
                                         <div key={item.id} className="flex flex-col items-center grayscale">
                                             <div className="relative w-20 h-20 mb-4">
-                                                <Image src={item.icon} alt={item.name} fill className="object-contain dark:invert" />
+                                                <Image src={item.icon} alt={item.name} fill sizes="80px" className="object-contain dark:invert" />
                                             </div>
                                             <span className="text-xs font-black uppercase tracking-widest opacity-80">{item.name}</span>
                                         </div>
@@ -335,9 +340,10 @@ export default async function CityPage({
                                 <div className="relative aspect-square max-w-sm mx-auto">
                                     <div className="absolute inset-0 bg-white/10 blur-[80px] rounded-full scale-75" />
                                     <Image
-                                        src="https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/container-bg-plain.png"
+                                        src="/img/obshtini/locations/container-bg-plain.webp"
                                         alt="Textile container"
                                         fill
+                                        sizes="384px"
                                         className="object-contain relative z-10 drop-shadow-[0_25px_60px_rgba(0,0,0,0.5)] translate-y-6"
                                     />
                                 </div>
@@ -384,7 +390,7 @@ export default async function CityPage({
 }
 
 export async function generateStaticParams() {
-    const cities: any[] = await client.fetch(`*[_type == "cityLocations"]{ cityName }`)
+    const cities = await getAllCities()
 
     return cities.map((city) => ({
         city: cyrillicToSlug(city.cityName)

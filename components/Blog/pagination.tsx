@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button"
 interface PaginationProps {
   currentPage: number
   totalPages: number
-  baseUrl?: string
+  firstPageUrl: string
+  /** Page n (n > 1) links to `${pageUrlPrefix}${n}`. */
+  pageUrlPrefix: string
 }
 
-export function Pagination({ currentPage, totalPages, baseUrl = "/news" }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, firstPageUrl, pageUrlPrefix }: PaginationProps) {
   const prevPage = currentPage > 1 ? currentPage - 1 : null
   const nextPage = currentPage < totalPages ? currentPage + 1 : null
 
@@ -59,13 +61,7 @@ export function Pagination({ currentPage, totalPages, baseUrl = "/news" }: Pagin
     }
   }
 
-  const getPageUrl = (page: number) => {
-    const url = new URL(baseUrl, "http://placeholder.com")
-    if (page > 1) {
-      url.searchParams.set("page", page.toString())
-    }
-    return `${url.pathname}${url.search}`
-  }
+  const getPageUrl = (page: number) => (page > 1 ? `${pageUrlPrefix}${page}` : firstPageUrl)
 
   return (
     <nav className="flex items-center justify-center gap-1 py-8">

@@ -6,6 +6,7 @@ import dynamic from "next/dynamic"
 import { Icon } from 'leaflet';
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ExternalLink } from "lucide-react";
+import { assetUrl } from "@/lib/assets";
 
 // Dynamically import Leaflet components to avoid SSR issues
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false })
@@ -20,7 +21,7 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { 
 const MapComponent = dynamic(() => import("./map-controls").then((mod) => mod.MapControls), { ssr: false })
 
 const customIcon = new Icon({
-  iconUrl: "https://cdn.jsdelivr.net/gh/Ethereumistic/obshtini/locations/lrpin.png",
+  iconUrl: assetUrl("/img/obshtini/locations/lrpin-128.webp"),
   iconSize: [34, 34]
 })
 
